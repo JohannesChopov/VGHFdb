@@ -3,6 +3,7 @@
 Database project van Laurence en Johannes
 
 ![image](https://github.com/JohannesChopov/VGHFdb/assets/99961451/3a03a52f-18c0-4dbc-ba28-2d90973ec99d)
+https://mermaid.live/edit#pako:eNqVk91OgzAUx1-lacLd9gLcoUNdlLGMLUZDYuo4Y3W0JaXMKPDulsImMN2y3pRz-m9_54NT4LWIANsY5ISSWBIWcqTXxJ85y6lbifG4LL1V4K48ZKMYYtgDRz1N0Vj1olwhGvXtTLC-g-UZ5Gw6abxVs924r7776C6QIRboiHyHbwE7NVCdYQZKUh4jTkiHa1n_kltSWRruveO5t_78xZD3RPU0Z6jZX1Qj4jvBUkk_sh615rTMDnJPDrU155d5iipIhmmmCVEbIY-J1kt9paDbxyWchGHYTaPRs7NwZw-raaCDEWkMWUL0pTfKB_ILPY8Jgy79tPgH7yeRwLc5zQZd-Q3k2la3ThJJyGq796xlzZ-c5Z2_8FCliy-K439mstXFjI7JdrWmOheK03u5aasRDk6vyafCI8xAMkIjPaLmZojVFhiE2NafEZG7EIe81pFcieCLr7GtZA4jnKcRUdAONbY3JMm0FyKqhPSamTejX_0AXispAQ
 
 ## 1. Info
 Als projectopdracht voor het vak Databases dienen wij een database te ontwerpen voor de management van de Video Games History Foundation. Om te beginnen dient er een Entity Relationships diagram gemaakt te worden.
