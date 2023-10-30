@@ -2,28 +2,27 @@
 
 Database project van Laurence en Johannes
 
-![image](https://github.com/JohannesChopov/VGHFdb/assets/99961451/4c596fb4-be11-4c68-84b5-da7d170d9178)
+![image](https://github.com/JohannesChopov/VGHFdb/assets/99961451/3a03a52f-18c0-4dbc-ba28-2d90973ec99d)
 
 ## 1. Info
 Als projectopdracht voor het vak Databases dienen wij een database te ontwerpen voor de management van de Video Games History Foundation. Om te beginnen dient er een Entity Relationships diagram gemaakt te worden.
 ## 2. Entities
-Er zijn 7 entities: Donatie, Bezoeker, Museum, Platform, Game, Gamecopy en ten slotte is er het Warenhuis.
+Er zijn 7 entities: Donatie, Bezoeker, Museum, Platform, Game, Gamecopy en ten slotte is er het Warenhuis. Hun properties worden uitgelegd en de keuze daarvan wordt duidelijker gemaakt in hoofdstuk 3, waarin de relaties worden uitgelegd.
 ### 2.1 Donatie
 Donaties kunnen worden gegeven aan musea. Zo worden de musea van de VGHF gesteund. De properties van donatie zijn de volgende:
 * id : om donaties van elkaar te kunnen onderscheiden wordt er voor elke donatie een id van het type int gegenereerd.
-* som : wat is de waarde van de donatie in EURO. Hier is er gekozen voor het type integer. Er hoeven niet per se donaties binnen te komen in vorm van kommagetallen.
-* museumID : id van de museumentity om te acherhalen aan welk museum de donatie wordt gegeven.
+* som : wat is de waarde van de donatie in EURO. Hier is er gekozen voor het type integer. Er hoeven niet per se donaties binnen te komen in de vorm van kommagetallen.
+* museumID : id van het museum om te acherhalen aan welk museum de donatie wordt gegeven.
 
 ### 2.2 Museum
-Musea dienen om game kopies in tentoon te stellen.
+Musea dienen om gamekopieën in tentoon te stellen.
 * id : Aan elk museum wordt er een id van het type int gegeven. Zo kunnen we musea van elkaar onderscheiden.
 * naam : Elk museum heeft een naam met dataype String.
 * inkomprijs : Om het museum te mogen bezichtigen dient er een inkomrpijs betaald te worden door elke bezoeker. De inkomprijs zal een geheel getal zijn dus we gebruiken het datatype int.
 
 ### 2.3 Bezoeker
 * id : Elke bezoeker wordt gekenmerkt met een id van het datatype int.
-* naam : Bezoekers (personen) hebben een naam van het datatype String.
-* museumID : Elk bezoek aan een museum wordt bijgehouden via de property museumID. Deze heeft een datatype int.
+* naam : Bezoekers (personen) hebben een naam van het datatype String. Als er personen zijn met dezelfde naam zullen ze een verschilende id hebben om ze zo van elkaar te kunnen onderscheiden.
 
 ### 2.4 Platform
 * id : Elk platform zal een id hebben waarmee deze makkelijk teruggevonden kan worden. Datatype hiervan is int. Deze zal gebruikt worden door de entity Game.
@@ -54,7 +53,7 @@ Hieronder worden de relaties tussen verschillende entiteiten beschreven en uitge
 ### 3.1 Donatie - Museum
 Een museum kan meerdere donaties hebben, maar een donatie kan alleen maar aan één museum gegeven worden. Een museum kan ook 0 donaties ontvangen. De relatie donatie - museum is een één op veel relatie.
 ### 3.2 Bezoeker - Museum
-Een bezoeker is pas een bezoeker als die een museum bezocht heeft. Een bezoeker kan ook meerdere keren een museum hebben bezocht en andere museums bezoeken. Een museum kan 0 of meer bezoekers hebben. Zo blijkt de relatie bezoeker - museum een veel op veel relatie te zijn. Voor deze veel op veel relatie zal er ook een koppeltabel nodig zijn waarmee er makkelijk achterhaald kan worden welke musea een bezoeker heeft bezocht en hoeveel bezoekers een museum heeft gehad etc. De koppeltabel zou bezoekerMuseum noemen waarin een id, een bezoekerID en een museumID bestaan. Voor deze opdracht is die voor de duidelijkheid nog niet gemaakt. De bezoekerID in deze tussentabel komt van de id in Bezoeker en de museumID komt van de id in Museum.
+Een bezoeker is pas een bezoeker als die een museum bezocht heeft. Een bezoeker kan ook meerdere keren een museum hebben bezocht en andere museums bezoeken. Een museum kan 0 of meer bezoekers hebben. Zo blijkt de relatie bezoeker - museum een veel op veel relatie te zijn. Voor deze veel op veel relatie zal er ook een koppeltabel nodig zijn waarmee er makkelijk achterhaald kan worden welke musea een bezoeker heeft bezocht en hoeveel bezoekers een museum heeft gehad etc. De koppeltabel zou bezoekerMuseum noemen waarin een id, een bezoekerID en een museumID bestaan. Voor deze opdracht is die voor de duidelijkheid nog niet gemaakt. De bezoekerID in deze tussentabel komt van de id in Bezoeker en de museumID komt van de id in Museum. Zo kan er uit de database worden achterhaald of een bezoeker een museum meermaals heeft bezocht of zelfs meerdere musea meermaals heeft bezocht enzoverder.
 ### 3.3 Museum - Gamecopy
 Gamekopieën kunnen worden tentoongesteld in musea. Een museum is gedefinieerd in onze database onder het feit dat deze minstens één gamecopy moet hebben tentoongesteld. Anders is het geen museum. Zo stellen we dat een museum één of meer gamekopieën bevat en een gamecopy in maar één museum kan zijn tentoongesteld, op één tijdsstip natuurlijk. De relatie museum - gamecopy is een één op veel relatie.
 ### 3.4 Warenhuis - Gamecopy
