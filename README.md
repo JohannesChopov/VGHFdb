@@ -54,6 +54,11 @@ Hieronder worden de relaties tussen verschillende entiteiten beschreven en uitge
 Een museum kan meerdere donaties hebben, maar een donatie kan alleen maar aan één museum gegeven worden. Een museum kan ook 0 donaties ontvangen. De relatie donatie - museum is een één op veel relatie.
 ### 3.2 Bezoeker - Museum
 Een bezoeker is pas een bezoeker als die een museum bezocht heeft. Een bezoeker kan ook meerdere keren een museum hebben bezocht en andere museums bezoeken. Een museum kan 0 of meer bezoekers hebben. Zo blijkt de relatie bezoeker - museum een veel op veel relatie te zijn. Voor deze veel op veel relatie zal er ook een koppeltabel nodig zijn waarmee er makkelijk achterhaald kan worden welke musea een bezoeker heeft bezocht en hoeveel bezoekers een museum heeft gehad etc. De koppeltabel zou bezoekerMuseum noemen waarin een id, een bezoekerID en een museumID bestaan. Voor deze opdracht is die voor de duidelijkheid nog niet gemaakt. De bezoekerID in deze tussentabel komt van de id in Bezoeker en de museumID komt van de id in Museum. Zo kan er uit de database worden achterhaald of een bezoeker een museum meermaals heeft bezocht of zelfs meerdere musea meermaals heeft bezocht enzoverder.
+
+![image](https://github.com/JohannesChopov/VGHFdb/assets/99961451/d7264f00-dea9-4693-9f3b-e6b40eb1cbd6)
+
+Hierboven stelt de tussentabel BezoekerMuseum dat de bezoeker met de id van 2 de musea met id 1, 2 en 3 heeft bezocht. Diezelfde bezoeker heeft museum 1 in totaal 2 keer bezocht. Museum 1 is door 2 verschillende bezoekers bezocht en in totaal 3 bezoeken.
+
 ### 3.3 Museum - Gamecopy
 Gamekopieën kunnen worden tentoongesteld in musea. Een museum is gedefinieerd in onze database onder het feit dat deze minstens één gamecopy moet hebben tentoongesteld. Anders is het geen museum. Zo stellen we dat een museum één of meer gamekopieën bevat en een gamecopy in maar één museum kan zijn tentoongesteld, op één tijdsstip natuurlijk. De relatie museum - gamecopy is een één op veel relatie.
 ### 3.4 Warenhuis - Gamecopy
