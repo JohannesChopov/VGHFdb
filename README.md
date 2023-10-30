@@ -15,7 +15,7 @@ Donaties kunnen worden gegeven aan musea. Zo worden de musea van de VGHF gesteun
 * museumID : id van de museumentity om te acherhalen aan welk museum de donatie wordt gegeven.
 
 ### 2.2 Museum
-Musea dienen om videospellen in tentoon te stellen.
+Musea dienen om game kopies in tentoon te stellen.
 * id : Aan elk museum wordt er een id van het type int gegeven. Zo kunnen we musea van elkaar onderscheiden.
 * naam : Elk museum heeft een naam met dataype String.
 * inkomprijs : Om het museum te mogen bezichtigen dient er een inkomrpijs betaald te worden door elke bezoeker. De inkomprijs zal een geheel getal zijn dus we gebruiken het datatype int.
@@ -31,18 +31,33 @@ Musea dienen om videospellen in tentoon te stellen.
 
 ### 2.5 Game
 * id : Elke game wordt geïndexeerd met zijn id van datatype int.
-* titel : Videospellen hebben titels. Het datatype hiervan is String.
+* titel : Games hebben titels. Het datatype hiervan is String.
 * platformID : Een spel heeft ook een console waar die aan gelinkt is. Dat gebeurt met de platformID. Dit is de id van de entity Platform. Het datatype is een int.
 * genre : het genre van het spel kan ook aangeduid worden om deze zo makkelijker terug te kunnen vinden.
 
 ### 2.6 Gamecopy
-Er zijn verschillende spellen van een titel, want een titel wordt onder meerdere kopies verkocht. Zo kunnen er bijvoorbeeld 10 kopies van hetzelfde spel tentoongesteld worden in een museum.
-* id :
-* gameID:
-* museumID:
-* warenhuisID:
+Er zijn verschillende spellen van een titel, want een titel wordt onder meerdere kopies verkocht. Zo kunnen er bijvoorbeeld 10 kopies van hetzelfde spel tentoongesteld worden in een museum en 5 andere kopies opgeslagen zijn in een warenhuis.
+* id : Elke kopie heeft zijn eigen unieke id waarmee deze onderscheiden wordt van andere kopies van hetzelfde spel.
+* gameID : Van welk spel is het een kopie? Zo is de entity Gamecopy verbonden met Game.
+* museumID : In welk museum is de kopie tentoongesteld? Als dit veld is ingevuld voor de kopie weten we dat deze in een museum is. Deze is exclusief met de warenhuisID die hieronder is uitgelegd.
+* warenhuisID : In welk warenhuis is de kopie opgeslagen? Als dit veld is ingevuld betekent dat dat de kopie in kwestie niet is tentoongesteld in een museum, maar is opgesteld in een warenhuis.
+De twee laatste velden kunnen dus niet tegelijkertijd een waarde hebben ingevuld.
 
 ### 2.7 Warenhuis
-* id
-* naam
-* adres
+Een warenhuis is een opslagplaats voor kopies van een game. 
+* id : Een warenhuis heeft zijn eigen unieke id waarmee deze geïdentificeerd wordt.
+* naam : Het warenhuis heeft ook een naam. De naam van het gebouw heeft een type String.
+* adres : Het warenhuis heeft een adres waardoor we weten hoe we daar kunnen geraken. Dit is van het type String.
+
+## 3 Relaties
+Hieronder worden de relaties tussen verschillende entiteiten beschreven en uitgelegd.
+### 3.1 Donatie - Museum
+Een museum kan meerdere donaties hebben, maar een donatie kan alleen maar aan één museum gegeven worden. Een museum kan ook 0 donaties ontvangen. De relatie donatie - museum is een één op veel relatie.
+### 3.2 Bezoeker - Museum
+Een bezoeker is pas een bezoeker als die een museum bezocht heeft. Een bezoeker kan ook meerdere keren een museum hebben bezocht en andere museums bezoeken. Een museum kan 0 of meer bezoekers hebben. Zo blijkt de relatie bezoeker - museum een veel op veel relatie te zijn.
+### 3.3 Museum - Gamecopy
+Gamekopieën kunnen worden tentoongesteld in musea. Een museum is gedefinieerd in onze database onder het feit dat deze minstens één gamecopy moet hebben tentoongesteld. Anders is het geen museum. Zo stellen we dat een museum één of meer gamekopieën bevat en een gamecopy in maar één museum kan zijn tentoongesteld, op één tijdsstip natuurlijk. De relatie museum - gamecopy is een één op veel relatie.
+### 3.4 Warenhuis - Gamecopy
+Gamekopieën kunnen worden opgeslagen in warenhuizen. Een warenhuis is gedefinieerd in onze database onder het feit dat deze één kopie kan hebben opgeslagen. Zo stellen we dat een warenhuis nul of meer gamekopieën bevat en een gamecopy in maar één warenhuis kan zijn opgeslagen, op één tijdsstip natuurlijk. De relatie warenhuis - gamecopy is een één op veel relatie.
+### 3.5 
+
