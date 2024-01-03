@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import be.kuleuven.dbproject.jdbi.JDBIManager;
 /**
  * DB Taak 2022-2023: De Vrolijke Zweters
  * Zie https://kuleuven-diepenbeek.github.io/db-course/extra/project/ voor opgave details
@@ -28,12 +28,13 @@ public class ProjectMain extends Application {
 
         Scene scene = new Scene(root);
 
-        stage.setTitle("Administratie hoofdscherm TODO pas mij aan");
+        stage.setTitle("Administratie hoofdschermn");
         stage.setScene(scene);
         stage.show();
     }
 
     public static void main(String[] args) {
+        JDBIManager.init("jdbc:sqlite:ProjectLaurenceJohannes.db");
         launch();
     }
 }
