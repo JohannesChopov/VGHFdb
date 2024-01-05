@@ -39,7 +39,6 @@ public class BeheerScherm2Controller {
 
     public void initialize() {
         initTable();
-        //loadTableData();
         btnAdd.setOnAction(e -> addNewRow());
         btnModify.setOnAction(e -> {
             verifyOneRowSelected();
@@ -55,6 +54,39 @@ public class BeheerScherm2Controller {
             stage.close();
         });
     }
+    /*
+    private void initTable() {
+        tblConfigs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tblConfigs.getColumns().clear();
+
+        TableColumn<GameCopy, String> col1 = new TableColumn<>("ID");
+        col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getGamecopyID()));
+
+        TableColumn<GameCopy, String> col2 = new TableColumn<>("Details");
+        col2.setCellValueFactory(f -> {
+            int gameplatformID = f.getValue().getGameplatformID();
+            String titel = getTitel(gameplatformID);
+            String platform = getPlatform(gameplatformID);
+            String status = getStatus(f.getValue().getWarenhuisID());
+            String warehouse = "";
+            String museum = "";
+
+            // Check if it's in a warehouse or museum
+            if (f.getValue().getWarenhuisID() != 0) {
+                warehouse = warenhuisjdbi.getWarenhuisNameById(f.getValue().getWarenhuisID());
+            } else if (f.getValue().getMuseumID() != 0) {
+                museum = museumjdbi.getMuseumNameById(f.getValue().getMuseumID());
+            }
+
+            // Combine the information into a single string
+            return new ReadOnlyObjectWrapper<>(String.format("%s | %s | %s | %s | %s", titel, platform, status, warehouse, museum));
+        });
+
+        tblConfigs.getColumns().addAll(col1, col2);
+
+        tblConfigs.setItems(FXCollections.observableArrayList(gameCopyJdbi.getAll()));
+    }
+    */
 
     private void initTable() {
         tblConfigs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -72,31 +104,15 @@ public class BeheerScherm2Controller {
         TableColumn<GameCopy, String> col4 = new TableColumn<>("status");
         col4.setCellValueFactory(f -> new ReadOnlyObjectWrapper(getStatus(f.getValue().getWarenhuisID())));
 
+        TableColumn<GameCopy, String> col5 = new TableColumn<>("warenhuis");
+        col5.setCellValueFactory(f -> new ReadOnlyObjectWrapper(warenhuisjdbi.getWarenhuisNameById(f.getValue().getWarenhuisID())));
 
-        /*
-        TableColumn<GameCopy, String> col5 = new TableColumn<>("plaats");
-        col5.setCellValueFactory(f -> new ReadOnlyObjectWrapper(getPlaats(f.getValue().getWarenhuisID())));
-         */
+        TableColumn<GameCopy, String> col6 = new TableColumn<>("museum");
+        col6.setCellValueFactory(f -> new ReadOnlyObjectWrapper(museumjdbi.getMuseumNameById(f.getValue().getMuseumID())));
 
-        tblConfigs.getColumns().addAll(col1,col2,col3,col4);
+        tblConfigs.getColumns().addAll(col1,col2,col3,col4,col5,col6);
 
         tblConfigs.setItems(FXCollections.observableArrayList(gameCopyJdbi.getAll()));
-
-        /*
-        // TODO verwijderen en "echte data" toevoegen!
-        int colIndex = 0;
-        for(var colName : new String[]{"GameCopyID", "GamePlatformID", "MuseumID", "WarenhuisID"}) {
-            TableColumn<GameCopy, String> col = new TableColumn<>(colName);
-            final int finalColIndex = colIndex;
-            col.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getGamecopyID(finalColIndex);
-            tblConfigs.getColumns().add(col);
-            colIndex++;
-        }
-        //tblConfigs.getItems().add(FXCollections.observableArrayList());
-        for(int i = 0; i < 10; i++) {
-            tblConfigs.getItems().add(FXCollections.observableArrayList("ding " + i, "categorie 1", i*10 + "", i * 33 + ""));
-        }
-         */
     }
 
     private String getTitel(int gameplatformID) {

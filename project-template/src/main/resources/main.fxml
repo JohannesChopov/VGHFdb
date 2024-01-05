@@ -11,8 +11,8 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Button fx:id="btnBeheerScherm1" layoutX="46.0" layoutY="82.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Beheer Scherm 1" />
-      <Button fx:id="btnBeheerScherm2" layoutX="223.0" layoutY="81.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="151.0" text="Beheer Scherm 2" />
+      <Button fx:id="btnBeheerScherm1" layoutX="46.0" layoutY="82.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="72.0" text="Bewerk" />
+      <Button fx:id="btnBeheerScherm2" layoutX="282.0" layoutY="81.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="72.0" text="Overzicht" />
       <Button fx:id="btnConfigAttaches" layoutX="206.0" layoutY="173.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="151.0" text="Beheer Config Attaches" />
       <Label layoutX="138.0" layoutY="119.0" text="+ andere dingen?? " />
    </children>

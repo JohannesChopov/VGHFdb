@@ -49,7 +49,7 @@ public class Warenhuisjdbi {
                     .mapTo(String.class)
                     .one());
         } catch (IllegalStateException e) {
-            throw new RuntimeException("kaka en kaka", e);
+            return null;
         }
     }
 }

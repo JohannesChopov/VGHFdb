@@ -50,7 +50,7 @@ public class Museumjdbi {
                     .mapTo(String.class)
                     .one());
         } catch (IllegalStateException e) {
-            throw new RuntimeException("pipi kaka", e);
+            return null;
         }
     }
 

@@ -14,19 +14,20 @@ public class Gamejdbi {
     }
 
     public List<Game> getAll() {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Game").mapToBean(Game.class).list());
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Game")
+                .mapToBean(Game.class).list());
     }
 
     public void insert(Game game) {
-        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Game (gameID, titel, genre) VALUES (:gameID, :titel, :genre)")
+        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Game (titel, genre) VALUES (:titel, :genre)")
                 .bindBean(game)
                 .execute());
     }
 
     public void update(Game gameNieuw, Game gameOud) {
-        jdbi.useHandle(handle -> handle.createUpdate("UPDATE Game SET (gameID, titel, genre) = (:gameID, :titel, :genre) WHERE gameID = :gameIDOud")
+        jdbi.useHandle(handle -> handle.createUpdate("UPDATE Game SET gameID = :gameID, titel = :titel, genre = :genre WHERE gameID = :gameIDOud")
                 .bindBean(gameNieuw)
-                .bind("GameIDOud", gameOud.getGameID())
+                .bind("gameIDOud", gameOud.getGameID())
                 .execute());
     }
 

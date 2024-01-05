@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="161.0" prefWidth="501.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.BewerkGameController">
+   <children>
+      <Text layoutX="50.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="titel" wrappingWidth="50" />
+      <Text layoutX="310.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="genre" wrappingWidth="50" />
+      <TextField fx:id="nieuweNaamField" alignment="CENTER" layoutX="40.0" layoutY="49.0" text="Geef een nieuwe naam" />
+      <TextField fx:id="nieuwGenreField" alignment="CENTER" layoutX="300.0" layoutY="49.0" text="Geef het genre" />
+      <Button fx:id="bewerkBtn" layoutX="215.0" layoutY="109.0" mnemonicParsing="false" text="Bewerk" />
+   </children>
+</AnchorPane>

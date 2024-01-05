@@ -9,8 +9,7 @@ public class Game {
 
     }
 
-    public Game(int gameID, String titel, String genre){
-        this.gameID = gameID;
+    public Game(String titel, String genre){
         this.titel = titel;
         this.genre = genre;
     }
