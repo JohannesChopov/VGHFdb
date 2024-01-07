@@ -22,10 +22,9 @@ public class AddGameController {
         addBtn.setOnAction(e -> handleAddBtn());
     }
 
-    @FXML
     private void handleAddBtn() {
         // Update the game details based on the form fields
-        nieuweGame = new Game(titelField.getText(),genreField.getText());
+        nieuweGame = new Game(titelField.getText(), genreField.getText());
         submitted = true;
         closeForm();
     }

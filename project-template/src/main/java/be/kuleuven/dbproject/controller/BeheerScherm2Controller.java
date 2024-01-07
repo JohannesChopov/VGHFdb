@@ -1,20 +1,22 @@
 package be.kuleuven.dbproject.controller;
 
 import be.kuleuven.dbproject.jdbi.*;
-import be.kuleuven.dbproject.model.Game;
 import be.kuleuven.dbproject.model.GameCopy;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.List;
+import java.io.IOException;
 
 public class BeheerScherm2Controller {
 
@@ -101,17 +103,10 @@ public class BeheerScherm2Controller {
         TableColumn<GameCopy, String> col3 = new TableColumn<>("platform");
         col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(getPlatform(f.getValue().getGameplatformID())));
 
-        TableColumn<GameCopy, String> col4 = new TableColumn<>("status");
-        col4.setCellValueFactory(f -> new ReadOnlyObjectWrapper(getStatus(f.getValue().getWarenhuisID())));
+        TableColumn<GameCopy, String> col4 = new TableColumn<>("plaats");
+        col4.setCellValueFactory(f -> new ReadOnlyObjectWrapper(getPlaats(f.getValue())));
 
-        TableColumn<GameCopy, String> col5 = new TableColumn<>("warenhuis");
-        col5.setCellValueFactory(f -> new ReadOnlyObjectWrapper(warenhuisjdbi.getWarenhuisNameById(f.getValue().getWarenhuisID())));
-
-        TableColumn<GameCopy, String> col6 = new TableColumn<>("museum");
-        col6.setCellValueFactory(f -> new ReadOnlyObjectWrapper(museumjdbi.getMuseumNameById(f.getValue().getMuseumID())));
-
-        tblConfigs.getColumns().addAll(col1,col2,col3,col4,col5,col6);
-
+        tblConfigs.getColumns().addAll(col1,col2,col3,col4);
         tblConfigs.setItems(FXCollections.observableArrayList(gameCopyJdbi.getAll()));
     }
 
@@ -123,11 +118,11 @@ public class BeheerScherm2Controller {
         int platformID = gamePlatformjdbi.getPlatformIdByGamePlatformId(gameplatformID);
         return platformjdbi.getNameById(platformID);
     }
-    private String getPlaats(int id) {
-        if (id == 0) {
-            return museumjdbi.getMuseumNameById(id);
+    private String getPlaats(GameCopy gamecopy) {
+        if (gamecopy.getWarenhuisID() == null) {
+            return museumjdbi.getNameById(gamecopy.getMuseumID());
         }
-        else return warenhuisjdbi.getWarenhuisNameById(id);
+        else return warenhuisjdbi.getNameById(gamecopy.getWarenhuisID());
     }
     private String getStatus(int id) {
         if (id == 0) {
@@ -138,6 +133,41 @@ public class BeheerScherm2Controller {
 
 
     private void addNewRow() {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addGameCopy.fxml"));
+            var root = (AnchorPane) loader.load();
+            var scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Voeg kopie toe");
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            // Get the controller of the GameForm
+            AddGameCopyController controller = loader.getController();
+            controller.initialize();
+            // Show the form and wait for it to be closed
+            stage.showAndWait();
+
+            // After the form is closed, check if it was submitted
+            if (controller.isSubmitted()) {
+                gameCopyJdbi.insert(controller.getNewCopy());
+                System.out.println(gameCopyJdbi.getAll());
+                refreshTables();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Error opening the add form.");
+        }
+    }
+
+    private void refreshTables() {
+        try {
+            // Update data sources for other tables
+            initTable();
+        } catch (Exception e) {
+            e.printStackTrace(); // Print the exception details for debugging
+            showAlert("Error", "Error refreshing tables.");
+        }
 
     }
 

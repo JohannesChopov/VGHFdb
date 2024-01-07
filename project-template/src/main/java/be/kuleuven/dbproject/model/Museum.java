@@ -1,10 +1,10 @@
 package be.kuleuven.dbproject.model;
 
-public class Museum {
+public class Museum extends Locatie{
     private int museumID;
-    String naam;
+    private String naam;
     private double inkomprijs;
-    String adres;
+    private String adres;
 
     public Museum(){
 
@@ -22,7 +22,14 @@ public class Museum {
         return "Museum{" + "museumID='" + museumID + "', naam='" + naam + "inkomprijs='" + inkomprijs + "adres='" + adres + "'}";
     }
 
+    /*
     public int getMuseumID() {
+        return museumID;
+    }
+
+     */
+
+    public int getID() {
         return museumID;
     }
 

@@ -1,31 +1,34 @@
 package be.kuleuven.dbproject.model;
 
-public class Warenhuis extends Locatie{
-    private int warenhuisID;
+public class Locatie {
+    private int locatieID;
     private String naam;
     private String adres;
 
-    public Warenhuis(){
-
+    public Locatie() {
     }
 
-    public Warenhuis(int warenhuisID, String naam, String adres){
-        this.warenhuisID = warenhuisID;
+    public Locatie(int locatieID, String naam, String adres) {
+        this.locatieID = locatieID;
         this.naam = naam;
         this.adres = adres;
     }
 
     @Override
     public String toString() {
-        return "Warenhuis{" + "warenhuisID='" + warenhuisID + "', naam='" + naam + "', adres='" + adres +  "'}";
+        return "Locatie{" +
+                "locatieID=" + locatieID +
+                ", naam='" + naam + '\'' +
+                ", adres='" + adres + '\'' +
+                '}';
     }
 
     public int getID() {
-        return warenhuisID;
+        return locatieID;
     }
 
-    public void setWarenhuisID(int warenhuisID) {
-        this.warenhuisID = warenhuisID;
+    public void setID(int locatieID) {
+        this.locatieID = locatieID;
     }
 
     public String getNaam() {

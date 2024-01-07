@@ -127,7 +127,7 @@ public class BeheerScherm1Controller {
         tblConfigsMusea.getColumns().clear();
 
         TableColumn<Museum, String> col1 = new TableColumn<>("museumID");
-        col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getMuseumID()));
+        col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getID()));
         TableColumn<Museum, String> col2 = new TableColumn<>("naam");
         col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getNaam()));
 
@@ -140,7 +140,7 @@ public class BeheerScherm1Controller {
         tblConfigsWarenhuizen.getColumns().clear();
 
         TableColumn<Warenhuis, String> col1 = new TableColumn<>("warenhuisID");
-        col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getWarenhuisID()));
+        col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getID()));
         TableColumn<Warenhuis, String> col2 = new TableColumn<>("naam");
         col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getNaam()));
 
@@ -158,7 +158,7 @@ public class BeheerScherm1Controller {
             var scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("Voeg game toe");
-            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initModality(Modality.APPLICATION_MODAL);
 
             // Get the controller of the GameForm
             AddGameController controller = loader.getController();
@@ -228,7 +228,7 @@ public class BeheerScherm1Controller {
                     var scene = new Scene(root);
                     stage.setScene(scene);
                     stage.setTitle("Bewerk game");
-                    stage.initModality(Modality.WINDOW_MODAL);
+                    stage.initModality(Modality.APPLICATION_MODAL);
 
                     // Get the controller of the GameForm
                     BewerkGameController controller = loader.getController();
@@ -266,7 +266,7 @@ public class BeheerScherm1Controller {
                 var scene = new Scene(root);
                 stage.setScene(scene);
                 stage.setTitle("Bewerk game");
-                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initModality(Modality.APPLICATION_MODAL);
 
                 // Get the controller of the GameForm
                 BewerkGameController controller = loader.getController();

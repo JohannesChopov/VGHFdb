@@ -3,18 +3,20 @@ package be.kuleuven.dbproject.jdbi;
 
 import be.kuleuven.dbproject.model.Museum;
 import be.kuleuven.dbproject.model.GameCopy;
+import be.kuleuven.dbproject.model.Warenhuis;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
 
-public class Museumjdbi {
+public class Museumjdbi /*implements Locatiejdbi<Museum>*/{
     private final Jdbi jdbi;
 
     public Museumjdbi() {
         this.jdbi = JDBIManager.getJdbi();
     }
 
+    //@Override
     public List<Museum> getAll() {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Museum").
                 mapToBean(Museum.class).list());
@@ -27,23 +29,23 @@ public class Museumjdbi {
     public void update(Museum museumNieuw, Museum museumOud) {
         jdbi.useHandle(handle -> handle.createUpdate("UPDATE Museum SET (museumID, naam, inkomprijs, adres) = (:museumID, :naam, :inkomprijs, :adres) WHERE museumID = :museumIDOud")
                 .bindBean(museumNieuw)
-                .bind("museumIDOud", museumOud.getMuseumID())
+                .bind("museumIDOud", museumOud.getID())
                 .execute());
     }
 
     public void delete(Museum museum) {
         jdbi.useHandle(handle -> handle.createUpdate("DELETE FROM Museum WHERE MuseumID = :museumID")
                 .bind("museumID",
-                        museum.getMuseumID()).execute());
+                        museum.getID()).execute());
     }
 
     public int getId(Museum museum) {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT id FROM Museum WHERE museumID = :museumID")
-                .bind("museumID", museum.getMuseumID()).
+                .bind("museumID", museum.getID()).
                 mapTo(Integer.class).list().get(0));
     }
 
-    public String getMuseumNameById(int museumId) {
+    public String getNameById(int museumId) {
         try {
             return jdbi.withHandle(handle -> handle.createQuery("SELECT naam FROM Museum WHERE museumID = :museumID")
                     .bind("museumID", museumId)

@@ -19,13 +19,13 @@ public class GameCopyjdbi {
     }
 
     public void insert(GameCopy gamecopy) {
-        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO GameCopy (GameCopyID, gameplatformID, museumID, warenhuisID) VALUES (:GameCopyID, :gameplatformID, :museumID, :warenhuisID)")
+        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO GameCopy (gameplatformID, museumID, warenhuisID) VALUES (:gameplatformID, :museumID, :warenhuisID)")
                 .bindBean(gamecopy)
                 .execute());
     }
 
     public void update(GameCopy gamecopyNieuw, GameCopy gamecopyOud) {
-        jdbi.useHandle(handle -> handle.createUpdate("UPDATE GameCopy SET (GameCopyID, gameplatformID, museumID, warenhuisID) = (:GameCopyID, :museumID, :som, :datum) WHERE GameCopyID = :GameCopyIDOud")
+        jdbi.useHandle(handle -> handle.createUpdate("UPDATE GameCopy SET gameplatformID = :gameplatformID, museumID = :museumID, warenhuisID = :warenhuisID) WHERE GameCopyID = :GameCopyIDOud")
                 .bindBean(gamecopyNieuw)
                 .bind("GameCopyIDOud", gamecopyOud.getGamecopyID())
                 .execute());

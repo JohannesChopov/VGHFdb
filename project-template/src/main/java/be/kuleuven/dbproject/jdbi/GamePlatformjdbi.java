@@ -59,4 +59,15 @@ public class GamePlatformjdbi {
 
     }
 
+    public int getGamePlatformId(int gameId, int platformId) {
+        try {
+            return jdbi.withHandle(handle -> handle.createQuery("SELECT gameplatformID FROM GamePlatform WHERE gameID = :gameID AND platformID = :platformID")
+                    .bind("gameID", gameId)
+                    .bind("platformID", platformId)
+                    .mapTo(Integer.class)
+                    .one());
+        } catch (IllegalStateException e) {
+            return -1; // or handle the exception as needed in your application
+        }
+    }
 }
