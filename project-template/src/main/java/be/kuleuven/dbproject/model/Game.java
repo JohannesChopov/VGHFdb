@@ -16,7 +16,7 @@ public class Game {
 
     @Override
     public String toString() {
-        return "Game{" + "gameID='" + gameID + "', titel='" + titel + "', genre='" + genre +  "'}";
+        return "Game " + gameID + " = " + titel + " (genre= " + genre +  ")";
     }
 
     public String getTitel(){

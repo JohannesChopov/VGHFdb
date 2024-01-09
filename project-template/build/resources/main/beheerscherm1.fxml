@@ -41,7 +41,7 @@
                 <Font name="System Bold Italic" size="13.0" />
             </font>
         </Text>
-        <Button fx:id="btnAdd" layoutX="16.0" layoutY="471.0" mnemonicParsing="false" text="Voeg Toe" />
+        <Button fx:id="btnAdd" layoutX="16.0" layoutY="471.0" mnemonicParsing="false" text="Voeg Game toe" />
         <Button fx:id="btnModify" layoutX="16.0" layoutY="503.0" mnemonicParsing="false" text="Bewerk" />
         <Button fx:id="btnClose" layoutX="583.0" layoutY="573.0" mnemonicParsing="false" text="Sluiten" />
         <Button fx:id="btnDelete" layoutX="16.0" layoutY="536.0" mnemonicParsing="false" text="Verwijder" />

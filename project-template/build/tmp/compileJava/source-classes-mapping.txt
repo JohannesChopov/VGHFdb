@@ -24,31 +24,31 @@ be/kuleuven/dbproject/ProjectMain.java
  be.kuleuven.dbproject.ProjectMain
 be/kuleuven/dbproject/model/GameCopy.java
  be.kuleuven.dbproject.model.GameCopy
-be/kuleuven/dbproject/jdbi/Gamejdbi.java
- be.kuleuven.dbproject.jdbi.Gamejdbi
+be/kuleuven/dbproject/model/Game.java
+ be.kuleuven.dbproject.model.Game
 be/kuleuven/dbproject/model/Bezoeker.java
  be.kuleuven.dbproject.model.Bezoeker
 be/kuleuven/dbproject/jdbi/Donatiejdbi.java
  be.kuleuven.dbproject.jdbi.Donatiejdbi
-be/kuleuven/dbproject/model/Game.java
- be.kuleuven.dbproject.model.Game
+be/kuleuven/dbproject/jdbi/GamePlatformjdbi.java
+ be.kuleuven.dbproject.jdbi.GamePlatformjdbi
 be/kuleuven/dbproject/model/Platform.java
  be.kuleuven.dbproject.model.Platform
-be/kuleuven/dbproject/controller/BewerkGameController.java
- be.kuleuven.dbproject.controller.BewerkGameController
+be/kuleuven/dbproject/controller/BeheerAttachesController.java
+ be.kuleuven.dbproject.controller.BeheerAttachesController
 be/kuleuven/dbproject/jdbi/Platformjdbi.java
  be.kuleuven.dbproject.jdbi.Platformjdbi
 be/kuleuven/dbproject/model/Donatie.java
  be.kuleuven.dbproject.model.Donatie
-be/kuleuven/dbproject/controller/BeheerAttachesController.java
- be.kuleuven.dbproject.controller.BeheerAttachesController
-be/kuleuven/dbproject/jdbi/GamePlatformjdbi.java
- be.kuleuven.dbproject.jdbi.GamePlatformjdbi
-be/kuleuven/dbproject/controller/BeheerScherm1Controller.java
- be.kuleuven.dbproject.controller.BeheerScherm1Controller
 be/kuleuven/dbproject/controller/AddGameController.java
  be.kuleuven.dbproject.controller.AddGameController
+be/kuleuven/dbproject/controller/BewerkGameController.java
+ be.kuleuven.dbproject.controller.BewerkGameController
 be/kuleuven/dbproject/controller/BeheerScherm2Controller.java
  be.kuleuven.dbproject.controller.BeheerScherm2Controller
+be/kuleuven/dbproject/jdbi/Gamejdbi.java
+ be.kuleuven.dbproject.jdbi.Gamejdbi
 be/kuleuven/dbproject/controller/AddGameCopyController.java
  be.kuleuven.dbproject.controller.AddGameCopyController
+be/kuleuven/dbproject/controller/BeheerScherm1Controller.java
+ be.kuleuven.dbproject.controller.BeheerScherm1Controller

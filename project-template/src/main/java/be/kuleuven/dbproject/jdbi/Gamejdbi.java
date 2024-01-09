@@ -32,10 +32,24 @@ public class Gamejdbi {
     }
 
     public void delete(Game game) {
-        jdbi.useHandle(handle -> handle.createUpdate("DELETE FROM Game WHERE gameID = :gameID")
-                .bind("gameID", game.getGameID())
-                .execute());
+        jdbi.useTransaction(handle -> {
+            // Delete from GameCopy first
+            handle.createUpdate("DELETE FROM GameCopy WHERE gameplatformID IN (SELECT gameplatformID FROM GamePlatform WHERE gameID = :gameID)")
+                    .bind("gameID", game.getGameID())
+                    .execute();
+
+            // Delete from GamePlatform
+            handle.createUpdate("DELETE FROM GamePlatform WHERE gameID = :gameID")
+                    .bind("gameID", game.getGameID())
+                    .execute();
+
+            // Delete from Game
+            handle.createUpdate("DELETE FROM Game WHERE gameID = :gameID")
+                    .bind("gameID", game.getGameID())
+                    .execute();
+        });
     }
+
 
 
     public int getId(Game game) {
