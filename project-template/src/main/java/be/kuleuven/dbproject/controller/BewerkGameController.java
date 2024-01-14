@@ -4,6 +4,7 @@ import be.kuleuven.dbproject.model.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class BewerkGameController {
@@ -14,6 +15,8 @@ public class BewerkGameController {
     private TextField nieuwGenreField;
     @FXML
     private Button bewerkBtn;
+    @FXML
+    private Text idText;
 
     private Game updatedGame;
     private boolean submitted = false;
@@ -25,6 +28,7 @@ public class BewerkGameController {
         nieuweNaamField.setText(game.getTitel());
         nieuwGenreField.setText(game.getGenre());
         // Save the selected game for later reference
+        idText.setText("id: "+ game.getGameID());
         updatedGame = game;
     }
 

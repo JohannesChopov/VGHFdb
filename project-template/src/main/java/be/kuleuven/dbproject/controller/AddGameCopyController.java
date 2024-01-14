@@ -38,7 +38,15 @@ public class AddGameCopyController {
     public void initialize() {
         boxGame.setItems(FXCollections.observableArrayList(gameJdbi.getAll()));
 
-        boxPlatform.setItems(FXCollections.observableArrayList(platformJdbi.getAll()));
+        // Add a listener to boxGame's selection
+        boxGame.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                // If a game is selected, update the platform ChoiceBox with the possible platforms
+                updatePlatformChoiceBox(newValue);
+            }
+        });
+
+        //boxPlatform.setItems(FXCollections.observableArrayList(platformJdbi.getAll()));
 
         boxLocatie.setItems(FXCollections.observableArrayList(warenhuisjdbi.getAll()));
         boxLocatie.getItems().addAll(museumjdbi.getAll());
@@ -47,6 +55,13 @@ public class AddGameCopyController {
         addBtn.setOnAction(e -> handleAddBtn());
     }
 
+    private void updatePlatformChoiceBox(Game selectedGame) {
+        // Get the possible platforms for the selected game
+        List<Platform> possiblePlatforms = gamePlatformjdbi.getPlatformsForGame(selectedGame.getGameID());
+
+        // Update the platform ChoiceBox with the possible platforms
+        boxPlatform.setItems(FXCollections.observableArrayList(possiblePlatforms));
+    }
 
     private void handleAddBtn() {
         // Retrieve selected values from ChoiceBoxes

@@ -169,7 +169,7 @@ public class BeheerScherm1Controller {
             // After the form is closed, check if it was submitted
             if (controller.isSubmitted()) {
                 // Update the item in the database
-                gameJdbi.insert(controller.getNewGame());
+                //gameJdbi.insert(controller.getNewGame());
 
                 // Refresh the table to reflect changes
                 refreshTables();

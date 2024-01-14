@@ -8,14 +8,13 @@ public class Platform {
 
     }
 
-    public Platform(int platformID, String naam){
-        this.platformID = platformID;
+    public Platform(String naam){
         this.naam = naam;
     }
 
     @Override
     public String toString() {
-        return "Platform{" + "platformID='" + platformID+ "', naam='" + naam + "'}";
+        return "Platform " +  platformID + " = " + naam;
     }
 
     public int getPlatformID() {
