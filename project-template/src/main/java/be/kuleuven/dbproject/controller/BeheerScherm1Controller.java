@@ -38,12 +38,19 @@ public class BeheerScherm1Controller {
     private TableView<Museum> tblConfigsMusea;
     @FXML
     private TableView<Warenhuis> tblConfigsWarenhuizen;
+    @FXML
+    private TableView<Bezoeker> tblConfigsBezoekers;
+    @FXML
+    private TableView<Donatie> tblConfigsDonaties;
 
     private final Gamejdbi gameJdbi = new Gamejdbi();
     private final Platformjdbi platformjdbi = new Platformjdbi();
     private final GamePlatformjdbi gamePlatformjdbi = new GamePlatformjdbi();
     private final Museumjdbi museumjdbi = new Museumjdbi();
     private final Warenhuisjdbi warenhuisjdbi = new Warenhuisjdbi();
+    private final Bezoekerjdbi bezoekerjdbi = new Bezoekerjdbi();
+    private final Donatiejdbi donatiejdbi = new Donatiejdbi();
+
 
     public void initialize() {
         initTables();
@@ -78,6 +85,8 @@ public class BeheerScherm1Controller {
         initTablePlatforms();
         initTableMusea();
         initTableWarenhuizen();
+        initTableBezoekers();
+        initTableDonaties();
     }
 
     private void initTableGame() {
@@ -142,6 +151,38 @@ public class BeheerScherm1Controller {
 
         tblConfigsWarenhuizen.getColumns().addAll(col1,col2,col3);
         tblConfigsWarenhuizen.setItems(FXCollections.observableArrayList(warenhuisjdbi.getAll()));
+    }
+
+    private void initTableBezoekers() {
+        tblConfigsBezoekers.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tblConfigsBezoekers.getColumns().clear();
+
+        TableColumn<Bezoeker, String> col1 = new TableColumn<>("BezoekerID");
+        col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getBezoekerID()));
+        TableColumn<Bezoeker, String> col2 = new TableColumn<>("naam");
+        col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getNaam()));
+        TableColumn<Bezoeker, String> col3 = new TableColumn<>("museumID");
+        col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getMuseumID()));
+
+        tblConfigsBezoekers.getColumns().addAll(col1,col2,col3);
+        tblConfigsBezoekers.setItems(FXCollections.observableArrayList(bezoekerjdbi.getAll()));
+    }
+
+    private void initTableDonaties() {
+        tblConfigsDonaties.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tblConfigsDonaties.getColumns().clear();
+
+        TableColumn<Donatie, String> col1 = new TableColumn<>("donatieID");
+        col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getDonatieID()));
+        TableColumn<Donatie, String> col2 = new TableColumn<>("som");
+        col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getSom()));
+        TableColumn<Donatie, String> col3 = new TableColumn<>("datum");
+        col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getDatum()));
+        TableColumn<Donatie, String> col4 = new TableColumn<>("museumID");
+        col4.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getMuseumID()));
+
+        tblConfigsDonaties.getColumns().addAll(col1,col2,col3,col4);
+        tblConfigsDonaties.setItems(FXCollections.observableArrayList(donatiejdbi.getAll()));
     }
 
     private void addNewPlatform() {
