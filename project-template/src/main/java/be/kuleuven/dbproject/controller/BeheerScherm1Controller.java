@@ -292,7 +292,6 @@ public class BeheerScherm1Controller {
             // Update data sources for other tables
             tblConfigsGames.setItems(FXCollections.observableArrayList(gameJdbi.getAll()));
             tblConfigsPlatforms.setItems(FXCollections.observableArrayList(platformjdbi.getAll()));
-            tblConfigsGamePlatforms.setItems(FXCollections.observableArrayList(gamePlatformjdbi.getAll()));
             tblConfigsMusea.setItems(FXCollections.observableArrayList(museumjdbi.getAll()));
             tblConfigsWarenhuizen.setItems(FXCollections.observableArrayList(warenhuisjdbi.getAll()));
         } catch (Exception e) {

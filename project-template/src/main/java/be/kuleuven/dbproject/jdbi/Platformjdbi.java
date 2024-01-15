@@ -34,12 +34,17 @@ public class Platformjdbi {
 
     public void delete(Platform platform) {
         jdbi.useTransaction(handle -> {
+            // Delete from GameCopy first
+            handle.createUpdate("DELETE FROM GameCopy WHERE gameplatformID IN (SELECT gameplatformID FROM GamePlatform WHERE platformID = :platformID)")
+                    .bind("platformID", platform.getPlatformID())
+                    .execute();
+
             // Delete from GamePlatform
             handle.createUpdate("DELETE FROM GamePlatform WHERE platformID = :platformID")
                     .bind("platformID", platform.getPlatformID())
                     .execute();
 
-            // Delete from Game
+            // Delete from Platform
             handle.createUpdate("DELETE FROM Platform WHERE platformID = :platformID")
                     .bind("platformID", platform.getPlatformID())
                     .execute();
