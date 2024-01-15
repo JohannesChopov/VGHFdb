@@ -9,9 +9,7 @@ public class Donatie {
     public Donatie(){
     }
 
-    public Donatie(int donatieID, int museumID, double som, String datum){
-        this.donatieID = donatieID;
-        this.museumID= museumID;
+    public Donatie(int museumID, double som, String datum){
         this.som = som;
         this.datum = datum;
     }
