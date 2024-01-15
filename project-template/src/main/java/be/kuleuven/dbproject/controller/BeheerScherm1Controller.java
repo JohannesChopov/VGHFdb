@@ -22,7 +22,10 @@ public class BeheerScherm1Controller {
     @FXML
     private Button btnAdd;
     @FXML
-    private Button btnModify;
+    private Button btnAddPlatform;
+    @FXML
+    private Button btnDeletePlatform;
+
     @FXML
     private Button btnClose;
     @FXML
@@ -45,13 +48,16 @@ public class BeheerScherm1Controller {
     public void initialize() {
         initTables();
         btnAdd.setOnAction(e -> addNewRow());
-        btnModify.setOnAction(e -> {
-            verifyOneRowSelected();
-            modifyCurrentRow();
-        });
+        btnAddPlatform.setOnAction(e -> addNewPlatform());
+
         btnDelete.setOnAction(e -> {
             verifyOneRowSelected();
             deleteCurrentRow();
+        });
+
+        btnDeletePlatform.setOnAction(e -> {
+            verifyOnePlatformRowSelected();
+            deletePlatform();
         });
 
         btnClose.setOnAction(e -> {
@@ -70,7 +76,6 @@ public class BeheerScherm1Controller {
     private void initTables() {
         initTableGame();
         initTablePlatforms();
-        initTableGamePlatform();
         initTableMusea();
         initTableWarenhuizen();
     }
@@ -102,21 +107,6 @@ public class BeheerScherm1Controller {
         tblConfigsPlatforms.setItems(FXCollections.observableArrayList(platformjdbi.getAll()));
     }
 
-    private void initTableGamePlatform() {
-        tblConfigsGamePlatforms.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        tblConfigsGamePlatforms.getColumns().clear();
-
-        TableColumn<GamePlatform, String> col1 = new TableColumn<>("ID");
-        col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getGameplatformID()));
-        TableColumn<GamePlatform, String> col2 = new TableColumn<>("gameID");
-        col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getGameID()));
-        TableColumn<GamePlatform, String> col3 = new TableColumn<>("platformID");
-        col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getPlatformID()));
-
-        tblConfigsGamePlatforms.getColumns().addAll(col1,col2,col3);
-        tblConfigsGamePlatforms.setItems(FXCollections.observableArrayList(gamePlatformjdbi.getAll()));
-    }
-
     private String getTitel(int gameplatformID) {
         int gameID = gamePlatformjdbi.getGameIdByGamePlatformId(gameplatformID);
         return gameJdbi.getTitelById(gameID);
@@ -126,12 +116,16 @@ public class BeheerScherm1Controller {
         tblConfigsMusea.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tblConfigsMusea.getColumns().clear();
 
-        TableColumn<Museum, String> col1 = new TableColumn<>("museumID");
+        TableColumn<Museum, String> col1 = new TableColumn<>("MuseumID");
         col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getID()));
-        TableColumn<Museum, String> col2 = new TableColumn<>("naam");
+        TableColumn<Museum, String> col2 = new TableColumn<>("Naam");
         col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getNaam()));
+        TableColumn<Museum, String> col3 = new TableColumn<>("Inkomprijs");
+        col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getInkomprijs()));
+        TableColumn<Museum, String> col4 = new TableColumn<>("Adres");
+        col4.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getAdres()));
 
-        tblConfigsMusea.getColumns().addAll(col1,col2);
+        tblConfigsMusea.getColumns().addAll(col1,col2,col3,col4);
         tblConfigsMusea.setItems(FXCollections.observableArrayList(museumjdbi.getAll()));
     }
 
@@ -143,12 +137,63 @@ public class BeheerScherm1Controller {
         col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getID()));
         TableColumn<Warenhuis, String> col2 = new TableColumn<>("naam");
         col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getNaam()));
+        TableColumn<Warenhuis, String> col3 = new TableColumn<>("Adres");
+        col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getAdres()));
 
-        tblConfigsWarenhuizen.getColumns().addAll(col1,col2);
+        tblConfigsWarenhuizen.getColumns().addAll(col1,col2,col3);
         tblConfigsWarenhuizen.setItems(FXCollections.observableArrayList(warenhuisjdbi.getAll()));
     }
 
+    private void addNewPlatform() {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addPlatform.fxml"));
+            var root = (AnchorPane) loader.load();
+            var scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Voeg platform toe");
+            stage.initModality(Modality.APPLICATION_MODAL);
 
+            // Get the controller of the GameForm
+            AddPlatformController controller = loader.getController();
+            controller.initialize();
+            // Show the form and wait for it to be closed
+            stage.showAndWait();
+
+            // After the form is closed, check if it was submitted
+            if (controller.isSubmitted()) {
+                // Update the item in the database
+                platformjdbi.insert(controller.getNieuwePlatform());
+
+                // Refresh the table to reflect changes
+                refreshTables();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Error opening the add form.");
+        }
+    }
+
+    private void deletePlatform() {
+        TableView<Platform> selectedTable = tblConfigsPlatforms;
+        System.out.println("1");
+        if (selectedTable != null) {
+            Platform selectedPlatform = selectedTable.getSelectionModel().getSelectedItem();
+            System.out.println("2");
+            if (selectedPlatform!= null) {
+                try {
+                    // Delete from the Game table
+                    platformjdbi.delete(selectedPlatform);
+                    //selectedTable.getItems().remove(selectedGame);
+
+                    // Refresh other tables
+                    refreshTables();
+                } catch (Exception e) {
+                    showAlert("Error", "Error deleting the selected item.");
+                }
+            }
+        }
+    }
 
     private void addNewRow() {
         try {
@@ -215,45 +260,6 @@ public class BeheerScherm1Controller {
         }
     }
 
-    private void modifyCurrentRow() {
-        TableView<Game> selectedTable = tblConfigsGames;
-        if (selectedTable != null) {
-            Game selectedGame = selectedTable.getSelectionModel().getSelectedItem();
-            if (selectedGame != null) {
-                try {
-                    // Open a form to edit the game
-                    Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("bewerkGame.fxml"));
-                    var root = (AnchorPane) loader.load();
-                    var scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.setTitle("Bewerk game");
-                    stage.initModality(Modality.APPLICATION_MODAL);
-
-                    // Get the controller of the GameForm
-                    BewerkGameController controller = loader.getController();
-
-                    // Initialize the form with the selected game
-                    controller.initialize(selectedGame);
-
-                    // Show the form and wait for it to be closed
-                    stage.showAndWait();
-
-                    // After the form is closed, check if it was submitted
-                    if (controller.isSubmitted()) {
-                        // Update the item in the database
-                        gameJdbi.update(controller.getUpdatedGame(), selectedGame);
-
-                        // Refresh the table to reflect changes
-                        refreshTables();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    showAlert("Error", "Error opening the edit form.");
-                }
-            }
-        }
-    }
 
     private void modifyGameDoubleClick(Game game) {
         Game selectedGame = game;
@@ -303,6 +309,11 @@ public class BeheerScherm1Controller {
     private void verifyOneRowSelected() {
         if(tblConfigsGames.getSelectionModel().getSelectedCells().size() == 0) {
             showAlert("Hela!", "Selecteer eerst een gametitel dat je wilt verwijderen");
+        }
+    }
+    private void verifyOnePlatformRowSelected() {
+        if(tblConfigsPlatforms.getSelectionModel().getSelectedCells().size() == 0) {
+            showAlert("Hela!", "Selecteer eerst een platform dat je wilt verwijderen");
         }
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="161.0" prefWidth="501.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.AddPlatformController">
+    <children>
+        <Text layoutX="50.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Platform name" wrappingWidth="50" />
+        <TextField fx:id="Platformname" alignment="CENTER" layoutX="40" layoutY="49.0" />
+        <Button fx:id="btnAddPlatform" layoutX="250.0" layoutY="109.0" mnemonicParsing="false" text="Voeg toe" />
+    </children>
+</AnchorPane>
