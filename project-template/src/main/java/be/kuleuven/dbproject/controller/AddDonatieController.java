@@ -1,33 +1,52 @@
 package be.kuleuven.dbproject.controller;
 
 import be.kuleuven.dbproject.jdbi.Donatiejdbi;
+import be.kuleuven.dbproject.jdbi.Museumjdbi;
 import be.kuleuven.dbproject.model.Donatie;
+import be.kuleuven.dbproject.model.Locatie;
+import be.kuleuven.dbproject.model.Museum;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class AddDonatieController {
     @FXML
     private TextField somField;
     @FXML
-    private TextField datumField;
+    private DatePicker datumField;
     @FXML
-    private TextField museumIDField;
+    private ChoiceBox<Museum> museumIDField;
     @FXML
-    private Button addBtn;
+    private Button addDonatie;
 
     private Donatie nieuweDonatie;
     private boolean submitted = false;
+    private final Museumjdbi museumjdbi = new Museumjdbi();
 
     public void initialize() {
-        addBtn.setOnAction(e -> handleAddBtn());
+
+        addDonatie.setOnAction(e -> handleAddBtn());
+        museumIDField.setItems(FXCollections.observableArrayList(museumjdbi.getAll()));
     }
 
     private void handleAddBtn() {
-        // Update the game details based on the form fields
+        Locatie selectedLocatie = museumIDField.getValue();
+        int locatieID = selectedLocatie.getID();
+        String somText = somField.getText();
+        double som = 0.0;
 
-        //nieuweDonatie = new Donatie(museumIDField.getText().to, somField.getText(), datumField.getText());
+        try {
+            // Convert the text to an int
+            som = Double.parseDouble(somText);
+
+            // You can use the 'museumID' variable as needed in your code
+        } catch (NumberFormatException e) {
+            // Handle the case where the input is not a valid integer
+            System.err.println("Invalid input. Please enter a valid integer.");
+        }
+        // Update the game details based on the form fields
+        nieuweDonatie = new Donatie(locatieID, som, datumField.getValue().toString());
         submitted = true;
         closeForm();
     }
@@ -41,7 +60,7 @@ public class AddDonatieController {
     }
 
     private void closeForm() {
-        Stage stage = (Stage) addBtn.getScene().getWindow();
+        Stage stage = (Stage) addDonatie.getScene().getWindow();
         stage.close();
     }
 }

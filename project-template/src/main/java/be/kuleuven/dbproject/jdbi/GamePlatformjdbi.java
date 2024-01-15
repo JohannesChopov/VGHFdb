@@ -1,7 +1,9 @@
 package be.kuleuven.dbproject.jdbi;
 
 
+import be.kuleuven.dbproject.model.Game;
 import be.kuleuven.dbproject.model.GamePlatform;
+import be.kuleuven.dbproject.model.Platform;
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
@@ -18,7 +20,7 @@ public class GamePlatformjdbi {
     }
 
     public void insert(GamePlatform gamePlatform) {
-        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO GamePlatform (gameplatformID, gameID, platformID) VALUES (:gameplatformID, :gameID, :platformID)")
+        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO GamePlatform (gameID, platformID) VALUES (:gameID, :platformID)")
                 .bindBean(gamePlatform)
                 .execute());
     }
@@ -69,5 +71,15 @@ public class GamePlatformjdbi {
         } catch (IllegalStateException e) {
             return -1; // or handle the exception as needed in your application
         }
+    }
+
+
+    public List<Platform> getPlatformsForGame(int gameID) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT p.* FROM Platform p " +
+                        "JOIN GamePlatform gp ON p.platformID = gp.platformID " +
+                        "WHERE gp.gameID = :gameID")
+                .bind("gameID", gameID)
+                .mapToBean(Platform.class)
+                .list());
     }
 }

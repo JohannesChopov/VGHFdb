@@ -65,6 +65,16 @@ public class Platformjdbi {
     }
 
 
+    public List<String> getAllPlatformNames() {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT naam FROM Platform").mapTo(String.class).list());
+    }
+
+    public int getIdByName(String platformName) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT platformID FROM Platform WHERE naam = :platformName")
+                .bind("platformName", platformName)
+                .mapTo(Integer.class)
+                .one());
+    }
 }
 
 

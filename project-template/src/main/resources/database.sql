@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS "Donatie" (
 CREATE TABLE IF NOT EXISTS "Bezoeker" (
 	"bezoekerID"	INTEGER NOT NULL UNIQUE,
 	"naam"	TEXT NOT NULL CHECK(LENGTH("naam") <= 50 AND "naam" NOT LIKE '%[0-9]%'),
+	"museumID"	INTEGER NOT NULL,
 	PRIMARY KEY("bezoekerID" AUTOINCREMENT)
 );
 INSERT INTO "Game" VALUES (1,'The Witcher 3: Wild Hunt','Action RPG');

@@ -24,8 +24,19 @@ public class BeheerScherm1Controller {
     @FXML
     private Button btnAddPlatform;
     @FXML
+    private Button btnAddBezoeker;
+    @FXML
+    private Button btnAddMuseum;
+    @FXML
+    private Button btnDeleteMuseum;
+    @FXML
+    private Button btnDeleteBezoeker;
+    @FXML
     private Button btnDeletePlatform;
-
+    @FXML
+    private Button btnAddDonatie;
+    @FXML
+    private Button btnDeleteDonatie;
     @FXML
     private Button btnClose;
     @FXML
@@ -54,8 +65,11 @@ public class BeheerScherm1Controller {
 
     public void initialize() {
         initTables();
-        btnAdd.setOnAction(e -> addNewRow());
+        btnAdd.setOnAction(e -> addNewGame());
         btnAddPlatform.setOnAction(e -> addNewPlatform());
+        btnAddDonatie.setOnAction(e -> addNewDonatie());
+        btnAddBezoeker.setOnAction(e -> addNewBezoeker());
+        btnAddMuseum.setOnAction(e -> addNewMuseum());
 
         btnDelete.setOnAction(e -> {
             verifyOneRowSelected();
@@ -65,6 +79,21 @@ public class BeheerScherm1Controller {
         btnDeletePlatform.setOnAction(e -> {
             verifyOnePlatformRowSelected();
             deletePlatform();
+        });
+
+        btnDeleteDonatie.setOnAction(e -> {
+            verifyOneDonatieRowSelected();
+            deleteDonatie();
+        });
+
+        btnDeleteBezoeker.setOnAction(e -> {
+            verifyOneBezoekerRowSelected();
+            deleteBezoeker();
+        });
+
+        btnDeleteMuseum.setOnAction(e -> {
+            verifyOneMuseumRowSelected();
+            deleteMuseum();
         });
 
         btnClose.setOnAction(e -> {
@@ -236,7 +265,160 @@ public class BeheerScherm1Controller {
         }
     }
 
-    private void addNewRow() {
+    private void addNewDonatie() {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addDonatie.fxml"));
+            var root = (AnchorPane) loader.load();
+            var scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Voeg donatie toe");
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            // Get the controller of the GameForm
+            AddDonatieController controller = loader.getController();
+            controller.initialize();
+            // Show the form and wait for it to be closed
+            stage.showAndWait();
+
+            // After the form is closed, check if it was submitted
+            if (controller.isSubmitted()) {
+                // Update the item in the database
+                donatiejdbi.insert(controller.getNewDonatie());
+
+                // Refresh the table to reflect changes
+                refreshTables();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Error opening the add form.");
+        }
+    }
+
+    private void deleteDonatie() {
+        TableView<Donatie> selectedTable = tblConfigsDonaties;
+        System.out.println("1");
+        if (selectedTable != null) {
+            Donatie selectedDonatie = selectedTable.getSelectionModel().getSelectedItem();
+            System.out.println("2");
+            if (selectedDonatie!= null) {
+                try {
+                    // Delete from the Game table
+                    donatiejdbi.delete(selectedDonatie);
+                    //selectedTable.getItems().remove(selectedGame);
+
+                    // Refresh other tables
+                    refreshTables();
+                } catch (Exception e) {
+                    showAlert("Error", "Error deleting the selected item.");
+                }
+            }
+        }
+    }
+
+    private void addNewBezoeker() {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addBezoeker.fxml"));
+            var root = (AnchorPane) loader.load();
+            var scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Voeg bezoeker toe");
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            // Get the controller of the GameForm
+            AddBezoekerController controller = loader.getController();
+            controller.initialize();
+            // Show the form and wait for it to be closed
+            stage.showAndWait();
+
+            // After the form is closed, check if it was submitted
+            if (controller.isSubmitted()) {
+                // Update the item in the database
+                bezoekerjdbi.insert(controller.getNewBezoeker());
+
+                // Refresh the table to reflect changes
+                refreshTables();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Error opening the add form.");
+        }
+    }
+
+    private void deleteBezoeker() {
+        TableView<Bezoeker> selectedTable = tblConfigsBezoekers;
+        System.out.println("1");
+        if (selectedTable != null) {
+            Bezoeker selectedBezoeker = selectedTable.getSelectionModel().getSelectedItem();
+            System.out.println("2");
+            if (selectedBezoeker!= null) {
+                try {
+                    // Delete from the Game table
+                    bezoekerjdbi.delete(selectedBezoeker);
+                    //selectedTable.getItems().remove(selectedGame);
+
+                    // Refresh other tables
+                    refreshTables();
+                } catch (Exception e) {
+                    showAlert("Error", "Error deleting the selected item.");
+                }
+            }
+        }
+    }
+
+    private void addNewMuseum() {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addMuseum.fxml"));
+            var root = (AnchorPane) loader.load();
+            var scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Voeg museum toe");
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            // Get the controller of the GameForm
+            AddMuseumController controller = loader.getController();
+            controller.initialize();
+            // Show the form and wait for it to be closed
+            stage.showAndWait();
+
+            // After the form is closed, check if it was submitted
+            if (controller.isSubmitted()) {
+                // Update the item in the database
+                museumjdbi.insert(controller.getNewMuseum());
+
+                // Refresh the table to reflect changes
+                refreshTables();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Error opening the add form.");
+        }
+    }
+
+    private void deleteMuseum() {
+        TableView<Museum> selectedTable = tblConfigsMusea;
+        System.out.println("1");
+        if (selectedTable != null) {
+            Museum selectedMuseum = selectedTable.getSelectionModel().getSelectedItem();
+            System.out.println("2");
+            if (selectedMuseum!= null) {
+                try {
+                    // Delete from the Game table
+                    museumjdbi.delete(selectedMuseum);
+                    //selectedTable.getItems().remove(selectedGame);
+
+                    // Refresh other tables
+                    refreshTables();
+                } catch (Exception e) {
+                    showAlert("Error", "Error deleting the selected item.");
+                }
+            }
+        }
+    }
+
+    private void addNewGame() {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addGame.fxml"));
@@ -254,10 +436,6 @@ public class BeheerScherm1Controller {
 
             // After the form is closed, check if it was submitted
             if (controller.isSubmitted()) {
-                // Update the item in the database
-                gameJdbi.insert(controller.getNewGame());
-
-                // Refresh the table to reflect changes
                 refreshTables();
             }
         } catch (IOException e) {
@@ -294,6 +472,8 @@ public class BeheerScherm1Controller {
             tblConfigsPlatforms.setItems(FXCollections.observableArrayList(platformjdbi.getAll()));
             tblConfigsMusea.setItems(FXCollections.observableArrayList(museumjdbi.getAll()));
             tblConfigsWarenhuizen.setItems(FXCollections.observableArrayList(warenhuisjdbi.getAll()));
+            tblConfigsBezoekers.setItems(FXCollections.observableArrayList(bezoekerjdbi.getAll()));
+            tblConfigsDonaties.setItems(FXCollections.observableArrayList(donatiejdbi.getAll()));
         } catch (Exception e) {
             e.printStackTrace(); // Print the exception details for debugging
             showAlert("Error", "Error refreshing tables.");
@@ -354,6 +534,21 @@ public class BeheerScherm1Controller {
     private void verifyOnePlatformRowSelected() {
         if(tblConfigsPlatforms.getSelectionModel().getSelectedCells().size() == 0) {
             showAlert("Hela!", "Selecteer eerst een platform dat je wilt verwijderen");
+        }
+    }
+    private void verifyOneDonatieRowSelected() {
+        if(tblConfigsDonaties.getSelectionModel().getSelectedCells().size() == 0) {
+            showAlert("Hela!", "Selecteer eerst een Donatie dat je wilt verwijderen");
+        }
+    }
+    private void verifyOneBezoekerRowSelected() {
+        if(tblConfigsBezoekers.getSelectionModel().getSelectedCells().size() == 0) {
+            showAlert("Hela!", "Selecteer eerst een Bezoeker dat je wilt verwijderen");
+        }
+    }
+    private void verifyOneMuseumRowSelected() {
+        if(tblConfigsMusea.getSelectionModel().getSelectedCells().size() == 0) {
+            showAlert("Hela!", "Selecteer eerst een Museum dat je wilt verwijderen");
         }
     }
 }

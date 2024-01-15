@@ -53,7 +53,7 @@ public class Gamejdbi {
 
 
     public int getId(Game game) {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT id FROM Game WHERE gameID = :gameID")
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT gameID FROM Game WHERE gameID = :gameID")
                 .bind("gameID", game.getGameID())
                 .mapTo(Integer.class).list().get(0));
     }
@@ -65,5 +65,11 @@ public class Gamejdbi {
                 .one());
     }
 
+    public int getIdByTitel(String titel) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT gameID FROM Game WHERE titel = :titel")
+                .bind("titel", titel)
+                .mapTo(Integer.class)
+                .one());
+    }
 
 }

@@ -9,8 +9,8 @@ public class GamePlatform {
 
     }
 
-    public GamePlatform(int gameplatformID, int gameID, int platformID){
-        this.gameplatformID = gameplatformID;
+    public GamePlatform( int gameID, int platformID){
+        //this.gameplatformID = gameplatformID;
         this.gameID = gameID;
         this.platformID = platformID;
     }

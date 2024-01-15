@@ -56,39 +56,6 @@ public class BeheerScherm2Controller {
             stage.close();
         });
     }
-    /*
-    private void initTable() {
-        tblConfigs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        tblConfigs.getColumns().clear();
-
-        TableColumn<GameCopy, String> col1 = new TableColumn<>("ID");
-        col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getGamecopyID()));
-
-        TableColumn<GameCopy, String> col2 = new TableColumn<>("Details");
-        col2.setCellValueFactory(f -> {
-            int gameplatformID = f.getValue().getGameplatformID();
-            String titel = getTitel(gameplatformID);
-            String platform = getPlatform(gameplatformID);
-            String status = getStatus(f.getValue().getWarenhuisID());
-            String warehouse = "";
-            String museum = "";
-
-            // Check if it's in a warehouse or museum
-            if (f.getValue().getWarenhuisID() != 0) {
-                warehouse = warenhuisjdbi.getWarenhuisNameById(f.getValue().getWarenhuisID());
-            } else if (f.getValue().getMuseumID() != 0) {
-                museum = museumjdbi.getMuseumNameById(f.getValue().getMuseumID());
-            }
-
-            // Combine the information into a single string
-            return new ReadOnlyObjectWrapper<>(String.format("%s | %s | %s | %s | %s", titel, platform, status, warehouse, museum));
-        });
-
-        tblConfigs.getColumns().addAll(col1, col2);
-
-        tblConfigs.setItems(FXCollections.observableArrayList(gameCopyJdbi.getAll()));
-    }
-    */
 
     private void initTable() {
         tblConfigs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);

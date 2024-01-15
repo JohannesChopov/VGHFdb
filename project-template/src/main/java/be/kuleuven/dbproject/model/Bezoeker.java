@@ -9,8 +9,7 @@ public class Bezoeker {
 
     }
 
-    public Bezoeker(int bezoekerID, int museumID, String naam) {
-        this.bezoekerID = bezoekerID;
+    public Bezoeker(int museumID, String naam) {
         this.museumID = museumID;
         this.naam = naam;
     }

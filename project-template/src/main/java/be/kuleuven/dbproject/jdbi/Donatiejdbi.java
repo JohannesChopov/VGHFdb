@@ -17,11 +17,11 @@ public class Donatiejdbi {
     }
 
     public void insert(Donatie donatie) {
-        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Donatie (donatieID, museumID, som, datum) VALUES (:donatieID, :museumID, :som, :datum)").bindBean(donatie).execute());
+        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Donatie (museumID, som, datum) VALUES (:museumID, :som, :datum)").bindBean(donatie).execute());
     }
 
     public void update(Donatie donatieNieuw, Donatie donatieOud) {
-        jdbi.useHandle(handle -> handle.createUpdate("UPDATE Donatie SET (donatieID, museumID, som, datum) = (:donatieID, :museumID, :som, :datum) WHERE donatieID = :donatieIDOud")
+        jdbi.useHandle(handle -> handle.createUpdate("UPDATE Donatie SET (museumID, som, datum) = (:museumID, :som, :datum) WHERE donatieID = :donatieIDOud")
                 .bindBean(donatieNieuw)
                 .bind("donatieIDOud", donatieOud.getDonatieID())
                 .execute());

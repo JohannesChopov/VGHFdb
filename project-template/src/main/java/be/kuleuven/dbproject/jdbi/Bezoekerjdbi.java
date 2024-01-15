@@ -18,15 +18,15 @@ public class Bezoekerjdbi {
     }
 
     public void insert(Bezoeker bezoeker) {
-        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Bezoeker (bezoekerID, museumID, naam) VALUES (:bezoekerID, :museumID, :naam)").bindBean(bezoeker).execute());
+        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Bezoeker (museumID, naam) VALUES (:museumID, :naam)").bindBean(bezoeker).execute());
     }
 
     public void update(Bezoeker bezoekerNieuw, Bezoeker bezoekerOud) {
-        jdbi.useHandle(handle -> handle.createUpdate("UPDATE Bezoeker SET (bezoekerID,museumID, naam) = (:bezoekerID, :museumID, :naam) WHERE bezoekerID = :bezoekerIDOud").bindBean(bezoekerNieuw).bind("bezoekerIDOud", bezoekerOud.getBezoekerID()).execute());
+        jdbi.useHandle(handle -> handle.createUpdate("UPDATE Bezoeker SET (museumID, naam) = (:museumID, :naam) WHERE bezoekerID = :bezoekerIDOud").bindBean(bezoekerNieuw).bind("bezoekerIDOud", bezoekerOud.getBezoekerID()).execute());
     }
 
     public void delete(Bezoeker bezoeker) {
-        jdbi.useHandle(handle -> handle.createUpdate("DELETE FROM Bezoker WHERE bezoekerID = :bezoekerID").bind("bezoekerID", bezoeker.getBezoekerID()).execute());
+        jdbi.useHandle(handle -> handle.createUpdate("DELETE FROM Bezoeker WHERE bezoekerID = :bezoekerID").bind("bezoekerID", bezoeker.getBezoekerID()).execute());
     }
 
     public Bezoeker selectByname(String naam) {

@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS "Bezoeker";
 CREATE TABLE IF NOT EXISTS "Bezoeker" (
 	"bezoekerID"	INTEGER NOT NULL UNIQUE,
 	"naam"	TEXT NOT NULL CHECK(LENGTH("naam") <= 50 AND "naam" NOT LIKE '%[0-9]%'),
-	"museumID"	INTEGER,
+	"museumID"	INTEGER NOT NULL,
 	PRIMARY KEY("bezoekerID" AUTOINCREMENT)
 );
 DROP TABLE IF EXISTS "GamePlatform";

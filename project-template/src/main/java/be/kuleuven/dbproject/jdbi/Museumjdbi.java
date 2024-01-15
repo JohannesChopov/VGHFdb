@@ -23,20 +23,31 @@ public class Museumjdbi /*implements Locatiejdbi<Museum>*/{
     }
 
     public void insert(Museum museum) {
-        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Museum (museumID, naam, inkomprijs, adres) VALUES (:museumID, :naam, :inkomprijs, :adres)").bindBean(museum).execute());
+        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Museum (naam, inkomprijs, adres) VALUES (:naam, :inkomprijs, :adres)").bindBean(museum).execute());
     }
 
     public void update(Museum museumNieuw, Museum museumOud) {
-        jdbi.useHandle(handle -> handle.createUpdate("UPDATE Museum SET (museumID, naam, inkomprijs, adres) = (:museumID, :naam, :inkomprijs, :adres) WHERE museumID = :museumIDOud")
+        jdbi.useHandle(handle -> handle.createUpdate("UPDATE Museum SET (naam, inkomprijs, adres) = (:naam, :inkomprijs, :adres) WHERE museumID = :museumIDOud")
                 .bindBean(museumNieuw)
                 .bind("museumIDOud", museumOud.getID())
                 .execute());
     }
 
     public void delete(Museum museum) {
-        jdbi.useHandle(handle -> handle.createUpdate("DELETE FROM Museum WHERE MuseumID = :museumID")
-                .bind("museumID",
-                        museum.getID()).execute());
+        jdbi.useHandle(handle -> {
+            handle.createUpdate("DELETE FROM GameCopy WHERE museumID IN (SELECT museumID FROM Museum WHERE MuseumID = :MuseumID)")
+                    .bind("museumID", museum.getID())
+                    .execute();
+            handle.createUpdate("DELETE FROM Bezoeker WHERE museumID IN (SELECT museumID FROM Museum WHERE MuseumID = :MuseumID)")
+                    .bind("museumID", museum.getID())
+                    .execute();
+            handle.createUpdate("DELETE FROM Donatie WHERE museumID IN (SELECT museumID FROM Museum WHERE MuseumID = :MuseumID)")
+                    .bind("museumID", museum.getID())
+                    .execute();
+            handle.createUpdate("DELETE FROM Museum WHERE MuseumID = :museumID")
+                    .bind("museumID", museum.getID())
+                    .execute();
+        });
     }
 
     public int getId(Museum museum) {

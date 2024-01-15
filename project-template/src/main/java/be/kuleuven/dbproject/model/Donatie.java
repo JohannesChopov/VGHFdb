@@ -10,6 +10,7 @@ public class Donatie {
     }
 
     public Donatie(int museumID, double som, String datum){
+        this.museumID = museumID;
         this.som = som;
         this.datum = datum;
     }

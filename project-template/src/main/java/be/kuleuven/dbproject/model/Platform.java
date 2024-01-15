@@ -14,7 +14,7 @@ public class Platform {
 
     @Override
     public String toString() {
-        return "Platform{" + "platformID='" + platformID+ "', naam='" + naam + "'}";
+        return "Platform " +  platformID + " = " + naam;
     }
 
     public int getPlatformID() {
