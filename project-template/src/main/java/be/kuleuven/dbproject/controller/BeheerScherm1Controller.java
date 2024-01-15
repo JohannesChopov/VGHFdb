@@ -54,7 +54,7 @@ public class BeheerScherm1Controller {
 
     public void initialize() {
         initTables();
-        btnAdd.setOnAction(e -> addNewRow());
+        btnAdd.setOnAction(e -> addNewGame());
         btnAddPlatform.setOnAction(e -> addNewPlatform());
 
         btnDelete.setOnAction(e -> {
@@ -236,7 +236,7 @@ public class BeheerScherm1Controller {
         }
     }
 
-    private void addNewRow() {
+    private void addNewGame() {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addGame.fxml"));
@@ -254,10 +254,6 @@ public class BeheerScherm1Controller {
 
             // After the form is closed, check if it was submitted
             if (controller.isSubmitted()) {
-                // Update the item in the database
-                //gameJdbi.insert(controller.getNewGame());
-
-                // Refresh the table to reflect changes
                 refreshTables();
             }
         } catch (IOException e) {
@@ -292,7 +288,6 @@ public class BeheerScherm1Controller {
             // Update data sources for other tables
             tblConfigsGames.setItems(FXCollections.observableArrayList(gameJdbi.getAll()));
             tblConfigsPlatforms.setItems(FXCollections.observableArrayList(platformjdbi.getAll()));
-            tblConfigsGamePlatforms.setItems(FXCollections.observableArrayList(gamePlatformjdbi.getAll()));
             tblConfigsMusea.setItems(FXCollections.observableArrayList(museumjdbi.getAll()));
             tblConfigsWarenhuizen.setItems(FXCollections.observableArrayList(warenhuisjdbi.getAll()));
         } catch (Exception e) {
