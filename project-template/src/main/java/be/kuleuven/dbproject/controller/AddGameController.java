@@ -5,14 +5,12 @@ import be.kuleuven.dbproject.jdbi.Gamejdbi;
 import be.kuleuven.dbproject.jdbi.Platformjdbi;
 import be.kuleuven.dbproject.model.Game;
 import be.kuleuven.dbproject.model.GamePlatform;
+import be.kuleuven.dbproject.model.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;

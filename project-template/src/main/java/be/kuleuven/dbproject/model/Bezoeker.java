@@ -2,20 +2,30 @@ package be.kuleuven.dbproject.model;
 
 public class Bezoeker {
     private int bezoekerID;
+    private int museumID;
     String naam;
 
     public Bezoeker(){
 
     }
 
-    public Bezoeker(int bezoekerID, String naam) {
+    public Bezoeker(int bezoekerID, int museumID, String naam) {
         this.bezoekerID = bezoekerID;
+        this.museumID = museumID;
         this.naam = naam;
     }
 
     @Override
     public String toString() {
-        return "Bezoeker{" + "bezoekerID=" + bezoekerID + ", naam='" + naam  + "'}";
+        return "Bezoeker{" + "bezoekerID=" + bezoekerID + ", museumID='" + museumID  + ", naam='" + naam  + "'}";
+    }
+
+    public int getMuseumID() {
+        return museumID;
+    }
+
+    public void setMuseumID(int museumID) {
+        this.museumID = museumID;
     }
 
     public int getBezoekerID() {
