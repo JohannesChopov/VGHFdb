@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="622.0" prefWidth="1057.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.BeheerScherm1Controller">
+<AnchorPane prefHeight="600.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.BeheerScherm1Controller">
     <children>
         <TableView fx:id="tblConfigsGames" layoutX="16.0" layoutY="49.0" prefHeight="415.0" prefWidth="226.0">
             <columns>
@@ -18,19 +18,13 @@
                 <TableColumn prefWidth="167.20000610351562" text="C2" />
             </columns>
         </TableView>
-        <TableView fx:id="tblConfigsGamePlatforms" layoutX="493.0" layoutY="49.0" prefHeight="415.0" prefWidth="220.0">
-            <columns>
-                <TableColumn prefWidth="26.199981689453125" text="C1" />
-                <TableColumn prefWidth="124.20001220703125" text="C2" />
-            </columns>
-        </TableView>
-        <TableView fx:id="tblConfigsMusea" layoutX="743.0" layoutY="294.0" prefHeight="241.0" prefWidth="278.0">
+        <TableView fx:id="tblConfigsMusea" layoutX="493.0" layoutY="49.0" prefHeight="150" prefWidth="435">
             <columns>
                 <TableColumn prefWidth="28.199951171875" text="C1" />
                 <TableColumn prefWidth="248.79996337890623" text="C2" />
             </columns>
         </TableView>
-        <TableView fx:id="tblConfigsWarenhuizen" layoutX="743.0" layoutY="49.0" prefHeight="231.0" prefWidth="277.0">
+        <TableView fx:id="tblConfigsWarenhuizen" layoutX="493.0" layoutY="314.0" prefHeight="150" prefWidth="435">
             <columns>
                 <TableColumn prefWidth="29.79998779296875" text="C1" />
                 <TableColumn prefWidth="246.39998779296877" text="C2" />
@@ -42,8 +36,10 @@
             </font>
         </Text>
         <Button fx:id="btnAdd" layoutX="16.0" layoutY="471.0" mnemonicParsing="false" text="Voeg Game toe" />
-        <Button fx:id="btnModify" layoutX="16.0" layoutY="503.0" mnemonicParsing="false" text="Bewerk" />
+        <Button fx:id="btnAddPlatform" layoutX="269.0" layoutY="471.0" mnemonicParsing="false" text="Voeg platform toe" />
+        <Button fx:id="btnDeletePlatform" layoutX="269.0" layoutY="503.0" mnemonicParsing="false" text="Verwijder platform" />
         <Button fx:id="btnClose" layoutX="583.0" layoutY="573.0" mnemonicParsing="false" text="Sluiten" />
-        <Button fx:id="btnDelete" layoutX="16.0" layoutY="536.0" mnemonicParsing="false" text="Verwijder" />
+        <Button fx:id="btnDelete" layoutX="16.0" layoutY="503.0" mnemonicParsing="false" text="Verwijder game" />
+
     </children>
 </AnchorPane>

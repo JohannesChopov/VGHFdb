@@ -8,8 +8,7 @@ public class Platform {
 
     }
 
-    public Platform(int platformID, String naam){
-        this.platformID = platformID;
+    public Platform(String naam){
         this.naam = naam;
     }
 

@@ -20,22 +20,30 @@ public class Platformjdbi {
     }
 
     public void insert(Platform platform) {
-        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Platform (platformID, naam) VALUES (:platformID, :naam)")
+        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Platform (naam) VALUES (:naam)")
                 .bindBean(platform)
                 .execute());
     }
 
     public void update(Platform platformNieuw, Platform platformOud) {
-        jdbi.useHandle(handle -> handle.createUpdate("UPDATE Platform SET (platformID, naam) = (:platformID, :naam) WHERE platformID = :platformIDOud")
+        jdbi.useHandle(handle -> handle.createUpdate("UPDATE Platform SET (naam) = (:naam) WHERE platformID = :platformIDOud")
                 .bindBean(platformNieuw)
                 .bind("platformIDOud", platformOud.getPlatformID())
                 .execute());
     }
 
     public void delete(Platform platform) {
-        jdbi.useHandle(handle -> handle.createUpdate("DELETE FROM Platform WHERE platformID = :platformID")
-                .bind("platformID", platform.getPlatformID())
-                .execute());
+        jdbi.useTransaction(handle -> {
+            // Delete from GamePlatform
+            handle.createUpdate("DELETE FROM GamePlatform WHERE platformID = :platformID")
+                    .bind("platformID", platform.getPlatformID())
+                    .execute();
+
+            // Delete from Game
+            handle.createUpdate("DELETE FROM Platform WHERE platformID = :platformID")
+                    .bind("platformID", platform.getPlatformID())
+                    .execute();
+        });
     }
 
     public int getId(Platform platform) {
