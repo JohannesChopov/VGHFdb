@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="277.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.ProjectMainController">
+   <children>
+      <Text layoutX="50.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Video Game History Foundation" textAlignment="CENTER" wrappingWidth="312.03125">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnBeheerScherm1" layoutX="15.0" layoutY="82.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="Bewerk" />
+      <Button fx:id="btnBeheerScherm2" layoutX="15.0" layoutY="147.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="Overzicht" />
+      <Button fx:id="btnConfigAttaches" layoutX="15.0" layoutY="212.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="Beheer Config Attaches" />
+   </children>
+</AnchorPane>
