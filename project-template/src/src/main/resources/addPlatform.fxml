@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="161.0" prefWidth="501.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.AddPlatformController">
+    <children>
+        <VBox alignment="CENTER" spacing="10.0" layoutX="100.0" layoutY="25.0">
+
+            <HBox spacing="10.0" alignment="BASELINE_RIGHT">
+                <Text text="Platform Name:" />
+                <TextField fx:id="Platformname" alignment="CENTER" prefWidth="200"/>
+            </HBox>
+
+            <HBox spacing="10.0" alignment="BASELINE_RIGHT">
+                <Button fx:id="btnAddPlatform" mnemonicParsing="false" text="Voeg toe" prefWidth="200"/>
+            </HBox>
+
+        </VBox>
+    </children>
+</AnchorPane>
