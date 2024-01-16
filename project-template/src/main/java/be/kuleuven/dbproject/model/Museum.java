@@ -10,8 +10,7 @@ public class Museum extends Locatie{
 
     }
 
-    public Museum(int museumID, String naam, double inkomprijs, String adres){
-        this.museumID = museumID;
+    public Museum(String naam, double inkomprijs, String adres){
         this.naam = naam;
         this.inkomprijs = inkomprijs;
         this.adres = adres;
@@ -19,7 +18,7 @@ public class Museum extends Locatie{
 
     @Override
     public String toString() {
-        return "Museum " + museumID + " = " + naam + " (adres = " + adres + ")";
+        return "Museum {" + "museumID=" + museumID + "inkomprijs=" + inkomprijs + "naam=" + naam + " adres = " + adres + "'}";
     }
 
     /*

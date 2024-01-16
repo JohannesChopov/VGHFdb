@@ -1,35 +1,35 @@
 be/kuleuven/dbproject/controller/AddDonatieController.java
  be.kuleuven.dbproject.controller.AddDonatieController
-be/kuleuven/dbproject/controller/ProjectMainController.java
- be.kuleuven.dbproject.controller.ProjectMainController
-be/kuleuven/dbproject/controller/VerplaatsCopyController.java
- be.kuleuven.dbproject.controller.VerplaatsCopyController
+be/kuleuven/dbproject/jdbi/Museumjdbi.java
+ be.kuleuven.dbproject.jdbi.Museumjdbi
 be/kuleuven/dbproject/controller/AddGameController.java
  be.kuleuven.dbproject.controller.AddGameController
+be/kuleuven/dbproject/jdbi/Warenhuisjdbi.java
+ be.kuleuven.dbproject.jdbi.Warenhuisjdbi
 be/kuleuven/dbproject/jdbi/Bezoekerjdbi.java
  be.kuleuven.dbproject.jdbi.Bezoekerjdbi
-be/kuleuven/dbproject/model/GamePlatform.java
- be.kuleuven.dbproject.model.GamePlatform
+be/kuleuven/dbproject/controller/BeheerScherm2Controller.java
+ be.kuleuven.dbproject.controller.BeheerScherm2Controller
 be/kuleuven/dbproject/model/Museum.java
  be.kuleuven.dbproject.model.Museum
 be/kuleuven/dbproject/model/Warenhuis.java
  be.kuleuven.dbproject.model.Warenhuis
 be/kuleuven/dbproject/jdbi/JDBIManager.java
  be.kuleuven.dbproject.jdbi.JDBIManager
-be/kuleuven/dbproject/controller/AddBezoekerController.java
- be.kuleuven.dbproject.controller.AddBezoekerController
-be/kuleuven/dbproject/jdbi/GameCopyjdbi.java
- be.kuleuven.dbproject.jdbi.GameCopyjdbi
-be/kuleuven/dbproject/jdbi/GamePlatformjdbi.java
- be.kuleuven.dbproject.jdbi.GamePlatformjdbi
+be/kuleuven/dbproject/jdbi/Locatiejdbi.java
+ be.kuleuven.dbproject.jdbi.Locatiejdbi
+be/kuleuven/dbproject/controller/VerplaatsCopyController.java
+ be.kuleuven.dbproject.controller.VerplaatsCopyController
+be/kuleuven/dbproject/controller/ProjectMainController.java
+ be.kuleuven.dbproject.controller.ProjectMainController
 be/kuleuven/dbproject/model/GameCopy.java
  be.kuleuven.dbproject.model.GameCopy
 be/kuleuven/dbproject/controller/AddPlatformController.java
  be.kuleuven.dbproject.controller.AddPlatformController
 be/kuleuven/dbproject/ProjectMain.java
  be.kuleuven.dbproject.ProjectMain
-be/kuleuven/dbproject/model/Locatie.java
- be.kuleuven.dbproject.model.Locatie
+be/kuleuven/dbproject/controller/BeheerScherm1Controller.java
+ be.kuleuven.dbproject.controller.BeheerScherm1Controller
 be/kuleuven/dbproject/jdbi/Gamejdbi.java
  be.kuleuven.dbproject.jdbi.Gamejdbi
 be/kuleuven/dbproject/model/Bezoeker.java
@@ -52,17 +52,17 @@ be/kuleuven/dbproject/controller/BeheerAttachesController.java
  be.kuleuven.dbproject.controller.BeheerAttachesController
 be/kuleuven/dbproject/controller/AddWarenhuisController.java
  be.kuleuven.dbproject.controller.AddWarenhuisController
-be/kuleuven/dbproject/controller/BeheerScherm2Controller.java
- be.kuleuven.dbproject.controller.BeheerScherm2Controller
 be/kuleuven/dbproject/controller/AddGameCopyController.java
  be.kuleuven.dbproject.controller.AddGameCopyController
-be/kuleuven/dbproject/jdbi/Locatiejdbi.java
- be.kuleuven.dbproject.jdbi.Locatiejdbi
-be/kuleuven/dbproject/jdbi/Warenhuisjdbi.java
- be.kuleuven.dbproject.jdbi.Warenhuisjdbi
-be/kuleuven/dbproject/jdbi/Museumjdbi.java
- be.kuleuven.dbproject.jdbi.Museumjdbi
+be/kuleuven/dbproject/model/Locatie.java
+ be.kuleuven.dbproject.model.Locatie
+be/kuleuven/dbproject/controller/AddBezoekerController.java
+ be.kuleuven.dbproject.controller.AddBezoekerController
+be/kuleuven/dbproject/jdbi/GamePlatformjdbi.java
+ be.kuleuven.dbproject.jdbi.GamePlatformjdbi
+be/kuleuven/dbproject/jdbi/GameCopyjdbi.java
+ be.kuleuven.dbproject.jdbi.GameCopyjdbi
+be/kuleuven/dbproject/model/GamePlatform.java
+ be.kuleuven.dbproject.model.GamePlatform
 be/kuleuven/dbproject/controller/BeheerScherm3Controller.java
  be.kuleuven.dbproject.controller.BeheerScherm3Controller
-be/kuleuven/dbproject/controller/BeheerScherm1Controller.java
- be.kuleuven.dbproject.controller.BeheerScherm1Controller
