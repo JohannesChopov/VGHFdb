@@ -100,7 +100,6 @@ public class BeheerScherm1Controller {
 
         tblConfigsGames.getColumns().addAll(col1,col2);
         tblConfigsGames.setItems(FXCollections.observableArrayList(gameJdbi.getAll()));
-        System.out.println(gameJdbi.getTitelById(4));
     }
 
     private void initTablePlatforms() {
@@ -217,10 +216,8 @@ public class BeheerScherm1Controller {
 
     private void deletePlatform() {
         TableView<Platform> selectedTable = tblConfigsPlatforms;
-        System.out.println("1");
         if (selectedTable != null) {
             Platform selectedPlatform = selectedTable.getSelectionModel().getSelectedItem();
-            System.out.println("2");
             if (selectedPlatform!= null) {
                 try {
                     // Delete from the Game table
@@ -264,10 +261,8 @@ public class BeheerScherm1Controller {
 
     private void deleteCurrentRow() {
         TableView<Game> selectedTable = tblConfigsGames;
-        System.out.println("1");
         if (selectedTable != null) {
             Game selectedGame = selectedTable.getSelectionModel().getSelectedItem();
-            System.out.println("2");
             if (selectedGame != null) {
                 try {
                     // Delete from the Game table

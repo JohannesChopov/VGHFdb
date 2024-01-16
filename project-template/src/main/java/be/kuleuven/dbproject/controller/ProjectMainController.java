@@ -21,7 +21,7 @@ public class ProjectMainController {
     public void initialize() {
         btnBeheerScherm1.setOnAction(e -> showBeheerScherm("scherm1"));
         btnBeheerScherm2.setOnAction(e -> showBeheerScherm("scherm2"));
-        btnConfigAttaches.setOnAction(e -> showBeheerScherm("attaches"));
+        btnConfigAttaches.setOnAction(e -> showBeheerScherm("scherm3"));
     }
 
     private void showBeheerScherm(String id) {

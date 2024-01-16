@@ -53,4 +53,13 @@ public class Warenhuisjdbi /*implements Locatiejdbi<Warenhuis>*/{
             return null;
         }
     }
+
+    public int getGameCopyCountByWarenhuis(Warenhuis warenhuis) {
+        String sql = "SELECT COUNT(*) FROM GameCopy WHERE warenhuisID = :warenhuisID";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("warenhuisID", warenhuis.getID())
+                        .mapTo(Integer.class)
+                        .one());
+    }
 }

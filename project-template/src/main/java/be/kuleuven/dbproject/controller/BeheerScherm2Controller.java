@@ -1,6 +1,7 @@
 package be.kuleuven.dbproject.controller;
 
 import be.kuleuven.dbproject.jdbi.*;
+import be.kuleuven.dbproject.model.Game;
 import be.kuleuven.dbproject.model.GameCopy;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -55,6 +56,13 @@ public class BeheerScherm2Controller {
             var stage = (Stage) btnClose.getScene().getWindow();
             stage.close();
         });
+
+        tblConfigs.setOnMouseClicked(e -> {
+            if(e.getClickCount() == 2 && tblConfigs.getSelectionModel().getSelectedItem() != null) {
+                var selectedRow = tblConfigs.getSelectionModel().getSelectedItem();
+                modifyCopyDoubleClick(selectedRow);
+            }
+        });
     }
 
     private void initTable() {
@@ -98,7 +106,6 @@ public class BeheerScherm2Controller {
         else return "WARENHUIS";
     }
 
-
     private void addNewRow() {
         try {
             Stage stage = new Stage();
@@ -118,12 +125,48 @@ public class BeheerScherm2Controller {
             // After the form is closed, check if it was submitted
             if (controller.isSubmitted()) {
                 gameCopyJdbi.insert(controller.getNewCopy());
-                System.out.println(gameCopyJdbi.getAll());
                 refreshTables();
             }
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Error", "Error opening the add form.");
+        }
+    }
+
+    private void modifyCopyDoubleClick(GameCopy selectedRow) {
+        GameCopy selected = selectedRow;
+        if (selected != null) {
+            try {
+                // Open a form to edit the game
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("verplaatsCopy.fxml"));
+                var root = (AnchorPane) loader.load();
+                var scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setTitle("Verplaats gamecopy");
+                stage.initModality(Modality.APPLICATION_MODAL);
+
+                // Get the controller of the GameForm
+                VerplaatsCopyController controller = loader.getController();
+
+                // Initialize the form with the selected game
+                controller.initialize(selected);
+
+                // Show the form and wait for it to be closed
+                stage.showAndWait();
+
+                // After the form is closed, check if it was submitted
+                if (controller.isSubmitted()) {
+                    // Update the item in the database
+                    //gameJdbi.update(controller.getUpdatedGame(), selected);
+
+                    // Refresh the table to reflect changes
+                    refreshTables();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert("Error", "Error opening the edit form.");
+            }
         }
     }
 

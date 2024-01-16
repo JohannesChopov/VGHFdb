@@ -13,6 +13,6 @@
       </Text>
       <Button fx:id="btnBeheerScherm1" layoutX="15.0" layoutY="82.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="Bewerk" />
       <Button fx:id="btnBeheerScherm2" layoutX="15.0" layoutY="147.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="Overzicht" />
-      <Button fx:id="btnConfigAttaches" layoutX="15.0" layoutY="212.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="Beheer Config Attaches" />
+      <Button fx:id="btnConfigAttaches" layoutX="15.0" layoutY="212.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="Overzicht" />
    </children>
 </AnchorPane>
