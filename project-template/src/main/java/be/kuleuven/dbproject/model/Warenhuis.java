@@ -9,8 +9,7 @@ public class Warenhuis extends Locatie{
 
     }
 
-    public Warenhuis(int warenhuisID, String naam, String adres){
-        this.warenhuisID = warenhuisID;
+    public Warenhuis(String naam, String adres){
         this.naam = naam;
         this.adres = adres;
     }

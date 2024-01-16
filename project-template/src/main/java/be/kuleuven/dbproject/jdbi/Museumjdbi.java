@@ -35,13 +35,13 @@ public class Museumjdbi /*implements Locatiejdbi<Museum>*/{
 
     public void delete(Museum museum) {
         jdbi.useHandle(handle -> {
-            handle.createUpdate("DELETE FROM GameCopy WHERE museumID IN (SELECT museumID FROM Museum WHERE MuseumID = :MuseumID)")
+            handle.createUpdate("DELETE FROM GameCopy WHERE museumID = :museumID")
                     .bind("museumID", museum.getID())
                     .execute();
-            handle.createUpdate("DELETE FROM Bezoeker WHERE museumID IN (SELECT museumID FROM Museum WHERE MuseumID = :MuseumID)")
+            handle.createUpdate("DELETE FROM Donatie WHERE museumID = :museumID")
                     .bind("museumID", museum.getID())
                     .execute();
-            handle.createUpdate("DELETE FROM Donatie WHERE museumID IN (SELECT museumID FROM Museum WHERE MuseumID = :MuseumID)")
+            handle.createUpdate("DELETE FROM Bezoeker WHERE museumID = :museumID")
                     .bind("museumID", museum.getID())
                     .execute();
             handle.createUpdate("DELETE FROM Museum WHERE MuseumID = :museumID")
