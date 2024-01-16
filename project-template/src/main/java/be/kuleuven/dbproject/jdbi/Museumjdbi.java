@@ -56,6 +56,17 @@ public class Museumjdbi /*implements Locatiejdbi<Museum>*/{
                 mapTo(Integer.class).list().get(0));
     }
 
+    public String getNaam(Museum museum) {
+        try {
+            return jdbi.withHandle(handle -> handle.createQuery("SELECT naam FROM Museum WHERE museumID = :museumID")
+                    .bind("museumID", museum.getID())
+                    .mapTo(String.class)
+                    .one());
+        } catch (IllegalStateException e) {
+            return null;
+        }
+    }
+
     public String getNameById(int museumId) {
         try {
             return jdbi.withHandle(handle -> handle.createQuery("SELECT naam FROM Museum WHERE museumID = :museumID")
@@ -67,4 +78,39 @@ public class Museumjdbi /*implements Locatiejdbi<Museum>*/{
         }
     }
 
+    public int getBezoekersCountByMuseumID(int museumID) {
+        String sql = "SELECT COUNT(*) FROM Bezoeker WHERE museumID = :museumID";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("museumID", museumID)
+                        .mapTo(Integer.class)
+                        .one());
+    }
+
+    public int getDonatiesCountByMuseumID(int museumID) {
+        String sql = "SELECT COUNT(*) FROM Donatie WHERE museumID = :museumID";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("museumID", museumID)
+                        .mapTo(Integer.class)
+                        .one());
+    }
+
+    public double getTotalDonatiesValueByMuseumID(int museumID) {
+        String sql = "SELECT COALESCE(SUM(som), 0) FROM Donatie WHERE museumID = :museumID";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("museumID", museumID)
+                        .mapTo(Double.class)
+                        .one());
+    }
+
+    public int getGameCopyCountByMuseum(Museum museum) {
+        String sql = "SELECT COUNT(*) FROM GameCopy WHERE museumID = :museumID";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("museumID", museum.getID())
+                        .mapTo(Integer.class)
+                        .one());
+    }
 }
