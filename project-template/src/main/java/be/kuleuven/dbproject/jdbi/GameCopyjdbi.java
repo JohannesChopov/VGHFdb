@@ -15,7 +15,9 @@ public class GameCopyjdbi {
     }
 
     public List<GameCopy> getAll() {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM GameCopy").mapToBean(GameCopy.class).list());
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM GameCopy")
+                .mapToBean(GameCopy.class)
+                .list());
     }
 
     public void insert(GameCopy gamecopy) {
@@ -68,4 +70,16 @@ public class GameCopyjdbi {
                         .one());
     }
 
+    public List<GameCopy> getGameCopiesByGameID(int gameID) {
+        String sql = "SELECT GameCopy.*, GamePlatform.gameplatformID AS gpID " +
+                "FROM GameCopy " +
+                "JOIN GamePlatform ON GameCopy.gameplatformID = GamePlatform.gameplatformID " +
+                "WHERE GamePlatform.gameID = :gameID";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("gameID", gameID)
+                        .mapToBean(GameCopy.class)
+                        .list());
+    }
 }

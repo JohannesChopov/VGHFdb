@@ -66,4 +66,15 @@ public class Warenhuisjdbi /*implements Locatiejdbi<Warenhuis>*/{
                         .mapTo(Integer.class)
                         .one());
     }
+
+    public String getAdresById(int warenhuisId) {
+        try {
+            return jdbi.withHandle(handle -> handle.createQuery("SELECT adres FROM Warenhuis WHERE warenhuisID = :warenhuisID")
+                    .bind("warenhuisID", warenhuisId)
+                    .mapTo(String.class)
+                    .one());
+        } catch (IllegalStateException e) {
+            return null;
+        }
+    }
 }

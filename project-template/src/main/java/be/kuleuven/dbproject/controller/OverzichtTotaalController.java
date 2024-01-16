@@ -11,7 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-public class TotaalOverzichtController {
+public class OverzichtTotaalController {
 
     @FXML
     private Button btnClose;

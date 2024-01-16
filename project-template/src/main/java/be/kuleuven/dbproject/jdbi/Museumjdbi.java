@@ -113,4 +113,15 @@ public class Museumjdbi /*implements Locatiejdbi<Museum>*/{
                         .mapTo(Integer.class)
                         .one());
     }
+
+    public String getAdresById(Integer museumId) {
+        try {
+            return jdbi.withHandle(handle -> handle.createQuery("SELECT adres FROM Museum WHERE museumID = :museumID")
+                    .bind("museumID", museumId)
+                    .mapTo(String.class)
+                    .one());
+        } catch (IllegalStateException e) {
+            return null;
+        }
+    }
 }
