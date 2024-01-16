@@ -2,7 +2,6 @@ package be.kuleuven.dbproject.jdbi;
 
 
 import be.kuleuven.dbproject.model.Locatie;
-import be.kuleuven.dbproject.model.Museum;
 import be.kuleuven.dbproject.model.Warenhuis;
 import org.jdbi.v3.core.Jdbi;
 
@@ -22,20 +21,25 @@ public class Warenhuisjdbi /*implements Locatiejdbi<Warenhuis>*/{
     }
 
     public void insert(Warenhuis warenhuis) {
-        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Warenhuis (warenhuisID, naam, adres) VALUES (:warenhuisID, :naam, :adres)").bindBean(warenhuis).execute());
+        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Warenhuis (naam, adres) VALUES (:naam, :adres)").bindBean(warenhuis).execute());
     }
 
     public void update(Warenhuis warenhuisNieuw, Warenhuis warenhuisOud) {
-        jdbi.useHandle(handle -> handle.createUpdate("UPDATE Warenhuis SET (warenhuisID, naam, adres) = (:warenhuisID, :naam, :adres) WHERE warenhuisID = :warenhuisIDOud")
+        jdbi.useHandle(handle -> handle.createUpdate("UPDATE Warenhuis SET (naam, adres) = (:naam, :adres) WHERE warenhuisID = :warenhuisIDOud")
                 .bindBean(warenhuisNieuw)
                 .bind("warenhuisIDOud", warenhuisOud.getID())
                 .execute());
     }
 
     public void delete(Warenhuis warenhuis) {
-        jdbi.useHandle(handle -> handle.createUpdate("DELETE FROM Warenhuis WHERE warenhuisID = :warenhuisID")
-                .bind("warenhuisID", warenhuis.getID())
-                .execute());
+        jdbi.useHandle(handle -> {
+            handle.createUpdate("DELETE FROM GameCopy WHERE warenhuisID = :warenhuisID")
+                    .bind("warenhuisID", warenhuis.getID())
+                    .execute();
+            handle.createUpdate("DELETE FROM Warenhuis WHERE warenhuisID = :warenhuisID")
+                    .bind("warenhuisID", warenhuis.getID())
+                    .execute();
+        });
     }
 
     public int getId(Warenhuis warenhuis) {

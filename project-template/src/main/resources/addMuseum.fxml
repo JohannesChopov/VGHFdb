@@ -6,13 +6,27 @@
 
 <AnchorPane prefHeight="280.0" prefWidth="501.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.AddMuseumController">
     <children>
-        <Text fontSmoothingType="LCD" layoutX="50.0" layoutY="30.0" stroke="#ff0707" strokeWidth="0.0" text="Toevoeging van Museum" textAlignment="CENTER" wrappingWidth="200.0">
-         <font>
-            <Font size="16.0" />
-         </font></Text>
-        <TextField fx:id="naamField" layoutX="50.0" layoutY="100.0" promptText="naam" />
-        <TextField fx:id="inkomprijsField" layoutX="50.0" layoutY="52.0" promptText="inkomprijs" />
-        <TextField fx:id="adresField" layoutX="50.0" layoutY="150.0" promptText="adres" />
-        <Button fx:id="addMuseum" layoutX="50.0" layoutY="200.0" mnemonicParsing="false" text="Voeg Museum toe" />
+        <VBox alignment="CENTER" spacing="10.0" layoutX="100.0" layoutY="50.0">
+
+            <HBox spacing="10.0" alignment="BASELINE_RIGHT">
+                <Text text="Naam:" />
+                <TextField fx:id="naamField" promptText="naam" prefWidth="200"/>
+            </HBox>
+
+            <HBox spacing="10.0" alignment="BASELINE_RIGHT">
+                <Text text="Inkomprijs:" />
+                <TextField fx:id="inkomprijsField" promptText="inkomprijs" prefWidth="200"/>
+            </HBox>
+
+            <HBox spacing="10.0" alignment="BASELINE_RIGHT">
+                <Text text="Adres:" />
+                <TextField fx:id="adresField" promptText="adres" prefWidth="200"/>
+            </HBox>
+
+            <HBox spacing="10.0" alignment="BASELINE_RIGHT">
+                <Button fx:id="addMuseum" mnemonicParsing="false" text="Voeg Museum toe" prefWidth="200"/>
+            </HBox>
+
+        </VBox>
     </children>
 </AnchorPane>

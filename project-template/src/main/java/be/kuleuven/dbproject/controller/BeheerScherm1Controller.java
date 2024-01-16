@@ -30,6 +30,10 @@ public class BeheerScherm1Controller {
     @FXML
     private Button btnDeleteMuseum;
     @FXML
+    private Button btnAddWarenhuis;
+    @FXML
+    private Button btnDeleteWarenhuis;
+    @FXML
     private Button btnDeleteBezoeker;
     @FXML
     private Button btnDeletePlatform;
@@ -70,6 +74,7 @@ public class BeheerScherm1Controller {
         btnAddDonatie.setOnAction(e -> addNewDonatie());
         btnAddBezoeker.setOnAction(e -> addNewBezoeker());
         btnAddMuseum.setOnAction(e -> addNewMuseum());
+        btnAddWarenhuis.setOnAction(e -> addNewWarenhuis());
 
         btnDelete.setOnAction(e -> {
             verifyOneRowSelected();
@@ -94,6 +99,11 @@ public class BeheerScherm1Controller {
         btnDeleteMuseum.setOnAction(e -> {
             verifyOneMuseumRowSelected();
             deleteMuseum();
+        });
+
+        btnDeleteWarenhuis.setOnAction(e -> {
+            verifyOneWarenhuisRowSelected();
+            deleteWarenhuis();
         });
 
         btnClose.setOnAction(e -> {
@@ -418,6 +428,57 @@ public class BeheerScherm1Controller {
         }
     }
 
+    private void addNewWarenhuis() {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addWarenhuis.fxml"));
+            var root = (AnchorPane) loader.load();
+            var scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Voeg warenhuis toe");
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            // Get the controller of the GameForm
+            AddWarenhuisController controller = loader.getController();
+            controller.initialize();
+            // Show the form and wait for it to be closed
+            stage.showAndWait();
+
+            // After the form is closed, check if it was submitted
+            if (controller.isSubmitted()) {
+                // Update the item in the database
+                warenhuisjdbi.insert(controller.getNieuwWarenhuis());
+
+                // Refresh the table to reflect changes
+                refreshTables();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Error opening the add form.");
+        }
+    }
+
+    private void deleteWarenhuis() {
+        TableView<Warenhuis> selectedTable = tblConfigsWarenhuizen;
+        System.out.println("1");
+        if (selectedTable != null) {
+            Warenhuis selectedWarenhuis = selectedTable.getSelectionModel().getSelectedItem();
+            System.out.println("2");
+            if (selectedWarenhuis!= null) {
+                try {
+                    // Delete from the Game table
+                    warenhuisjdbi.delete(selectedWarenhuis);
+                    //selectedTable.getItems().remove(selectedGame);
+
+                    // Refresh other tables
+                    refreshTables();
+                } catch (Exception e) {
+                    showAlert("Error", "Error deleting the selected item.");
+                }
+            }
+        }
+    }
+
     private void addNewGame() {
         try {
             Stage stage = new Stage();
@@ -549,6 +610,11 @@ public class BeheerScherm1Controller {
     private void verifyOneMuseumRowSelected() {
         if(tblConfigsMusea.getSelectionModel().getSelectedCells().size() == 0) {
             showAlert("Hela!", "Selecteer eerst een Museum dat je wilt verwijderen");
+        }
+    }
+    private void verifyOneWarenhuisRowSelected() {
+        if(tblConfigsWarenhuizen.getSelectionModel().getSelectedCells().size() == 0) {
+            showAlert("Hela!", "Selecteer eerst een Warenhuis dat je wilt verwijderen");
         }
     }
 }
