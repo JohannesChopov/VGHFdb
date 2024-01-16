@@ -14,13 +14,11 @@ public class ProjectMainController {
     @FXML
     private Button btnBeheerScherm1;
     @FXML
-    private Button btnBeheerScherm2;
-    @FXML
     private Button btnConfigAttaches;
 
     public void initialize() {
         btnBeheerScherm1.setOnAction(e -> showBeheerScherm("scherm1"));
-        btnBeheerScherm2.setOnAction(e -> showBeheerScherm("scherm2"));
+
         btnConfigAttaches.setOnAction(e -> showBeheerScherm("scherm3"));
     }
 

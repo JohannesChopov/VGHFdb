@@ -1,5 +1,6 @@
 package be.kuleuven.dbproject.controller;
 
+import be.kuleuven.dbproject.ProjectMain;
 import be.kuleuven.dbproject.jdbi.*;
 import be.kuleuven.dbproject.model.*;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -57,6 +58,8 @@ public class BeheerScherm1Controller {
     private TableView<Bezoeker> tblConfigsBezoekers;
     @FXML
     private TableView<Donatie> tblConfigsDonaties;
+    @FXML
+    private Button btnBeheerScherm2;
 
     private final Gamejdbi gameJdbi = new Gamejdbi();
     private final Platformjdbi platformjdbi = new Platformjdbi();
@@ -66,6 +69,22 @@ public class BeheerScherm1Controller {
     private final Bezoekerjdbi bezoekerjdbi = new Bezoekerjdbi();
     private final Donatiejdbi donatiejdbi = new Donatiejdbi();
 
+    private void showBeheerScherm(String id) {
+        var resourceName = "beheer" + id + ".fxml";
+        try {
+            var stage = new Stage();
+            var root = (AnchorPane) FXMLLoader.load(getClass().getClassLoader().getResource(resourceName));
+            var scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Admin " + id);
+            stage.initOwner(ProjectMain.getRootStage());
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.show();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Kan beheerscherm " + resourceName + " niet vinden", e);
+        }
+    }
 
     public void initialize() {
         initTables();
@@ -75,7 +94,7 @@ public class BeheerScherm1Controller {
         btnAddBezoeker.setOnAction(e -> addNewBezoeker());
         btnAddMuseum.setOnAction(e -> addNewMuseum());
         btnAddWarenhuis.setOnAction(e -> addNewWarenhuis());
-
+        btnBeheerScherm2.setOnAction(e -> showBeheerScherm("scherm2"));
         btnDelete.setOnAction(e -> {
             verifyOneRowSelected();
             deleteCurrentRow();

@@ -1,6 +1,7 @@
 package be.kuleuven.dbproject.controller;
 
 import be.kuleuven.dbproject.jdbi.*;
+import be.kuleuven.dbproject.model.Bezoeker;
 import be.kuleuven.dbproject.model.Game;
 import be.kuleuven.dbproject.model.GameCopy;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -26,8 +27,6 @@ public class BeheerScherm2Controller {
     @FXML
     private Button btnAdd;
     @FXML
-    private Button btnModify;
-    @FXML
     private Button btnClose;
     @FXML
     private TableView<GameCopy> tblConfigs;
@@ -43,10 +42,7 @@ public class BeheerScherm2Controller {
     public void initialize() {
         initTable();
         btnAdd.setOnAction(e -> addNewRow());
-        btnModify.setOnAction(e -> {
-            verifyOneRowSelected();
-            modifyCurrentRow();
-        });
+
         btnDelete.setOnAction(e -> {
             verifyOneRowSelected();
             deleteCurrentRow();
@@ -182,12 +178,26 @@ public class BeheerScherm2Controller {
     }
 
     private void deleteCurrentRow() {
+        TableView<GameCopy> selectedTable = tblConfigs;
+        System.out.println("1");
+        if (selectedTable != null) {
+            GameCopy selectedGameCopy = selectedTable.getSelectionModel().getSelectedItem();
+            System.out.println("2");
+            if (selectedGameCopy!= null) {
+                try {
+                    // Delete from the Game table
+                    gameCopyJdbi.delete(selectedGameCopy);
+                    //selectedTable.getItems().remove(selectedGame);
 
+                    // Refresh other tables
+                    refreshTables();
+                } catch (Exception e) {
+                    showAlert("Error", "Error deleting the selected item.");
+                }
+            }
+        }
     }
 
-    private void modifyCurrentRow() {
-
-    }
 
     public void showAlert(String title, String content) {
         var alert = new Alert(Alert.AlertType.WARNING);
