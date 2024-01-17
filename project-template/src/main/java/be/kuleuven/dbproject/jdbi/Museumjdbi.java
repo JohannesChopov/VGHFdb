@@ -17,12 +17,11 @@ public class Museumjdbi implements Interfacejdbi<Museum>{
         this.jdbi = JDBIManager.getJdbi();
     }
 
-    //@Override
     public List<Museum> getAll() {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Museum").
                 mapToBean(Museum.class).list());
     }
-
+    @Override
     public void insert(Museum museum) {
         jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Museum (naam, inkomprijs, adres) VALUES (:naam, :inkomprijs, :adres)").bindBean(museum).execute());
     }

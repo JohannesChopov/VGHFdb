@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 
 
-public class AddPlatformController {
+public class AddPlatformController implements AddItemController<Platform>{
     @FXML
     private TextField Platformname;
 
@@ -18,7 +18,7 @@ public class AddPlatformController {
 
     private Platform nieuwePlatform;
     private boolean submitted = false;
-
+    @Override
     public void initialize() {
         btnAddPlatform.setOnAction(e -> handleAddBtn());
     }
@@ -29,12 +29,12 @@ public class AddPlatformController {
         submitted = true;
         closeForm();
     }
-
+    @Override
     public boolean isSubmitted() {
         return submitted;
     }
-
-    public Platform getNieuwePlatform() {
+    @Override
+    public Platform getNewItem() {
         return nieuwePlatform;
     }
 

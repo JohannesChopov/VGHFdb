@@ -18,7 +18,7 @@ public class Platformjdbi implements Interfacejdbi<Platform>{
     public List<Platform> getAll() {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Platform").mapToBean(Platform.class).list());
     }
-
+    @Override
     public void insert(Platform platform) {
         jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Platform (naam) VALUES (:naam)")
                 .bindBean(platform)

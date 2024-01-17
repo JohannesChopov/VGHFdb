@@ -15,12 +15,11 @@ public class Warenhuisjdbi implements Interfacejdbi<Warenhuis>{
         this.jdbi = JDBIManager.getJdbi();
     }
 
-    //@Override
     public List<Warenhuis> getAll() {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Warenhuis")
                 .mapToBean(Warenhuis.class).list());
     }
-
+    @Override
     public void insert(Warenhuis warenhuis) {
         jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Warenhuis (naam, adres) VALUES (:naam, :adres)").bindBean(warenhuis).execute());
     }

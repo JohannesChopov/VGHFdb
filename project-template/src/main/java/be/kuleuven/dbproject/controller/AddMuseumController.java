@@ -11,7 +11,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class AddMuseumController {
+public class AddMuseumController implements AddItemController<Museum>{
     @FXML
     private TextField naamField;
     @FXML
@@ -24,6 +24,7 @@ public class AddMuseumController {
     private Museum nieuwMuseum;
     private boolean submitted = false;
 
+    @Override
     public void initialize() {
         addMuseum.setOnAction(e -> handleAddBtn());
     }
@@ -32,25 +33,20 @@ public class AddMuseumController {
         String inkomText = inkomprijsField.getText();
         double inkomPrijs = 0.0;
         try {
-            // Convert the text to an int
             inkomPrijs = Double.parseDouble(inkomText);
-
-            // You can use the 'museumID' variable as needed in your code
         } catch (NumberFormatException e) {
-            // Handle the case where the input is not a valid integer
             System.err.println("Invalid input. Please enter a valid integer.");
         }
-        // Update the game details based on the form fields
         nieuwMuseum = new Museum(naamField.getText(), inkomPrijs, adresField.getText());
         submitted = true;
         closeForm();
     }
-
+    @Override
     public boolean isSubmitted() {
         return submitted;
     }
-
-    public Museum getNewMuseum() {
+    @Override
+    public Museum getNewItem() {
         return nieuwMuseum;
     }
 

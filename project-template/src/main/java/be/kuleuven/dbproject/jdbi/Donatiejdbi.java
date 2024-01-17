@@ -15,7 +15,7 @@ public class Donatiejdbi implements Interfacejdbi<Donatie> {
     public List<Donatie> getAll() {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Donatie").mapToBean(Donatie.class).list());
     }
-
+    @Override
     public void insert(Donatie donatie) {
         jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Donatie (museumID, som, datum) VALUES (:museumID, :som, :datum)").bindBean(donatie).execute());
     }

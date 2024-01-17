@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class AddWarenhuisController {
+public class AddWarenhuisController implements AddItemController<Warenhuis>{
     @FXML
     private TextField naamField;
     @FXML
@@ -16,7 +16,7 @@ public class AddWarenhuisController {
 
     private Warenhuis nieuwWarenhuis;
     private boolean submitted = false;
-
+    @Override
     public void initialize() {
         addWarenhuis.setOnAction(e -> handleAddBtn());
     }
@@ -27,12 +27,12 @@ public class AddWarenhuisController {
         submitted = true;
         closeForm();
     }
-
+    @Override
     public boolean isSubmitted() {
         return submitted;
     }
-
-    public Warenhuis getNieuwWarenhuis() {
+    @Override
+    public Warenhuis getNewItem() {
         return nieuwWarenhuis;
     }
 

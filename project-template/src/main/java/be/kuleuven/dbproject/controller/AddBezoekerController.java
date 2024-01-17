@@ -13,7 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class AddBezoekerController {
+public class AddBezoekerController implements AddItemController<Bezoeker>{
     @FXML
     private TextField naamField;
     @FXML
@@ -25,6 +25,7 @@ public class AddBezoekerController {
     private boolean submitted = false;
     private final Museumjdbi museumjdbi = new Museumjdbi();
 
+    @Override
     public void initialize() {
         museumIDField.setItems(FXCollections.observableArrayList(museumjdbi.getAll()));
         addBezoeker.setOnAction(e -> handleAddBtn());
@@ -39,12 +40,13 @@ public class AddBezoekerController {
         submitted = true;
         closeForm();
     }
-
+    @Override
     public boolean isSubmitted() {
         return submitted;
     }
 
-    public Bezoeker getNewBezoeker() {
+    @Override
+    public Bezoeker getNewItem() {
         return nieuweBezoeker;
     }
 

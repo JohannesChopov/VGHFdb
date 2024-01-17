@@ -10,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-public class AddDonatieController {
+public class AddDonatieController implements AddItemController<Donatie>{
     @FXML
     private TextField somField;
     @FXML
@@ -24,8 +24,8 @@ public class AddDonatieController {
     private boolean submitted = false;
     private final Museumjdbi museumjdbi = new Museumjdbi();
 
+    @Override
     public void initialize() {
-
         addDonatie.setOnAction(e -> handleAddBtn());
         museumIDField.setItems(FXCollections.observableArrayList(museumjdbi.getAll()));
     }
@@ -35,27 +35,21 @@ public class AddDonatieController {
         int locatieID = selectedLocatie.getID();
         String somText = somField.getText();
         double som = 0.0;
-
         try {
-            // Convert the text to an int
             som = Double.parseDouble(somText);
-
-            // You can use the 'museumID' variable as needed in your code
         } catch (NumberFormatException e) {
-            // Handle the case where the input is not a valid integer
             System.err.println("Invalid input. Please enter a valid integer.");
         }
-        // Update the game details based on the form fields
         nieuweDonatie = new Donatie(locatieID, som, datumField.getValue().toString());
         submitted = true;
         closeForm();
     }
-
+    @Override
     public boolean isSubmitted() {
         return submitted;
     }
-
-    public Donatie getNewDonatie() {
+    @Override
+    public Donatie getNewItem() {
         return nieuweDonatie;
     }
 

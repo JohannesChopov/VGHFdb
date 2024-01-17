@@ -16,7 +16,7 @@ public class Bezoekerjdbi implements Interfacejdbi<Bezoeker>{
     public List<Bezoeker> getAll() {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Bezoeker").mapToBean(Bezoeker.class).list());
     }
-
+    @Override
     public void insert(Bezoeker bezoeker) {
         jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Bezoeker (museumID, naam) VALUES (:museumID, :naam)").bindBean(bezoeker).execute());
     }
