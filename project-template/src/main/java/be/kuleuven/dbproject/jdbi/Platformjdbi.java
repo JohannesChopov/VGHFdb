@@ -8,7 +8,7 @@ import org.jdbi.v3.core.Jdbi;
 import java.util.List;
 import java.util.Optional;
 
-public class Platformjdbi {
+public class Platformjdbi implements Interfacejdbi<Platform>{
     private final Jdbi jdbi;
 
     public Platformjdbi() {
@@ -32,6 +32,7 @@ public class Platformjdbi {
                 .execute());
     }
 
+    @Override
     public void delete(Platform platform) {
         jdbi.useTransaction(handle -> {
             // Delete from GameCopy first

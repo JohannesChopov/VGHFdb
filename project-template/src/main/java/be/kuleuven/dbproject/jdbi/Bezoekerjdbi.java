@@ -6,7 +6,7 @@ import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
 
-public class Bezoekerjdbi {
+public class Bezoekerjdbi implements Interfacejdbi<Bezoeker>{
     private final Jdbi jdbi;
 
     public Bezoekerjdbi() {
@@ -25,6 +25,7 @@ public class Bezoekerjdbi {
         jdbi.useHandle(handle -> handle.createUpdate("UPDATE Bezoeker SET (museumID, naam) = (:museumID, :naam) WHERE bezoekerID = :bezoekerIDOud").bindBean(bezoekerNieuw).bind("bezoekerIDOud", bezoekerOud.getBezoekerID()).execute());
     }
 
+    @Override
     public void delete(Bezoeker bezoeker) {
         jdbi.useHandle(handle -> handle.createUpdate("DELETE FROM Bezoeker WHERE bezoekerID = :bezoekerID").bind("bezoekerID", bezoeker.getBezoekerID()).execute());
     }

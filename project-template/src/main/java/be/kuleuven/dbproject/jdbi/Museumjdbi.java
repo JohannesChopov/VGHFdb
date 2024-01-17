@@ -1,6 +1,7 @@
 package be.kuleuven.dbproject.jdbi;
 
 
+import be.kuleuven.dbproject.model.Locatie;
 import be.kuleuven.dbproject.model.Museum;
 import be.kuleuven.dbproject.model.GameCopy;
 import be.kuleuven.dbproject.model.Warenhuis;
@@ -9,7 +10,7 @@ import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
 
-public class Museumjdbi /*implements Locatiejdbi<Museum>*/{
+public class Museumjdbi implements Interfacejdbi<Museum>{
     private final Jdbi jdbi;
 
     public Museumjdbi() {
@@ -33,6 +34,7 @@ public class Museumjdbi /*implements Locatiejdbi<Museum>*/{
                 .execute());
     }
 
+    @Override
     public void delete(Museum museum) {
         jdbi.useHandle(handle -> {
             handle.createUpdate("DELETE FROM GameCopy WHERE museumID = :museumID")
@@ -72,6 +74,17 @@ public class Museumjdbi /*implements Locatiejdbi<Museum>*/{
             return jdbi.withHandle(handle -> handle.createQuery("SELECT naam FROM Museum WHERE museumID = :museumID")
                     .bind("museumID", museumId)
                     .mapTo(String.class)
+                    .one());
+        } catch (IllegalStateException e) {
+            return null;
+        }
+    }
+
+    public Museum getMuseumById(int museumId) {
+        try {
+            return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Museum WHERE museumID = :museumID")
+                    .bind("museumID", museumId)
+                    .mapTo(Museum.class)
                     .one());
         } catch (IllegalStateException e) {
             return null;

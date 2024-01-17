@@ -19,9 +19,9 @@ import java.util.List;
 public class BeheerScherm1Controller {
 
     @FXML
-    private Button btnDelete;
+    private Button btnDeleteGame;
     @FXML
-    private Button btnAdd;
+    private Button btnAddGame;
     @FXML
     private Button btnAddPlatform;
     @FXML
@@ -48,8 +48,6 @@ public class BeheerScherm1Controller {
     private TableView<Game> tblConfigsGames;
     @FXML
     private TableView<Platform> tblConfigsPlatforms;
-    @FXML
-    private TableView<GamePlatform> tblConfigsGamePlatforms;
     @FXML
     private TableView<Museum> tblConfigsMusea;
     @FXML
@@ -88,41 +86,37 @@ public class BeheerScherm1Controller {
 
     public void initialize() {
         initTables();
-        btnAdd.setOnAction(e -> addNewGame());
+        btnAddGame.setOnAction(e -> addNewGame());
         btnAddPlatform.setOnAction(e -> addNewPlatform());
         btnAddDonatie.setOnAction(e -> addNewDonatie());
         btnAddBezoeker.setOnAction(e -> addNewBezoeker());
         btnAddMuseum.setOnAction(e -> addNewMuseum());
         btnAddWarenhuis.setOnAction(e -> addNewWarenhuis());
+
         btnBeheerScherm2.setOnAction(e -> showBeheerScherm("scherm2"));
-        btnDelete.setOnAction(e -> {
-            verifyOneRowSelected();
-            deleteCurrentRow();
+
+        btnDeleteGame.setOnAction(e -> {
+            deleteSelectedItem(tblConfigsGames, gameJdbi, "game");
         });
 
         btnDeletePlatform.setOnAction(e -> {
-            verifyOnePlatformRowSelected();
-            deletePlatform();
+            deleteSelectedItem(tblConfigsPlatforms, platformjdbi, "platform");
         });
 
         btnDeleteDonatie.setOnAction(e -> {
-            verifyOneDonatieRowSelected();
-            deleteDonatie();
+            deleteSelectedItem(tblConfigsDonaties, donatiejdbi, "donatie");
         });
 
         btnDeleteBezoeker.setOnAction(e -> {
-            verifyOneBezoekerRowSelected();
-            deleteBezoeker();
+            deleteSelectedItem(tblConfigsBezoekers, bezoekerjdbi, "bezoeker");
         });
 
         btnDeleteMuseum.setOnAction(e -> {
-            verifyOneMuseumRowSelected();
-            deleteMuseum();
+            deleteSelectedItem(tblConfigsMusea, museumjdbi, "museum");
         });
 
         btnDeleteWarenhuis.setOnAction(e -> {
-            verifyOneWarenhuisRowSelected();
-            deleteWarenhuis();
+            deleteSelectedItem(tblConfigsWarenhuizen, warenhuisjdbi, "warenhuis");
         });
 
         btnClose.setOnAction(e -> {
@@ -251,43 +245,16 @@ public class BeheerScherm1Controller {
             stage.setScene(scene);
             stage.setTitle("Voeg platform toe");
             stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Get the controller of the GameForm
             AddPlatformController controller = loader.getController();
             controller.initialize();
-            // Show the form and wait for it to be closed
             stage.showAndWait();
-
-            // After the form is closed, check if it was submitted
             if (controller.isSubmitted()) {
-                // Update the item in the database
                 platformjdbi.insert(controller.getNieuwePlatform());
-
-                // Refresh the table to reflect changes
                 refreshTables();
             }
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Error", "Error opening the add form.");
-        }
-    }
-
-    private void deletePlatform() {
-        TableView<Platform> selectedTable = tblConfigsPlatforms;
-        if (selectedTable != null) {
-            Platform selectedPlatform = selectedTable.getSelectionModel().getSelectedItem();
-            if (selectedPlatform!= null) {
-                try {
-                    // Delete from the Game table
-                    platformjdbi.delete(selectedPlatform);
-                    //selectedTable.getItems().remove(selectedGame);
-
-                    // Refresh other tables
-                    refreshTables();
-                } catch (Exception e) {
-                    showAlert("Error", "Error deleting the selected item.");
-                }
-            }
         }
     }
 
@@ -300,19 +267,11 @@ public class BeheerScherm1Controller {
             stage.setScene(scene);
             stage.setTitle("Voeg donatie toe");
             stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Get the controller of the GameForm
             AddDonatieController controller = loader.getController();
             controller.initialize();
-            // Show the form and wait for it to be closed
             stage.showAndWait();
-
-            // After the form is closed, check if it was submitted
             if (controller.isSubmitted()) {
-                // Update the item in the database
                 donatiejdbi.insert(controller.getNewDonatie());
-
-                // Refresh the table to reflect changes
                 refreshTables();
             }
         } catch (IOException e) {
@@ -321,26 +280,7 @@ public class BeheerScherm1Controller {
         }
     }
 
-    private void deleteDonatie() {
-        TableView<Donatie> selectedTable = tblConfigsDonaties;
-        System.out.println("1");
-        if (selectedTable != null) {
-            Donatie selectedDonatie = selectedTable.getSelectionModel().getSelectedItem();
-            System.out.println("2");
-            if (selectedDonatie!= null) {
-                try {
-                    // Delete from the Game table
-                    donatiejdbi.delete(selectedDonatie);
-                    //selectedTable.getItems().remove(selectedGame);
 
-                    // Refresh other tables
-                    refreshTables();
-                } catch (Exception e) {
-                    showAlert("Error", "Error deleting the selected item.");
-                }
-            }
-        }
-    }
 
     private void addNewBezoeker() {
         try {
@@ -351,19 +291,11 @@ public class BeheerScherm1Controller {
             stage.setScene(scene);
             stage.setTitle("Voeg bezoeker toe");
             stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Get the controller of the GameForm
             AddBezoekerController controller = loader.getController();
             controller.initialize();
-            // Show the form and wait for it to be closed
             stage.showAndWait();
-
-            // After the form is closed, check if it was submitted
             if (controller.isSubmitted()) {
-                // Update the item in the database
                 bezoekerjdbi.insert(controller.getNewBezoeker());
-
-                // Refresh the table to reflect changes
                 refreshTables();
             }
         } catch (IOException e) {
@@ -372,26 +304,7 @@ public class BeheerScherm1Controller {
         }
     }
 
-    private void deleteBezoeker() {
-        TableView<Bezoeker> selectedTable = tblConfigsBezoekers;
-        System.out.println("1");
-        if (selectedTable != null) {
-            Bezoeker selectedBezoeker = selectedTable.getSelectionModel().getSelectedItem();
-            System.out.println("2");
-            if (selectedBezoeker!= null) {
-                try {
-                    // Delete from the Game table
-                    bezoekerjdbi.delete(selectedBezoeker);
-                    //selectedTable.getItems().remove(selectedGame);
 
-                    // Refresh other tables
-                    refreshTables();
-                } catch (Exception e) {
-                    showAlert("Error", "Error deleting the selected item.");
-                }
-            }
-        }
-    }
 
     private void addNewMuseum() {
         try {
@@ -402,19 +315,11 @@ public class BeheerScherm1Controller {
             stage.setScene(scene);
             stage.setTitle("Voeg museum toe");
             stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Get the controller of the GameForm
             AddMuseumController controller = loader.getController();
             controller.initialize();
-            // Show the form and wait for it to be closed
             stage.showAndWait();
-
-            // After the form is closed, check if it was submitted
             if (controller.isSubmitted()) {
-                // Update the item in the database
                 museumjdbi.insert(controller.getNewMuseum());
-
-                // Refresh the table to reflect changes
                 refreshTables();
             }
         } catch (IOException e) {
@@ -423,26 +328,7 @@ public class BeheerScherm1Controller {
         }
     }
 
-    private void deleteMuseum() {
-        TableView<Museum> selectedTable = tblConfigsMusea;
-        System.out.println("1");
-        if (selectedTable != null) {
-            Museum selectedMuseum = selectedTable.getSelectionModel().getSelectedItem();
-            System.out.println("2");
-            if (selectedMuseum!= null) {
-                try {
-                    // Delete from the Game table
-                    museumjdbi.delete(selectedMuseum);
-                    //selectedTable.getItems().remove(selectedGame);
 
-                    // Refresh other tables
-                    refreshTables();
-                } catch (Exception e) {
-                    showAlert("Error", "Error deleting the selected item.");
-                }
-            }
-        }
-    }
 
     private void addNewWarenhuis() {
         try {
@@ -453,45 +339,16 @@ public class BeheerScherm1Controller {
             stage.setScene(scene);
             stage.setTitle("Voeg warenhuis toe");
             stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Get the controller of the GameForm
             AddWarenhuisController controller = loader.getController();
             controller.initialize();
-            // Show the form and wait for it to be closed
             stage.showAndWait();
-
-            // After the form is closed, check if it was submitted
             if (controller.isSubmitted()) {
-                // Update the item in the database
                 warenhuisjdbi.insert(controller.getNieuwWarenhuis());
-
-                // Refresh the table to reflect changes
                 refreshTables();
             }
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Error", "Error opening the add form.");
-        }
-    }
-
-    private void deleteWarenhuis() {
-        TableView<Warenhuis> selectedTable = tblConfigsWarenhuizen;
-        System.out.println("1");
-        if (selectedTable != null) {
-            Warenhuis selectedWarenhuis = selectedTable.getSelectionModel().getSelectedItem();
-            System.out.println("2");
-            if (selectedWarenhuis!= null) {
-                try {
-                    // Delete from the Game table
-                    warenhuisjdbi.delete(selectedWarenhuis);
-                    //selectedTable.getItems().remove(selectedGame);
-
-                    // Refresh other tables
-                    refreshTables();
-                } catch (Exception e) {
-                    showAlert("Error", "Error deleting the selected item.");
-                }
-            }
         }
     }
 
@@ -504,39 +361,15 @@ public class BeheerScherm1Controller {
             stage.setScene(scene);
             stage.setTitle("Voeg game toe");
             stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Get the controller of the GameForm
             AddGameController controller = loader.getController();
             controller.initialize();
-            // Show the form and wait for it to be closed
             stage.showAndWait();
-
-            // After the form is closed, check if it was submitted
             if (controller.isSubmitted()) {
                 refreshTables();
             }
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Error", "Error opening the add form.");
-        }
-    }
-
-    private void deleteCurrentRow() {
-        TableView<Game> selectedTable = tblConfigsGames;
-        if (selectedTable != null) {
-            Game selectedGame = selectedTable.getSelectionModel().getSelectedItem();
-            if (selectedGame != null) {
-                try {
-                    // Delete from the Game table
-                    gameJdbi.delete(selectedGame);
-                    //selectedTable.getItems().remove(selectedGame);
-
-                    // Refresh other tables
-                    refreshTables();
-                } catch (Exception e) {
-                    showAlert("Error", "Error deleting the selected item.");
-                }
-            }
         }
     }
 
@@ -555,7 +388,6 @@ public class BeheerScherm1Controller {
         }
     }
 
-
     private void modifyGameDoubleClick(Game game) {
         Game selectedGame = game;
         if (selectedGame != null) {
@@ -568,22 +400,11 @@ public class BeheerScherm1Controller {
                 stage.setScene(scene);
                 stage.setTitle("Bewerk game");
                 stage.initModality(Modality.APPLICATION_MODAL);
-
-                // Get the controller of the GameForm
                 BewerkGameController controller = loader.getController();
-
-                // Initialize the form with the selected game
                 controller.initialize(selectedGame);
-
-                // Show the form and wait for it to be closed
                 stage.showAndWait();
-
-                // After the form is closed, check if it was submitted
                 if (controller.isSubmitted()) {
-                    // Update the item in the database
                     gameJdbi.update(controller.getUpdatedGame(), selectedGame);
-
-                    // Refresh the table to reflect changes
                     refreshTables();
                 }
             } catch (IOException e) {
@@ -601,34 +422,24 @@ public class BeheerScherm1Controller {
         alert.showAndWait();
     }
 
-    private void verifyOneRowSelected() {
-        if(tblConfigsGames.getSelectionModel().getSelectedCells().size() == 0) {
-            showAlert("Hela!", "Selecteer eerst een gametitel dat je wilt verwijderen");
+    private <T> void deleteSelectedItem(TableView<T> selectedTable, Interfacejdbi<T> repository, String item) {
+        verifyOneRowSelected(selectedTable, item);
+        if (selectedTable != null) {
+            T selectedItem = selectedTable.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                try {
+                    repository.delete(selectedItem);
+                    refreshTables();
+                } catch (Exception e) {
+                    showAlert("Error", "Error deleting the selected item.");
+                }
+            }
         }
     }
-    private void verifyOnePlatformRowSelected() {
-        if(tblConfigsPlatforms.getSelectionModel().getSelectedCells().size() == 0) {
-            showAlert("Hela!", "Selecteer eerst een platform dat je wilt verwijderen");
-        }
-    }
-    private void verifyOneDonatieRowSelected() {
-        if(tblConfigsDonaties.getSelectionModel().getSelectedCells().size() == 0) {
-            showAlert("Hela!", "Selecteer eerst een Donatie dat je wilt verwijderen");
-        }
-    }
-    private void verifyOneBezoekerRowSelected() {
-        if(tblConfigsBezoekers.getSelectionModel().getSelectedCells().size() == 0) {
-            showAlert("Hela!", "Selecteer eerst een Bezoeker dat je wilt verwijderen");
-        }
-    }
-    private void verifyOneMuseumRowSelected() {
-        if(tblConfigsMusea.getSelectionModel().getSelectedCells().size() == 0) {
-            showAlert("Hela!", "Selecteer eerst een Museum dat je wilt verwijderen");
-        }
-    }
-    private void verifyOneWarenhuisRowSelected() {
-        if(tblConfigsWarenhuizen.getSelectionModel().getSelectedCells().size() == 0) {
-            showAlert("Hela!", "Selecteer eerst een Warenhuis dat je wilt verwijderen");
+
+    private void verifyOneRowSelected(TableView<?> tableView, String item) {
+        if (tableView.getSelectionModel().getSelectedCells().size() == 0) {
+            showAlert("Hela!", "Selecteer eerst een " + item + " dat je wilt verwijderen");
         }
     }
 }

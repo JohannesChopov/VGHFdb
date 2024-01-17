@@ -5,7 +5,7 @@ import be.kuleuven.dbproject.model.Donatie;
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
-public class Donatiejdbi {
+public class Donatiejdbi implements Interfacejdbi<Donatie> {
     private final Jdbi jdbi;
 
     public Donatiejdbi() {
@@ -27,6 +27,7 @@ public class Donatiejdbi {
                 .execute());
     }
 
+    @Override
     public void delete(Donatie donatie) {
         jdbi.useHandle(handle -> handle.createUpdate("DELETE FROM Donatie WHERE donatieID = :donatieID")
                 .bind("donatieID", donatie.getDonatieID())

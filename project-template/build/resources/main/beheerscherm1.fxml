@@ -47,8 +47,8 @@
                 <Font name="Impact" size="25.0" />
             </font>
         </Text>
-        <Button fx:id="btnAdd" layoutX="15.0" layoutY="471.0" mnemonicParsing="false" text="Voeg Game toe" />
-        <Button fx:id="btnDelete" layoutX="15.0" layoutY="503.0" mnemonicParsing="false" text="Verwijder game" />
+        <Button fx:id="btnAddGame" layoutX="15.0" layoutY="471.0" mnemonicParsing="false" text="Voeg Game toe" />
+        <Button fx:id="btnDeleteGame" layoutX="15.0" layoutY="503.0" mnemonicParsing="false" text="Verwijder game" />
         <Button fx:id="btnAddPlatform" layoutX="257.0" layoutY="471.0" mnemonicParsing="false" text="Voeg platform toe" />
         <Button fx:id="btnDeletePlatform" layoutX="257.0" layoutY="503.0" mnemonicParsing="false" text="Verwijder platform" />
         <Button fx:id="btnAddMuseum" layoutX="458.0" layoutY="206.0" mnemonicParsing="false" text="Voeg museum toe" />

@@ -6,7 +6,7 @@ import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
 
-public class Gamejdbi {
+public class Gamejdbi implements Interfacejdbi<Game>{
     private final Jdbi jdbi;
 
     public Gamejdbi() {
@@ -30,7 +30,7 @@ public class Gamejdbi {
                 .bind("gameIDOud", gameOud.getGameID())
                 .execute());
     }
-
+    @Override
     public void delete(Game game) {
         jdbi.useTransaction(handle -> {
             // Delete from GameCopy first

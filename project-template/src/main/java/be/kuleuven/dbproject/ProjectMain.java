@@ -34,7 +34,7 @@ public class ProjectMain extends Application {
     }
 
     public static void main(String[] args) {
-        JDBIManager.init("jdbc:sqlite:ProjectLaurenceJohannes.db");
+        JDBIManager.getJdbi();
         launch();
     }
 }

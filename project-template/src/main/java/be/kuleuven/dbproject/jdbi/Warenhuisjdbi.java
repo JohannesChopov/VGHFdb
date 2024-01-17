@@ -2,12 +2,13 @@ package be.kuleuven.dbproject.jdbi;
 
 
 import be.kuleuven.dbproject.model.Locatie;
+import be.kuleuven.dbproject.model.Museum;
 import be.kuleuven.dbproject.model.Warenhuis;
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
 
-public class Warenhuisjdbi /*implements Locatiejdbi<Warenhuis>*/{
+public class Warenhuisjdbi implements Interfacejdbi<Warenhuis>{
     private final Jdbi jdbi;
 
     public Warenhuisjdbi() {
@@ -31,6 +32,7 @@ public class Warenhuisjdbi /*implements Locatiejdbi<Warenhuis>*/{
                 .execute());
     }
 
+    @Override
     public void delete(Warenhuis warenhuis) {
         jdbi.useHandle(handle -> {
             handle.createUpdate("DELETE FROM GameCopy WHERE warenhuisID = :warenhuisID")
@@ -77,4 +79,16 @@ public class Warenhuisjdbi /*implements Locatiejdbi<Warenhuis>*/{
             return null;
         }
     }
+
+    public Warenhuis getWarenhuisById(int warenhuisID) {
+        try {
+            return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Warenhuis WHERE warenhuisID = :warenhuisID")
+                    .bind("warenhuisID", warenhuisID)
+                    .mapTo(Warenhuis.class)
+                    .one());
+        } catch (IllegalStateException e) {
+            return null;
+        }
+    }
+
 }

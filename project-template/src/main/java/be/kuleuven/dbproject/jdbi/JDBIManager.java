@@ -15,7 +15,7 @@ public class JDBIManager {
 
     public static Jdbi getJdbi() {
         if (jdbi == null) {
-            throw new IllegalStateException("JdbiManager not initialized");
+            init("jdbc:sqlite:ProjectLaurenceJohannes.db");
         }
         return jdbi;
     }

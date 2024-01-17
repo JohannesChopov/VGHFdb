@@ -4,6 +4,7 @@ import be.kuleuven.dbproject.jdbi.*;
 import be.kuleuven.dbproject.model.Game;
 import be.kuleuven.dbproject.model.GameCopy;
 import be.kuleuven.dbproject.model.GamePlatform;
+import be.kuleuven.dbproject.model.Locatie;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
