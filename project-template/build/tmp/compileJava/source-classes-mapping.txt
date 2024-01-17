@@ -70,5 +70,9 @@ be/kuleuven/dbproject/controller/AddPlatformController.java
  be.kuleuven.dbproject.controller.AddPlatformController
 be/kuleuven/dbproject/controller/BeheerScherm2Controller.java
  be.kuleuven.dbproject.controller.BeheerScherm2Controller
+be/kuleuven/dbproject/model/MuseumBezoek.java
+ be.kuleuven.dbproject.model.MuseumBezoek
+be/kuleuven/dbproject/jdbi/MuseumBezoekjdbi.java
+ be.kuleuven.dbproject.jdbi.MuseumBezoekjdbi
 be/kuleuven/dbproject/controller/BeheerScherm1Controller.java
  be.kuleuven.dbproject.controller.BeheerScherm1Controller
