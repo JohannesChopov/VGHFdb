@@ -29,20 +29,20 @@ public class BeheerScherm3Controller {
 
 
     public void initialize() {
-        btnGameOverzicht.setOnAction(e -> showBeheerScherm("Game"));
-        btnPlatformOverzicht.setOnAction(e -> showBeheerScherm("Platform"));
-        btnBezoekerOverzicht.setOnAction(e -> showBeheerScherm("Bezoeker"));
-        btnWarenhuisOverzicht.setOnAction(e -> showBeheerScherm("Warenhuis"));
-        btnMuseumOverzicht.setOnAction(e -> showBeheerScherm("Museum"));
-        btnDonatieOverzicht.setOnAction(e -> showBeheerScherm("Donatie"));
-        btnTotaalOverzicht.setOnAction(e -> showBeheerScherm("Totaal"));
+        btnGameOverzicht.setOnAction(e -> showOverzichtScherm("Game"));
+        btnPlatformOverzicht.setOnAction(e -> showOverzichtScherm("Platform"));
+        btnBezoekerOverzicht.setOnAction(e -> showOverzichtScherm("Bezoeker"));
+        btnWarenhuisOverzicht.setOnAction(e -> showOverzichtScherm("Warenhuis"));
+        btnMuseumOverzicht.setOnAction(e -> showOverzichtScherm("Museum"));
+        btnDonatieOverzicht.setOnAction(e -> showOverzichtScherm("Donatie"));
+        btnTotaalOverzicht.setOnAction(e -> showOverzichtScherm("Totaal"));
         btnClose.setOnAction(e -> {
             var stage = (Stage) btnClose.getScene().getWindow();
             stage.close();
         });
     }
 
-    private void showBeheerScherm(String id) {
+    private void showOverzichtScherm(String id) {
         var resourceName = "overzicht" + id + ".fxml";
         try {
             var stage = new Stage();

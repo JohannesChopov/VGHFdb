@@ -133,7 +133,6 @@ public class BeheerScherm2Controller {
         GameCopy selected = selectedRow;
         if (selected != null) {
             try {
-                // Open a form to edit the game
                 Stage stage = new Stage();
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("verplaatsCopy.fxml"));
                 var root = (AnchorPane) loader.load();
@@ -141,17 +140,9 @@ public class BeheerScherm2Controller {
                 stage.setScene(scene);
                 stage.setTitle("Verplaats gamecopy");
                 stage.initModality(Modality.APPLICATION_MODAL);
-
-                // Get the controller of the GameForm
                 VerplaatsCopyController controller = loader.getController();
-
-                // Initialize the form with the selected game
                 controller.initialize(selected);
-
-                // Show the form and wait for it to be closed
                 stage.showAndWait();
-
-                // After the form is closed, check if it was submitted
                 if (controller.isSubmitted()) {
                     // Update the item in the database
                     //gameJdbi.update(controller.getUpdatedGame(), selected);
@@ -168,7 +159,6 @@ public class BeheerScherm2Controller {
 
     private void refreshTables() {
         try {
-            // Update data sources for other tables
             initTable();
         } catch (Exception e) {
             e.printStackTrace(); // Print the exception details for debugging

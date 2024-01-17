@@ -129,9 +129,9 @@ public class BeheerScherm1Controller {
         tblConfigsGames.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tblConfigsGames.getColumns().clear();
 
-        TableColumn<Game, String> col1 = new TableColumn<>("gameID");
+        TableColumn<Game, String> col1 = new TableColumn<>("GameID");
         col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getGameID()));
-        TableColumn<Game, String> col2 = new TableColumn<>("titel");
+        TableColumn<Game, String> col2 = new TableColumn<>("Titel");
         col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getTitel()));
 
         tblConfigsGames.getColumns().addAll(col1,col2);
@@ -142,9 +142,9 @@ public class BeheerScherm1Controller {
         tblConfigsPlatforms.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tblConfigsPlatforms.getColumns().clear();
 
-        TableColumn<Platform, String> col1 = new TableColumn<>("platformID");
+        TableColumn<Platform, String> col1 = new TableColumn<>("PlatformID");
         col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getPlatformID()));
-        TableColumn<Platform, String> col2 = new TableColumn<>("naam");
+        TableColumn<Platform, String> col2 = new TableColumn<>("Naam");
         col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getNaam()));
 
         tblConfigsPlatforms.getColumns().addAll(col1,col2);
@@ -172,9 +172,9 @@ public class BeheerScherm1Controller {
         tblConfigsWarenhuizen.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tblConfigsWarenhuizen.getColumns().clear();
 
-        TableColumn<Warenhuis, String> col1 = new TableColumn<>("warenhuisID");
+        TableColumn<Warenhuis, String> col1 = new TableColumn<>("WarenhuisID");
         col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getID()));
-        TableColumn<Warenhuis, String> col2 = new TableColumn<>("naam");
+        TableColumn<Warenhuis, String> col2 = new TableColumn<>("Naam");
         col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getNaam()));
         TableColumn<Warenhuis, String> col3 = new TableColumn<>("Adres");
         col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getAdres()));
@@ -189,9 +189,9 @@ public class BeheerScherm1Controller {
 
         TableColumn<Bezoeker, String> col1 = new TableColumn<>("BezoekerID");
         col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getBezoekerID()));
-        TableColumn<Bezoeker, String> col2 = new TableColumn<>("naam");
+        TableColumn<Bezoeker, String> col2 = new TableColumn<>("Naam");
         col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getNaam()));
-        TableColumn<Bezoeker, String> col3 = new TableColumn<>("museumID");
+        TableColumn<Bezoeker, String> col3 = new TableColumn<>("MuseumID");
         col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getMuseumID()));
 
         tblConfigsBezoekers.getColumns().addAll(col1,col2,col3);
@@ -202,13 +202,13 @@ public class BeheerScherm1Controller {
         tblConfigsDonaties.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tblConfigsDonaties.getColumns().clear();
 
-        TableColumn<Donatie, String> col1 = new TableColumn<>("donatieID");
+        TableColumn<Donatie, String> col1 = new TableColumn<>("DonatieID");
         col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getDonatieID()));
-        TableColumn<Donatie, String> col2 = new TableColumn<>("som");
+        TableColumn<Donatie, String> col2 = new TableColumn<>("Som");
         col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getSom()));
-        TableColumn<Donatie, String> col3 = new TableColumn<>("datum");
+        TableColumn<Donatie, String> col3 = new TableColumn<>("Datum");
         col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getDatum()));
-        TableColumn<Donatie, String> col4 = new TableColumn<>("museumID");
+        TableColumn<Donatie, String> col4 = new TableColumn<>("MuseumID");
         col4.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getMuseumID()));
 
         tblConfigsDonaties.getColumns().addAll(col1,col2,col3,col4);
