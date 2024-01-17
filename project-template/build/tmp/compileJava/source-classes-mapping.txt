@@ -52,8 +52,8 @@ be/kuleuven/dbproject/jdbi/Platformjdbi.java
  be.kuleuven.dbproject.jdbi.Platformjdbi
 be/kuleuven/dbproject/jdbi/Museumjdbi.java
  be.kuleuven.dbproject.jdbi.Museumjdbi
-be/kuleuven/dbproject/controller/AddGameController.java
- be.kuleuven.dbproject.controller.AddGameController
+be/kuleuven/dbproject/controller/AddBezoekerController.java
+ be.kuleuven.dbproject.controller.AddBezoekerController
 be/kuleuven/dbproject/jdbi/Warenhuisjdbi.java
  be.kuleuven.dbproject.jdbi.Warenhuisjdbi
 be/kuleuven/dbproject/jdbi/Bezoekerjdbi.java
@@ -68,7 +68,7 @@ be/kuleuven/dbproject/controller/AddGameCopyController.java
  be.kuleuven.dbproject.controller.AddGameCopyController
 be/kuleuven/dbproject/controller/AddPlatformController.java
  be.kuleuven.dbproject.controller.AddPlatformController
-be/kuleuven/dbproject/controller/AddBezoekerController.java
- be.kuleuven.dbproject.controller.AddBezoekerController
+be/kuleuven/dbproject/controller/AddGameController.java
+ be.kuleuven.dbproject.controller.AddGameController
 be/kuleuven/dbproject/controller/BeheerScherm1Controller.java
  be.kuleuven.dbproject.controller.BeheerScherm1Controller

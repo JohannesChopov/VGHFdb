@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddGameController {
+public class AddGameController implements AddItemController<Game>{
 
     @FXML
     private TextField titelField;
@@ -34,6 +34,7 @@ public class AddGameController {
     private Game nieuweGame;
     private boolean submitted = false;
 
+    @Override
     public void initialize() {
         ObservableList<String> platformNames = FXCollections.observableArrayList(platformJdbi.getAllPlatformNames());
         platformListView.setItems(platformNames);
@@ -62,12 +63,12 @@ public class AddGameController {
         submitted = true;
         closeForm();
     }
-
+    @Override
     public boolean isSubmitted() {
         return submitted;
     }
-
-    public Game getNewGame() {
+    @Override
+    public Game getNewItem() {
         return nieuweGame;
     }
 

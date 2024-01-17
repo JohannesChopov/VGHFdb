@@ -87,7 +87,7 @@ public class BeheerScherm1Controller {
     public void initialize() {
         initTables();
 
-        btnAddGame.setOnAction(e -> addNewGame());
+        btnAddGame.setOnAction(e -> addNewItem("Game", gameJdbi));
         btnAddPlatform.setOnAction(e -> addNewItem("Platform", platformjdbi));
         btnAddDonatie.setOnAction(e -> addNewItem("Donatie", donatiejdbi));
         btnAddBezoeker.setOnAction(e -> addNewItem("Bezoeker", bezoekerjdbi));
@@ -215,27 +215,6 @@ public class BeheerScherm1Controller {
         tblConfigsDonaties.setItems(FXCollections.observableArrayList(donatiejdbi.getAll()));
     }
 
-    private void addNewGame() {
-        try {
-            Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addGame.fxml"));
-            var root = (AnchorPane) loader.load();
-            var scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Voeg game toe");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            AddGameController controller = loader.getController();
-            controller.initialize();
-            stage.showAndWait();
-            if (controller.isSubmitted()) {
-                refreshTables();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Error", "Error opening the add form.");
-        }
-    }
-
     private void refreshTables() {
         try {
             tblConfigsGames.setItems(FXCollections.observableArrayList(gameJdbi.getAll()));
@@ -313,13 +292,13 @@ public class BeheerScherm1Controller {
             stage.setScene(scene);
             stage.setTitle("Voeg " + item + " toe");
             stage.initModality(Modality.APPLICATION_MODAL);
-
             AddItemController<T> controller = loader.getController();
             controller.initialize();
             stage.showAndWait();
-
             if (controller.isSubmitted()) {
-                jdbi.insert(controller.getNewItem());
+                if (item != "Game") {
+                    jdbi.insert(controller.getNewItem());
+                }
                 refreshTables();
             }
         } catch (IOException e) {
