@@ -88,11 +88,11 @@ public class BeheerScherm1Controller {
         initTables();
 
         btnAddGame.setOnAction(e -> addNewGame());
-        btnAddPlatform.setOnAction(e -> addNewItem("addPlatform.fxml", "Voeg platform toe", platformjdbi));
-        btnAddDonatie.setOnAction(e -> addNewItem("addDonatie.fxml", "Voeg donatie toe", donatiejdbi));
-        btnAddBezoeker.setOnAction(e -> addNewItem("addBezoeker.fxml", "Voeg bezoeker toe", bezoekerjdbi));
-        btnAddMuseum.setOnAction(e -> addNewItem("addMuseum.fxml", "Voeg museum toe", museumjdbi));
-        btnAddWarenhuis.setOnAction(e -> addNewItem("addWarenhuis.fxml", "Voeg warenhuis toe", warenhuisjdbi));
+        btnAddPlatform.setOnAction(e -> addNewItem("Platform", platformjdbi));
+        btnAddDonatie.setOnAction(e -> addNewItem("Donatie", donatiejdbi));
+        btnAddBezoeker.setOnAction(e -> addNewItem("Bezoeker", bezoekerjdbi));
+        btnAddMuseum.setOnAction(e -> addNewItem("Museum", museumjdbi));
+        btnAddWarenhuis.setOnAction(e -> addNewItem("Warenhuis", warenhuisjdbi));
 
         btnBeheerScherm2.setOnAction(e -> showBeheerScherm("scherm2"));
 
@@ -304,14 +304,14 @@ public class BeheerScherm1Controller {
         }
     }
 
-    private <T> void addNewItem(String resourceName, String title, Interfacejdbi<T> jdbi) {
+    private <T> void addNewItem(String item, Interfacejdbi<T> jdbi) {
         try {
             Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(resourceName));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("add" + item + ".fxml"));
             var root = (AnchorPane) loader.load();
             var scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle(title);
+            stage.setTitle("Voeg " + item + " toe");
             stage.initModality(Modality.APPLICATION_MODAL);
 
             AddItemController<T> controller = loader.getController();

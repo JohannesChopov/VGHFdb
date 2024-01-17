@@ -66,9 +66,9 @@ be/kuleuven/dbproject/controller/AddWarenhuisController.java
  be.kuleuven.dbproject.controller.AddWarenhuisController
 be/kuleuven/dbproject/controller/AddGameCopyController.java
  be.kuleuven.dbproject.controller.AddGameCopyController
-be/kuleuven/dbproject/controller/BeheerScherm1Controller.java
- be.kuleuven.dbproject.controller.BeheerScherm1Controller
-be/kuleuven/dbproject/controller/AddBezoekerController.java
- be.kuleuven.dbproject.controller.AddBezoekerController
 be/kuleuven/dbproject/controller/AddPlatformController.java
  be.kuleuven.dbproject.controller.AddPlatformController
+be/kuleuven/dbproject/controller/AddBezoekerController.java
+ be.kuleuven.dbproject.controller.AddBezoekerController
+be/kuleuven/dbproject/controller/BeheerScherm1Controller.java
+ be.kuleuven.dbproject.controller.BeheerScherm1Controller
