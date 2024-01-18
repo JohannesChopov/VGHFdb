@@ -53,14 +53,11 @@ public class BeheerBezoekenController implements BeheerItemController{
             handleAddBtn();
             beheerScherm1Controller.refreshTables();
         });
-
-        /*
         btnDelete.setOnAction(e -> {
             verifyOneRowSelected();
             deleteCurrentRow();
+            beheerScherm1Controller.refreshTables();
         });
-
-         */
 
         btnClose.setOnAction(e -> {
             var stage = (Stage) btnClose.getScene().getWindow();
@@ -125,62 +122,6 @@ public class BeheerBezoekenController implements BeheerItemController{
         tblBezoeken.getColumns().addAll(col1,col2,col3,col4,col5);
         tblBezoeken.setItems(FXCollections.observableArrayList(museumbezoekjdbi.getAll()));
     }
-    /*
-    private void addNewRow() {
-        try {
-            Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addMuseumBezoek.fxml"));
-            var root = (AnchorPane) loader.load();
-            var scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Voeg bezoek toe");
-            stage.initModality(Modality.APPLICATION_MODAL);
-
-            AddMuseumBezoekController controller = loader.getController();
-            controller.initialize();
-            // Show the form and wait for it to be closed
-            stage.showAndWait();
-
-            // After the form is closed, check if it was submitted
-            if (controller.isSubmitted()) {
-                museumbezoekjdbi.insert(controller.getNewItem());
-                refreshTables();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Error", "Error opening the add form.");
-        }
-    }
-     */
-    /*
-    private void modifyDoubleClick(MuseumBezoek selectedRow) {
-        MuseumBezoek selected = selectedRow;
-        if (selected != null) {
-            try {
-                Stage stage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("verplaatsCopy.fxml"));
-                var root = (AnchorPane) loader.load();
-                var scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Verplaats gamecopy");
-                stage.initModality(Modality.APPLICATION_MODAL);
-                VerplaatsCopyController controller = loader.getController();
-                controller.initialize(selected);
-                stage.showAndWait();
-                if (controller.isSubmitted()) {
-                    // Update the item in the database
-                    //gameJdbi.update(controller.getUpdatedGame(), selected);
-
-                    // Refresh the table to reflect changes
-                    refreshTables();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert("Error", "Error opening the edit form.");
-            }
-        }
-    }
-     */
 
     private void refreshTables() {
         try {
@@ -192,20 +133,13 @@ public class BeheerBezoekenController implements BeheerItemController{
 
     }
 
-    /*
     private void deleteCurrentRow() {
-        TableView<GameCopy> selectedTable = tblConfigs;
-        System.out.println("1");
+        TableView<MuseumBezoek> selectedTable = tblBezoeken;
         if (selectedTable != null) {
-            GameCopy selectedGameCopy = selectedTable.getSelectionModel().getSelectedItem();
-            System.out.println("2");
-            if (selectedGameCopy!= null) {
+            MuseumBezoek selectedBezoek = selectedTable.getSelectionModel().getSelectedItem();
+            if (selectedBezoek!= null) {
                 try {
-                    // Delete from the Game table
-                    gameCopyJdbi.delete(selectedGameCopy);
-                    //selectedTable.getItems().remove(selectedGame);
-
-                    // Refresh other tables
+                    museumbezoekjdbi.delete(selectedBezoek);
                     refreshTables();
                 } catch (Exception e) {
                     showAlert("Error", "Error deleting the selected item.");
@@ -213,8 +147,6 @@ public class BeheerBezoekenController implements BeheerItemController{
             }
         }
     }
-     */
-
 
     public void showAlert(String title, String content) {
         var alert = new Alert(Alert.AlertType.WARNING);

@@ -17,7 +17,7 @@ public class OverzichtBezoekerController {
     @FXML
     private Button btnClose;
     @FXML
-    private TableView<Museum> tblConfigsMusea;
+    private TableView<MuseumBezoek> tblConfigsMusea;
     @FXML
     private TableView<Bezoeker> tblConfigBezoeker;
     @FXML
@@ -69,15 +69,18 @@ public class OverzichtBezoekerController {
         tblConfigsMusea.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tblConfigsMusea.getColumns().clear();
 
-        TableColumn<Museum, String> col1 = new TableColumn<>("museum ID");
-        col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getID()));
-        TableColumn<Museum, String> col2 = new TableColumn<>("naam");
-        col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getNaam()));
+        TableColumn<MuseumBezoek, String> col1 = new TableColumn<>("museumbezoekID");
+        col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getMuseumbezoekID()));
+        TableColumn<MuseumBezoek, String> col2 = new TableColumn<>("museum");
+        col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(museumBezoekjdbi.getMuseumByMuseumBezoekId(f.getValue().getMuseumbezoekID()).getNaam()));
+
+        TableColumn<MuseumBezoek, String> col3 = new TableColumn<>("datum");
+        col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getTijdsstip()));
 
 
 
-        tblConfigsMusea.getColumns().addAll(col1,col2);
-        tblConfigsMusea.setItems(FXCollections.observableArrayList(museumjdbi.getMuseumByBezoekerId(selectedBezoeker.getBezoekerID())));
+        tblConfigsMusea.getColumns().addAll(col1,col2,col3);
+        tblConfigsMusea.setItems(FXCollections.observableArrayList(museumBezoekjdbi.getMuseumBezoekByBezoekerId(selectedBezoeker.getBezoekerID())));
     }
 
     private String getNaamByBezoekerID(int bezoekerID) {

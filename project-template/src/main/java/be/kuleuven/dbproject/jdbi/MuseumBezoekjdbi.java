@@ -72,6 +72,18 @@ public class MuseumBezoekjdbi implements Interfacejdbi<MuseumBezoek> {
                 .orElse(null));
     }
 
+    public Museum getMuseumByMuseumBezoekId(int museumbezoekID) {
+        return jdbi.withHandle(handle -> handle.createQuery(
+                        "SELECT m.* FROM Museum m " +
+                                "JOIN MuseumBezoek mb ON m.museumID = mb.museumID " +
+                                "WHERE mb.museumbezoekID = :museumbezoekID")
+                .bind("museumbezoekID", museumbezoekID)
+                .mapToBean(Museum.class)
+                .findFirst()
+                .orElse(null));
+    }
+
+
     public String getMuseumNaamByMuseumID(int bezoekerID) {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT Naam FROM Museum WHERE museumID IN (SELECT museumID FROM MuseumBezoek WHERE bezoekerID = :bezoekerID)")
                 .bind("bezoekerID", bezoekerID)
@@ -106,10 +118,11 @@ public class MuseumBezoekjdbi implements Interfacejdbi<MuseumBezoek> {
     }
 
 
-    public List<MuseumBezoek> getMuseumByBezoekerId(int bezoekerId) {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Museum WHERE museumID IN (SELECT museumID FROM MuseumBezoek WHERE bezoekerID = :bezoekerID)")
+    public List<MuseumBezoek> getMuseumBezoekByBezoekerId(int bezoekerId) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM MuseumBezoek WHERE bezoekerID = :bezoekerID")
                 .bind("bezoekerID", bezoekerId)
                 .mapToBean(MuseumBezoek.class)
                 .list());
     }
+
 }
