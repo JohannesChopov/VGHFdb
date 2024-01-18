@@ -63,4 +63,11 @@ public class MuseumBezoekjdbi implements Interfacejdbi<MuseumBezoek> {
                 .findFirst()
                 .orElse(null));
     }
+    public int countVisitsByBezoeker(int bezoekerID) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT COUNT(*) FROM MuseumBezoek WHERE bezoekerID = :bezoekerID")
+                .bind("bezoekerID", bezoekerID)
+                .mapTo(Integer.class)
+                .one());
+    }
+
 }
