@@ -14,6 +14,10 @@ public class Bezoeker {
         this.naam = naam;
     }
 
+    public Bezoeker(String naam) {
+        this.naam = naam;
+    }
+
     @Override
     public String toString() {
         return "Bezoeker{" + "bezoekerID=" + bezoekerID + ", museumID='" + museumID  + ", naam='" + naam  + "'}";

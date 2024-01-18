@@ -1,4 +1,5 @@
 package be.kuleuven.dbproject.jdbi;
+import be.kuleuven.dbproject.controller.AddItemController;
 import be.kuleuven.dbproject.jdbi.JDBIManager;
 import be.kuleuven.dbproject.model.Bezoeker;
 import be.kuleuven.dbproject.model.Museum;
@@ -8,7 +9,7 @@ import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
 
-public class MuseumBezoekjdbi {
+public class MuseumBezoekjdbi implements Interfacejdbi<MuseumBezoek> {
     private final Jdbi jdbi;
 
     public MuseumBezoekjdbi() {
@@ -20,20 +21,19 @@ public class MuseumBezoekjdbi {
                 .mapToBean(MuseumBezoek.class)
                 .list());
     }
-
+    @Override
     public void insert(MuseumBezoek museumBezoek) {
         jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO MuseumBezoek (museumID, bezoekerID, tijdsstip) VALUES (:museumID, :bezoekerID, :tijdsstip)")
                 .bindBean(museumBezoek)
                 .execute());
     }
-
     public void update(MuseumBezoek museumBezoekNieuw, MuseumBezoek museumBezoekOud) {
         jdbi.useHandle(handle -> handle.createUpdate("UPDATE MuseumBezoek SET (museumID, bezoekerID, tijdsstip) = (:museumID, :bezoekerID, :tijdsstip) WHERE museumbezoekID = :museumbezoekIDOud")
                 .bindBean(museumBezoekNieuw)
                 .bind("museumbezoekIDOud", museumBezoekOud.getMuseumbezoekID())
                 .execute());
     }
-
+    @Override
     public void delete(MuseumBezoek museumBezoek) {
         jdbi.useHandle(handle -> handle.createUpdate("DELETE FROM MuseumBezoek WHERE museumbezoekID = :museumbezoekID")
                 .bind("museumbezoekID", museumBezoek.getMuseumbezoekID())

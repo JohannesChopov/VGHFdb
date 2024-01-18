@@ -91,7 +91,7 @@ public class BeheerScherm1Controller {
         btnAddGame.setOnAction(e -> addNewItem("Game", gameJdbi));
         btnAddPlatform.setOnAction(e -> addNewItem("Platform", platformjdbi));
         btnAddDonatie.setOnAction(e -> addNewItem("Donatie", donatiejdbi));
-        //btnAddBezoeker.setOnAction(e -> addNewItem("Bezoeker", bezoekerjdbi));
+        btnAddBezoeker.setOnAction(e -> addNewItem("MuseumBezoek", museumbezoekjdbi));
         btnAddMuseum.setOnAction(e -> addNewItem("Museum", museumjdbi));
         btnAddWarenhuis.setOnAction(e -> addNewItem("Warenhuis", warenhuisjdbi));
 
@@ -191,7 +191,8 @@ public class BeheerScherm1Controller {
         TableColumn<MuseumBezoek, String> col1 = new TableColumn<>("BezoekID");
         col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getMuseumbezoekID()));
         TableColumn<MuseumBezoek, String> col2 = new TableColumn<>("Bezoeker");
-        col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(museumbezoekjdbi.getBezoekerById(f.getValue().getBezoekerID()).getNaam()));
+        //col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(museumbezoekjdbi.getBezoekerById(f.getValue().getBezoekerID()).getNaam()));
+        col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getBezoekerID()));
         TableColumn<MuseumBezoek, String> col3 = new TableColumn<>("Museum");
         col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(museumbezoekjdbi.getMuseumById(f.getValue().getMuseumID()).getNaam()));
         TableColumn<MuseumBezoek, String> col4 = new TableColumn<>("Datum");

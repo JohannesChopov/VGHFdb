@@ -30,12 +30,18 @@ public class Bezoekerjdbi implements Interfacejdbi<Bezoeker>{
         jdbi.useHandle(handle -> handle.createUpdate("DELETE FROM Bezoeker WHERE bezoekerID = :bezoekerID").bind("bezoekerID", bezoeker.getBezoekerID()).execute());
     }
 
-    public Bezoeker selectByname(String naam) {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Bezoeker WHERE naam = :naam").bind("naam", naam).mapToBean(Bezoeker.class).list().get(0));
+    public Bezoeker selectByname(String name) {
+        List<Bezoeker> bezoekers = jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Bezoeker WHERE naam = :naam")
+                .bind("naam", name)
+                .mapToBean(Bezoeker.class)
+                .list());
+
+        return bezoekers.isEmpty() ? null : bezoekers.get(0);
     }
 
+
     public int getId(Bezoeker bezoeker) {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT id FROM Bezoeker WHERE naam = :naam").bind("naam", bezoeker.getNaam()).mapTo(Integer.class).list().get(0));
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT bezoekerID FROM Bezoeker WHERE naam = :naam").bind("naam", bezoeker.getNaam()).mapTo(Integer.class).list().get(0));
     }
     /*
     Voor als we met login willen werken
