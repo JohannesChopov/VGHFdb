@@ -1,6 +1,8 @@
 package be.kuleuven.dbproject.jdbi;
 
 
+import be.kuleuven.dbproject.model.Donatie;
+import be.kuleuven.dbproject.model.Game;
 import be.kuleuven.dbproject.model.GameCopy;
 import org.jdbi.v3.core.Jdbi;
 
@@ -79,6 +81,28 @@ public class GameCopyjdbi {
         return jdbi.withHandle(handle ->
                 handle.createQuery(sql)
                         .bind("gameID", gameID)
+                        .mapToBean(GameCopy.class)
+                        .list());
+    }
+
+    public List<GameCopy> getGameCopyByMuseumId(int museumID) {
+        String sql = "SELECT * FROM GameCopy " +
+                "WHERE GameCopy.museumID = :museumID";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("museumID", museumID)
+                        .mapToBean(GameCopy.class)
+                        .list());
+    }
+
+    public List<GameCopy> getGameCopyByWarenhuisId(int warenhuisID) {
+        String sql = "SELECT * FROM GameCopy " +
+                "WHERE GameCopy.warenhuisID = :warenhuisID";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("warenhuisID", warenhuisID)
                         .mapToBean(GameCopy.class)
                         .list());
     }

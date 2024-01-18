@@ -11,8 +11,8 @@
             <TableColumn prefWidth="195.9999984741211" text="C2" />
          </columns>
       </TableView>
-      <Button fx:id="btnClose" layoutX="24.0" layoutY="361.0" mnemonicParsing="false" text="Sluiten" />
-      <TableView fx:id="tblInfo" layoutX="470.0" layoutY="22.0" prefHeight="398.0" prefWidth="570.0">
+      <Button fx:id="btnClose" layoutX="430.5" layoutY="361.0" prefWidth="200.0" alignment="CENTER" prefHeight="50.0" mnemonicParsing="false" text="Sluiten" />
+      <TableView fx:id="tblInfo" layoutX="470.0" layoutY="22.0" prefHeight="326.0" prefWidth="570.0">
          <columns>
             <TableColumn minWidth="3.20001220703125" prefWidth="29.200014114379883" text="C1" />
             <TableColumn prefWidth="195.9999984741211" text="C2" />

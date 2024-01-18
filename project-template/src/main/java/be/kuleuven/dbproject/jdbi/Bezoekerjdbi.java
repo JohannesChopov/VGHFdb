@@ -2,6 +2,8 @@ package be.kuleuven.dbproject.jdbi;
 
 
 import be.kuleuven.dbproject.model.Bezoeker;
+import be.kuleuven.dbproject.model.GameCopy;
+import be.kuleuven.dbproject.model.Museum;
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
@@ -37,6 +39,27 @@ public class Bezoekerjdbi implements Interfacejdbi<Bezoeker>{
                 .list());
 
         return bezoekers.isEmpty() ? null : bezoekers.get(0);
+    }
+
+
+    public int getTotalAantalForMuseum(int museumID) {
+        String sql = "SELECT SUM(aantal) FROM Bezoeker WHERE museumID = :museumID";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("museumID", museumID)
+                        .mapTo(Integer.class)
+                        .one());
+    }
+
+    public List<Bezoeker> getBezoekerByMuseumId(int museumID) {
+        String sql = "SELECT * FROM Bezoeker " +
+                "WHERE Bezoeker.museumID = :museumID";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("museumID", museumID)
+                        .mapToBean(Bezoeker.class)
+                        .list());
     }
 
 

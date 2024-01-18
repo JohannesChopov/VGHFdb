@@ -27,8 +27,9 @@ public class AddBezoekerController implements AddItemController<Bezoeker>{
 
     @Override
     public void initialize() {
-        museumIDField.setItems(FXCollections.observableArrayList(museumjdbi.getAll()));
         addBezoeker.setOnAction(e -> handleAddBtn());
+        museumIDField.setItems(FXCollections.observableArrayList(museumjdbi.getAll()));
+
     }
 
     private void handleAddBtn() {

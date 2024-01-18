@@ -56,6 +56,14 @@ public class MuseumBezoekjdbi implements Interfacejdbi<MuseumBezoek> {
                 .orElse(null));
     }
 
+    public String getBezoekerNaamById(int bezoekerID) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT Naam FROM Bezoeker WHERE bezoekerID = :bezoekerID")
+                .bind("bezoekerID", bezoekerID)
+                .mapToBean(String.class)
+                .findFirst()
+                .orElse(null));
+    }
+
     public Museum getMuseumById(int museumID) {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Museum WHERE museumID = :museumID")
                 .bind("museumID", museumID)
@@ -63,6 +71,15 @@ public class MuseumBezoekjdbi implements Interfacejdbi<MuseumBezoek> {
                 .findFirst()
                 .orElse(null));
     }
+
+    public String getMuseumNaamByMuseumID(int bezoekerID) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT Naam FROM Museum WHERE museumID IN (SELECT museumID FROM MuseumBezoek WHERE bezoekerID = :bezoekerID)")
+                .bind("bezoekerID", bezoekerID)
+                .mapTo(String.class)
+                .findFirst()
+                .orElse(null));
+    }
+
     public int countVisitsByBezoeker(int bezoekerID) {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT COUNT(*) FROM MuseumBezoek WHERE bezoekerID = :bezoekerID")
                 .bind("bezoekerID", bezoekerID)
@@ -70,4 +87,29 @@ public class MuseumBezoekjdbi implements Interfacejdbi<MuseumBezoek> {
                 .one());
     }
 
+    public int countTotalVisits(int museumID) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT COUNT(*) FROM MuseumBezoek WHERE museumID = :museumID")
+                .bind("museumID", museumID)
+                .mapTo(Integer.class)
+                .one());
+    }
+
+    public List<MuseumBezoek> getBezoekerByMuseumId(int museumID) {
+        String sql = "SELECT * FROM MuseumBezoek " +
+                "WHERE MuseumBezoek.museumID = :museumID";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("museumID", museumID)
+                        .mapToBean(MuseumBezoek.class)
+                        .list());
+    }
+
+
+    public List<MuseumBezoek> getMuseumByBezoekerId(int bezoekerId) {
+        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Museum WHERE museumID IN (SELECT museumID FROM MuseumBezoek WHERE bezoekerID = :bezoekerID)")
+                .bind("bezoekerID", bezoekerId)
+                .mapToBean(MuseumBezoek.class)
+                .list());
+    }
 }

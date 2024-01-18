@@ -42,9 +42,6 @@ public class Museumjdbi implements Interfacejdbi<Museum>{
             handle.createUpdate("DELETE FROM Donatie WHERE museumID = :museumID")
                     .bind("museumID", museum.getID())
                     .execute();
-            handle.createUpdate("DELETE FROM Bezoeker WHERE museumID = :museumID")
-                    .bind("museumID", museum.getID())
-                    .execute();
             handle.createUpdate("DELETE FROM Museum WHERE MuseumID = :museumID")
                     .bind("museumID", museum.getID())
                     .execute();
@@ -83,7 +80,18 @@ public class Museumjdbi implements Interfacejdbi<Museum>{
         try {
             return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Museum WHERE museumID = :museumID")
                     .bind("museumID", museumId)
-                    .mapTo(Museum.class)
+                    .mapToBean(Museum.class)
+                    .one());
+        } catch (IllegalStateException e) {
+            return null;
+        }
+    }
+
+    public Museum getMuseumByBezoekerId(int bezoekerID) {
+        try {
+            return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Museum WHERE museumID IN (SELECT museumID FROM MuseumBezoek WHERE bezoekerID = :bezoekerID)")
+                    .bind("bezoekerID", bezoekerID)
+                    .mapToBean(Museum.class)
                     .one());
         } catch (IllegalStateException e) {
             return null;

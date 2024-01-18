@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.text.Text?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.AddGameCopyController">
+<AnchorPane prefHeight="213.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.AddGameCopyController">
    <children>
       <ChoiceBox fx:id="boxGame" layoutX="118.0" layoutY="40.0" prefHeight="26.0" prefWidth="396.0" />
       <ChoiceBox fx:id="boxPlatform" layoutX="118.0" layoutY="80.0" prefHeight="26.0" prefWidth="396.0" />
@@ -12,6 +12,6 @@
       <Text fx:id="textGame" layoutX="20.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="select game" wrappingWidth="100" />
       <Text fx:id="textPlatform" layoutX="20.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="select platform" wrappingWidth="100" />
       <Text fx:id="textPlaats" layoutX="20.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="select plaats" wrappingWidth="100" />
-      <Button fx:id="addBtn" layoutX="167.0" layoutY="175.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="addBtn" layoutX="118.0" layoutY="161.0" prefHeight="26.0" mnemonicParsing="false" text="Voeg copy van game toe" prefWidth="396.0"/>
    </children>
 </AnchorPane>
