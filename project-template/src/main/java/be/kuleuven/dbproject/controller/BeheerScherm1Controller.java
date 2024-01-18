@@ -60,6 +60,7 @@ public class BeheerScherm1Controller {
     private Button btnBeheerScherm2;
 
     private final Gamejdbi gameJdbi = new Gamejdbi();
+    private final GameCopyjdbi gamecopyjdbi = new GameCopyjdbi();
     private final Platformjdbi platformjdbi = new Platformjdbi();
     private final GamePlatformjdbi gamePlatformjdbi = new GamePlatformjdbi();
     private final Museumjdbi museumjdbi = new Museumjdbi();
@@ -71,15 +72,16 @@ public class BeheerScherm1Controller {
     private void showBeheerScherm(String id) {
         var resourceName = id + ".fxml";
         try {
-            var stage = new Stage();
-            var root = (AnchorPane) FXMLLoader.load(getClass().getClassLoader().getResource(resourceName));
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(resourceName));
+            var root = (AnchorPane) loader.load();
             var scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("Admin " + id);
-            stage.initOwner(ProjectMain.getRootStage());
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.show();
-
+            BeheerItemController controller = loader.getController();
+            controller.initialize(this);
+            stage.showAndWait();
         } catch (Exception e) {
             throw new RuntimeException("Kan beheerscherm " + resourceName + " niet vinden", e);
         }
@@ -101,7 +103,7 @@ public class BeheerScherm1Controller {
         btnDeleteGame.setOnAction(e -> {deleteSelectedItem(tblConfigsGames, gameJdbi, "game");});
         btnDeletePlatform.setOnAction(e -> {deleteSelectedItem(tblConfigsPlatforms, platformjdbi, "platform");});
         btnDeleteDonatie.setOnAction(e -> {deleteSelectedItem(tblConfigsDonaties, donatiejdbi, "donatie");});
-        //btnDeleteBezoeker.setOnAction(e -> {deleteSelectedItem(tblConfigsBezoekers, bezoekerjdbi, "bezoeker");});
+        btnDeleteBezoeker.setOnAction(e -> {deleteSelectedItem(tblConfigsBezoekers, bezoekerjdbi, "bezoeker");});
         btnDeleteMuseum.setOnAction(e -> {deleteSelectedItem(tblConfigsMusea, museumjdbi, "museum");});
         btnDeleteWarenhuis.setOnAction(e -> {deleteSelectedItem(tblConfigsWarenhuizen, warenhuisjdbi, "warenhuis");});
 
@@ -135,8 +137,11 @@ public class BeheerScherm1Controller {
         col1.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getGameID()));
         TableColumn<Game, String> col2 = new TableColumn<>("Titel");
         col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getTitel()));
+        TableColumn<Game, String> col3 = new TableColumn<>("Aantal copies");
+        col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(gamecopyjdbi.getCountByGameID(f.getValue().getGameID())));
 
-        tblConfigsGames.getColumns().addAll(col1,col2);
+
+        tblConfigsGames.getColumns().addAll(col1,col2,col3);
         tblConfigsGames.setItems(FXCollections.observableArrayList(gameJdbi.getAll()));
     }
 
@@ -200,11 +205,6 @@ public class BeheerScherm1Controller {
         tblConfigsBezoekers.setItems(FXCollections.observableArrayList(bezoekerjdbi.getAll()));
     }
 
-    public int test(int id) {
-        System.out.println(id);
-        return id;
-    }
-
     private void initTableDonaties() {
         tblConfigsDonaties.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tblConfigsDonaties.getColumns().clear();
@@ -222,7 +222,7 @@ public class BeheerScherm1Controller {
         tblConfigsDonaties.setItems(FXCollections.observableArrayList(donatiejdbi.getAll()));
     }
 
-    private void refreshTables() {
+    public void refreshTables() {
         try {
             tblConfigsGames.setItems(FXCollections.observableArrayList(gameJdbi.getAll()));
             tblConfigsPlatforms.setItems(FXCollections.observableArrayList(platformjdbi.getAll()));

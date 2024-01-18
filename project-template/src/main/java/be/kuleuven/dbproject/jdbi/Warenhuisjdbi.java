@@ -83,7 +83,7 @@ public class Warenhuisjdbi implements Interfacejdbi<Warenhuis>{
         try {
             return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Warenhuis WHERE warenhuisID = :warenhuisID")
                     .bind("warenhuisID", warenhuisID)
-                    .mapTo(Warenhuis.class)
+                    .mapToBean(Warenhuis.class)
                     .one());
         } catch (IllegalStateException e) {
             return null;

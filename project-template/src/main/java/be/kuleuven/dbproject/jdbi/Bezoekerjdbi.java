@@ -29,8 +29,19 @@ public class Bezoekerjdbi implements Interfacejdbi<Bezoeker>{
 
     @Override
     public void delete(Bezoeker bezoeker) {
-        jdbi.useHandle(handle -> handle.createUpdate("DELETE FROM Bezoeker WHERE bezoekerID = :bezoekerID").bind("bezoekerID", bezoeker.getBezoekerID()).execute());
+        jdbi.useTransaction(handle -> {
+            // Step 1: Delete related MuseumBezoeken
+            handle.createUpdate("DELETE FROM MuseumBezoek WHERE bezoekerID = :bezoekerID")
+                    .bind("bezoekerID", bezoeker.getBezoekerID())
+                    .execute();
+
+            // Step 2: Delete the Bezoeker
+            handle.createUpdate("DELETE FROM Bezoeker WHERE bezoekerID = :bezoekerID")
+                    .bind("bezoekerID", bezoeker.getBezoekerID())
+                    .execute();
+        });
     }
+
 
     public Bezoeker selectByname(String name) {
         List<Bezoeker> bezoekers = jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Bezoeker WHERE naam = :naam")
