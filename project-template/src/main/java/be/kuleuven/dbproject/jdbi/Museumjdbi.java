@@ -79,11 +79,11 @@ public class Museumjdbi implements Interfacejdbi<Museum>{
         }
     }
 
-    public Museum getMuseumById(int museumId) {
+    public Museum getMuseumById(int museumID) {
         try {
             return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Museum WHERE museumID = :museumID")
-                    .bind("museumID", museumId)
-                    .mapTo(Museum.class)
+                    .bind("museumID", museumID)
+                    .mapToBean(Museum.class)
                     .one());
         } catch (IllegalStateException e) {
             return null;

@@ -27,7 +27,7 @@ public class GameCopyjdbi {
     }
 
     public void update(GameCopy gamecopyNieuw, GameCopy gamecopyOud) {
-        jdbi.useHandle(handle -> handle.createUpdate("UPDATE GameCopy SET gameplatformID = :gameplatformID, museumID = :museumID, warenhuisID = :warenhuisID) WHERE GameCopyID = :GameCopyIDOud")
+        jdbi.useHandle(handle -> handle.createUpdate("UPDATE GameCopy SET gameplatformID = :gameplatformID, museumID = :museumID, warenhuisID = :warenhuisID WHERE GameCopyID = :GameCopyIDOud")
                 .bindBean(gamecopyNieuw)
                 .bind("GameCopyIDOud", gamecopyOud.getGamecopyID())
                 .execute());

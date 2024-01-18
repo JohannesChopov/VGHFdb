@@ -2,35 +2,37 @@ package be.kuleuven.dbproject.controller;
 
 import be.kuleuven.dbproject.jdbi.*;
 import be.kuleuven.dbproject.model.Bezoeker;
-import be.kuleuven.dbproject.model.Game;
 import be.kuleuven.dbproject.model.GameCopy;
+import be.kuleuven.dbproject.model.Museum;
 import be.kuleuven.dbproject.model.MuseumBezoek;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class BezoekenSchermController {
+public class BeheerBezoekenController implements BeheerItemController{
 
     @FXML
     private Button btnDelete;
     @FXML
-    private Button btnAdd;
-    @FXML
     private Button btnClose;
     @FXML
     private TableView<MuseumBezoek> tblBezoeken;
+    @FXML
+    private TextField naamField;
+    @FXML
+    private ChoiceBox<Museum> museumIDField;
+    @FXML
+    private Button addBezoeker;
+    @FXML
+    private DatePicker datumField;
 
     private final GameCopyjdbi gameCopyJdbi = new GameCopyjdbi();
     private final Gamejdbi gameJdbi = new Gamejdbi();
@@ -39,11 +41,18 @@ public class BezoekenSchermController {
     private final Museumjdbi museumjdbi = new Museumjdbi();
     private final Warenhuisjdbi warenhuisjdbi = new Warenhuisjdbi();
     private final MuseumBezoekjdbi museumbezoekjdbi = new MuseumBezoekjdbi();
+    private Bezoekerjdbi bezoekerjdbi = new Bezoekerjdbi();
 
+    private MuseumBezoek nieuwBezoek;
+    private Bezoeker nieuweBezoeker;
 
-    public void initialize() {
+    public void initialize(BeheerScherm1Controller beheerScherm1Controller) {
         initTableBezoeken();
-        btnAdd.setOnAction(e -> addNewRow());
+        museumIDField.setItems(FXCollections.observableArrayList(museumjdbi.getAll()));
+        addBezoeker.setOnAction(e -> {
+            handleAddBtn();
+            beheerScherm1Controller.refreshTables();
+        });
 
         /*
         btnDelete.setOnAction(e -> {
@@ -67,6 +76,37 @@ public class BezoekenSchermController {
          */
     }
 
+    private void handleAddBtn() {
+        String naam = naamField.getText();
+        Bezoeker bezoeker = bezoekerjdbi.selectByname(naam);
+
+        if (bezoeker == null) {
+            nieuweBezoeker = new Bezoeker(naam);
+            bezoekerjdbi.insert(nieuweBezoeker);
+        } else {
+            nieuweBezoeker = bezoeker;
+        }
+
+        System.out.println(bezoekerjdbi.getId(nieuweBezoeker));
+
+        int bezoekerID = bezoekerjdbi.getId(nieuweBezoeker);
+
+        Museum selectedMuseum = museumIDField.getValue();
+        int museumID = selectedMuseum.getID();
+
+        String datum = datumField.getValue().toString();
+
+        nieuwBezoek = new MuseumBezoek(museumID,bezoekerID,datum);
+        museumbezoekjdbi.insert(nieuwBezoek);
+        refreshTables();
+
+        museumIDField.setValue(null);
+        datumField.setValue(null);
+        naamField.setText(null);
+
+        System.out.println(bezoekerID);
+    }
+
     private void initTableBezoeken() {
         tblBezoeken.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tblBezoeken.getColumns().clear();
@@ -85,28 +125,7 @@ public class BezoekenSchermController {
         tblBezoeken.getColumns().addAll(col1,col2,col3,col4,col5);
         tblBezoeken.setItems(FXCollections.observableArrayList(museumbezoekjdbi.getAll()));
     }
-
-    private String getTitel(int gameplatformID) {
-        int gameID = gamePlatformjdbi.getGameIdByGamePlatformId(gameplatformID);
-        return gameJdbi.getTitelById(gameID);
-    }
-    private String getPlatform(int gameplatformID) {
-        int platformID = gamePlatformjdbi.getPlatformIdByGamePlatformId(gameplatformID);
-        return platformjdbi.getNameById(platformID);
-    }
-    private String getPlaats(GameCopy gamecopy) {
-        if (gamecopy.getWarenhuisID() == null) {
-            return museumjdbi.getNameById(gamecopy.getMuseumID());
-        }
-        else return warenhuisjdbi.getNameById(gamecopy.getWarenhuisID());
-    }
-    private String getStatus(int id) {
-        if (id == 0) {
-            return "MUSEUM";
-        }
-        else return "WARENHUIS";
-    }
-
+    /*
     private void addNewRow() {
         try {
             Stage stage = new Stage();
@@ -132,6 +151,7 @@ public class BezoekenSchermController {
             showAlert("Error", "Error opening the add form.");
         }
     }
+     */
     /*
     private void modifyDoubleClick(MuseumBezoek selectedRow) {
         MuseumBezoek selected = selectedRow;

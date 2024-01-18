@@ -1,35 +1,36 @@
 package be.kuleuven.dbproject.controller;
 
 import be.kuleuven.dbproject.jdbi.*;
-import be.kuleuven.dbproject.model.Bezoeker;
-import be.kuleuven.dbproject.model.Game;
-import be.kuleuven.dbproject.model.GameCopy;
+import be.kuleuven.dbproject.model.*;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
-public class BeheerScherm2Controller {
+public class BeheerScherm2Controller implements BeheerItemController {
 
     @FXML
     private Button btnDelete;
     @FXML
-    private Button btnAdd;
-    @FXML
     private Button btnClose;
     @FXML
     private TableView<GameCopy> tblConfigs;
+    @FXML
+    private ChoiceBox<Game> boxGame;
+    @FXML
+    private ChoiceBox<Platform> boxPlatform;
+    @FXML
+    private ChoiceBox<Locatie> boxLocatie;
+    @FXML
+    private Button addBtn;
 
     private final GameCopyjdbi gameCopyJdbi = new GameCopyjdbi();
     private final Gamejdbi gameJdbi = new Gamejdbi();
@@ -38,14 +39,31 @@ public class BeheerScherm2Controller {
     private final Museumjdbi museumjdbi = new Museumjdbi();
     private final Warenhuisjdbi warenhuisjdbi = new Warenhuisjdbi();
 
+    private GameCopy nieuweKopie;
 
-    public void initialize() {
+    @Override
+    public void initialize(BeheerScherm1Controller beheerScherm1Controller) {
         initTable();
-        btnAdd.setOnAction(e -> addNewRow());
+
+        boxGame.setItems(FXCollections.observableArrayList(gameJdbi.getAll()));
+        boxGame.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                // If a game is selected, update the platform ChoiceBox with the possible platforms
+                updatePlatformChoiceBox(newValue);
+            }
+        });
+        boxLocatie.setItems(FXCollections.observableArrayList(warenhuisjdbi.getAll()));
+        boxLocatie.getItems().addAll(museumjdbi.getAll());
+
+        addBtn.setOnAction(e -> {
+            handleAddBtn();
+            beheerScherm1Controller.refreshTables();
+        });
 
         btnDelete.setOnAction(e -> {
             verifyOneRowSelected();
             deleteCurrentRow();
+            beheerScherm1Controller.refreshTables();
         });
 
         btnClose.setOnAction(e -> {
@@ -81,6 +99,37 @@ public class BeheerScherm2Controller {
         tblConfigs.setItems(FXCollections.observableArrayList(gameCopyJdbi.getAll()));
     }
 
+    private void handleAddBtn() {
+        Game selectedGame = boxGame.getValue();
+        Platform selectedPlatform = boxPlatform.getValue();
+        Locatie selectedLocatie = boxLocatie.getValue();
+
+        if (selectedGame == null || selectedPlatform == null || selectedLocatie == null) {
+            // Handle validation error, e.g., show an alert to the user
+            return;
+        }
+
+        int gameID = selectedGame.getGameID();
+        int platformID = selectedPlatform.getPlatformID();
+        int gameplatformID = gamePlatformjdbi.getGamePlatformId(gameID,platformID);
+        int locatieID = selectedLocatie.getID();
+
+        if (selectedLocatie instanceof Warenhuis) {
+            nieuweKopie = new GameCopy(gameplatformID,null,locatieID);
+        }
+        else {
+            nieuweKopie = new GameCopy(gameplatformID,locatieID,null);
+        }
+
+        gameCopyJdbi.insert(nieuweKopie);
+
+        refreshTables();
+
+        boxGame.setValue(null);
+        boxPlatform.setValue(null);
+        boxLocatie.setValue(null);
+    }
+
     private String getTitel(int gameplatformID) {
         int gameID = gamePlatformjdbi.getGameIdByGamePlatformId(gameplatformID);
         return gameJdbi.getTitelById(gameID);
@@ -95,38 +144,10 @@ public class BeheerScherm2Controller {
         }
         else return warenhuisjdbi.getNameById(gamecopy.getWarenhuisID());
     }
-    private String getStatus(int id) {
-        if (id == 0) {
-            return "MUSEUM";
-        }
-        else return "WARENHUIS";
-    }
 
-    private void addNewRow() {
-        try {
-            Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("addGameCopy.fxml"));
-            var root = (AnchorPane) loader.load();
-            var scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Voeg kopie toe");
-            stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Get the controller of the GameForm
-            AddGameCopyController controller = loader.getController();
-            controller.initialize();
-            // Show the form and wait for it to be closed
-            stage.showAndWait();
-
-            // After the form is closed, check if it was submitted
-            if (controller.isSubmitted()) {
-                gameCopyJdbi.insert(controller.getNewCopy());
-                refreshTables();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Error", "Error opening the add form.");
-        }
+    private void updatePlatformChoiceBox(Game selectedGame) {
+        List<Platform> possiblePlatforms = gamePlatformjdbi.getPlatformsForGame(selectedGame.getGameID());
+        boxPlatform.setItems(FXCollections.observableArrayList(possiblePlatforms));
     }
 
     private void modifyCopyDoubleClick(GameCopy selectedRow) {
@@ -145,8 +166,7 @@ public class BeheerScherm2Controller {
                 stage.showAndWait();
                 if (controller.isSubmitted()) {
                     // Update the item in the database
-                    //gameJdbi.update(controller.getUpdatedGame(), selected);
-
+                    gameCopyJdbi.update(controller.getUpdatedCopy(), selected);
                     // Refresh the table to reflect changes
                     refreshTables();
                 }
@@ -164,7 +184,6 @@ public class BeheerScherm2Controller {
             e.printStackTrace(); // Print the exception details for debugging
             showAlert("Error", "Error refreshing tables.");
         }
-
     }
 
     private void deleteCurrentRow() {
@@ -175,11 +194,7 @@ public class BeheerScherm2Controller {
             System.out.println("2");
             if (selectedGameCopy!= null) {
                 try {
-                    // Delete from the Game table
                     gameCopyJdbi.delete(selectedGameCopy);
-                    //selectedTable.getItems().remove(selectedGame);
-
-                    // Refresh other tables
                     refreshTables();
                 } catch (Exception e) {
                     showAlert("Error", "Error deleting the selected item.");
@@ -187,7 +202,6 @@ public class BeheerScherm2Controller {
             }
         }
     }
-
 
     public void showAlert(String title, String content) {
         var alert = new Alert(Alert.AlertType.WARNING);
