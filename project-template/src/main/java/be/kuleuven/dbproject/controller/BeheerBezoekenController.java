@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static be.kuleuven.dbproject.MyUtility.showAlert;
+
 public class BeheerBezoekenController implements BeheerItemController{
 
     @FXML
@@ -28,7 +30,7 @@ public class BeheerBezoekenController implements BeheerItemController{
     @FXML
     private TextField naamField;
     @FXML
-    private ChoiceBox<Museum> museumIDField;
+    private ChoiceBox<Museum> museumField;
     @FXML
     private Button addBezoeker;
     @FXML
@@ -48,7 +50,7 @@ public class BeheerBezoekenController implements BeheerItemController{
 
     public void initialize(BeheerScherm1Controller beheerScherm1Controller) {
         initTableBezoeken();
-        museumIDField.setItems(FXCollections.observableArrayList(museumjdbi.getAll()));
+        museumField.setItems(FXCollections.observableArrayList(museumjdbi.getAll()));
         addBezoeker.setOnAction(e -> {
             handleAddBtn();
             beheerScherm1Controller.refreshTables();
@@ -63,45 +65,36 @@ public class BeheerBezoekenController implements BeheerItemController{
             var stage = (Stage) btnClose.getScene().getWindow();
             stage.close();
         });
-        /*
-        tblBezoeken.setOnMouseClicked(e -> {
-            if(e.getClickCount() == 2 && tblBezoeken.getSelectionModel().getSelectedItem() != null) {
-                var selectedRow = tblBezoeken.getSelectionModel().getSelectedItem();
-                modifyCopyDoubleClick(selectedRow);
-            }
-        });
-         */
     }
 
     private void handleAddBtn() {
-        String naam = naamField.getText();
-        Bezoeker bezoeker = bezoekerjdbi.selectByname(naam);
-
-        if (bezoeker == null) {
-            nieuweBezoeker = new Bezoeker(naam);
-            bezoekerjdbi.insert(nieuweBezoeker);
-        } else {
-            nieuweBezoeker = bezoeker;
+        if (naamField.getText().isBlank() || datumField.getValue() == null || museumField.getValue() == null) {
+            showAlert("Error", "Vul velden in aub");
         }
+        else {
+            String naam = naamField.getText();
+            Bezoeker bezoeker = bezoekerjdbi.selectByname(naam);
 
-        System.out.println(bezoekerjdbi.getId(nieuweBezoeker));
+            if (bezoeker == null) {
+                nieuweBezoeker = new Bezoeker(naam);
+                bezoekerjdbi.insert(nieuweBezoeker);
+            } else {
+                nieuweBezoeker = bezoeker;
+            }
 
-        int bezoekerID = bezoekerjdbi.getId(nieuweBezoeker);
+            int bezoekerID = bezoekerjdbi.getId(nieuweBezoeker);
+            Museum selectedMuseum = museumField.getValue();
+            int museumID = selectedMuseum.getID();
+            String datum = datumField.getValue().toString();
 
-        Museum selectedMuseum = museumIDField.getValue();
-        int museumID = selectedMuseum.getID();
+            nieuwBezoek = new MuseumBezoek(museumID,bezoekerID,datum);
+            museumbezoekjdbi.insert(nieuwBezoek);
+            refreshTables();
 
-        String datum = datumField.getValue().toString();
-
-        nieuwBezoek = new MuseumBezoek(museumID,bezoekerID,datum);
-        museumbezoekjdbi.insert(nieuwBezoek);
-        refreshTables();
-
-        museumIDField.setValue(null);
-        datumField.setValue(null);
-        naamField.setText(null);
-
-        System.out.println(bezoekerID);
+            museumField.setValue(null);
+            datumField.setValue(null);
+            naamField.setText("");
+        }
     }
 
     private void initTableBezoeken() {
@@ -127,7 +120,7 @@ public class BeheerBezoekenController implements BeheerItemController{
         try {
             initTableBezoeken();
         } catch (Exception e) {
-            e.printStackTrace(); // Print the exception details for debugging
+            e.printStackTrace();
             showAlert("Error", "Error refreshing tables.");
         }
 
@@ -148,17 +141,9 @@ public class BeheerBezoekenController implements BeheerItemController{
         }
     }
 
-    public void showAlert(String title, String content) {
-        var alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
     private void verifyOneRowSelected() {
         if(tblBezoeken.getSelectionModel().getSelectedCells().size() == 0) {
-            showAlert("Hela!", "Eerst een record selecteren hé.");
+            showAlert("Hela!", "Eerst een record selecteren.");
         }
     }
 }

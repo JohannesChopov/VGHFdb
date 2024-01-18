@@ -12,6 +12,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import static be.kuleuven.dbproject.MyUtility.showAlert;
+
 public class AddMuseumBezoekController implements AddItemController<MuseumBezoek> {
     @FXML
     private TextField naamField;
@@ -35,29 +37,34 @@ public class AddMuseumBezoekController implements AddItemController<MuseumBezoek
     }
 
     private void handleAddBtn() {
-        String naam = naamField.getText();
-        Bezoeker bezoeker = bezoekerjdbi.selectByname(naam);
-
-        if (bezoeker == null) {
-            nieuweBezoeker = new Bezoeker(naam);
-            bezoekerjdbi.insert(nieuweBezoeker);
-        } else {
-            nieuweBezoeker = bezoeker;
+        if (naamField.getText().isBlank()) {
+            showAlert("Error", "Vul velden in aub");
         }
+        else {
+            String naam = naamField.getText();
+            Bezoeker bezoeker = bezoekerjdbi.selectByname(naam);
 
-        System.out.println(bezoekerjdbi.getId(nieuweBezoeker));
+            if (bezoeker == null) {
+                nieuweBezoeker = new Bezoeker(naam);
+                bezoekerjdbi.insert(nieuweBezoeker);
+            } else {
+                nieuweBezoeker = bezoeker;
+            }
 
-        int bezoekerID = bezoekerjdbi.getId(nieuweBezoeker);
+            System.out.println(bezoekerjdbi.getId(nieuweBezoeker));
 
-        Museum selectedMuseum = museumIDField.getValue();
-        int museumID = selectedMuseum.getID();
+            int bezoekerID = bezoekerjdbi.getId(nieuweBezoeker);
 
-        String datum = datumField.getValue().toString();
+            Museum selectedMuseum = museumIDField.getValue();
+            int museumID = selectedMuseum.getID();
 
-        nieuwBezoek = new MuseumBezoek(museumID,bezoekerID,datum);
-        System.out.println(bezoekerID);
-        submitted = true;
-        closeForm();
+            String datum = datumField.getValue().toString();
+
+            nieuwBezoek = new MuseumBezoek(museumID,bezoekerID,datum);
+            System.out.println(bezoekerID);
+            submitted = true;
+            closeForm();
+        }
     }
     @Override
     public boolean isSubmitted() {

@@ -22,7 +22,7 @@
       <Text fx:id="textGame" layoutX="469.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="select game" wrappingWidth="100" />
       <Text fx:id="textPlatform" layoutX="469.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="select platform" wrappingWidth="100" />
       <Text fx:id="textPlaats" layoutX="469.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="select plaats" wrappingWidth="100" />
-      <Button fx:id="addBtn" layoutX="567.0" layoutY="347.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="addBtn" layoutX="567.0" layoutY="347.0" mnemonicParsing="false" text="Voeg toe" />
       <Text layoutX="469.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nieuwe game kopie" wrappingWidth="430.0">
          <font>
             <Font name="System Bold Italic" size="13.0" />

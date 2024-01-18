@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+import static be.kuleuven.dbproject.MyUtility.showAlert;
+
 public class BeheerScherm2Controller implements BeheerItemController {
 
     @FXML
@@ -100,14 +102,16 @@ public class BeheerScherm2Controller implements BeheerItemController {
     }
 
     private void handleAddBtn() {
+        if (boxGame.getValue() == null || boxPlatform.getValue() == null || boxLocatie.getValue() == null) {
+            showAlert("Error", "Vul de velden in, Aub");
+            return;
+        }
+
         Game selectedGame = boxGame.getValue();
         Platform selectedPlatform = boxPlatform.getValue();
         Locatie selectedLocatie = boxLocatie.getValue();
 
-        if (selectedGame == null || selectedPlatform == null || selectedLocatie == null) {
-            // Handle validation error, e.g., show an alert to the user
-            return;
-        }
+
 
         int gameID = selectedGame.getGameID();
         int platformID = selectedPlatform.getPlatformID();
@@ -188,10 +192,8 @@ public class BeheerScherm2Controller implements BeheerItemController {
 
     private void deleteCurrentRow() {
         TableView<GameCopy> selectedTable = tblConfigs;
-        System.out.println("1");
         if (selectedTable != null) {
             GameCopy selectedGameCopy = selectedTable.getSelectionModel().getSelectedItem();
-            System.out.println("2");
             if (selectedGameCopy!= null) {
                 try {
                     gameCopyJdbi.delete(selectedGameCopy);
@@ -203,17 +205,9 @@ public class BeheerScherm2Controller implements BeheerItemController {
         }
     }
 
-    public void showAlert(String title, String content) {
-        var alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
     private void verifyOneRowSelected() {
         if(tblConfigs.getSelectionModel().getSelectedCells().size() == 0) {
-            showAlert("Hela!", "Eerst een record selecteren hé.");
+            showAlert("Hela!", "Eerst een record selecteren.");
         }
     }
 }

@@ -5,16 +5,13 @@ import be.kuleuven.dbproject.jdbi.Gamejdbi;
 import be.kuleuven.dbproject.jdbi.Platformjdbi;
 import be.kuleuven.dbproject.model.Game;
 import be.kuleuven.dbproject.model.GamePlatform;
-import be.kuleuven.dbproject.model.Platform;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
+import static be.kuleuven.dbproject.MyUtility.showAlert;
 
 public class AddGameController implements AddItemController<Game>{
 
@@ -40,28 +37,32 @@ public class AddGameController implements AddItemController<Game>{
         platformListView.setItems(platformNames);
         platformListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        addBtn.setOnAction(e -> handleAddBtn());
+        addBtn.setOnAction(e -> {
+            handleAddBtn();
+        });
     }
 
     private void handleAddBtn() {
-        // Update the game details based on the form fields
-        nieuweGame = new Game(titelField.getText(), genreField.getText());
-        // Get the selected platforms
-        ObservableList<String> selectedPlatforms = platformListView.getSelectionModel().getSelectedItems();
-
-        // Insert the new game into the database
-        gameJdbi.insert(nieuweGame);
-        int gameId = gameJdbi.getIdByTitel(titelField.getText());
-
-        // Insert selected platforms for the new game
-        for (String platformName : selectedPlatforms) {
-            int platformId = platformJdbi.getIdByName(platformName);
-            GamePlatform gamePlatform = new GamePlatform(gameId,platformId);
-            gamePlatformJdbi.insert(gamePlatform);
+        if (titelField.getText().isBlank() || genreField.getText().isBlank() ||platformListView.getSelectionModel().isEmpty()) {
+            showAlert("Error", "Vul velden in aub");
+            titelField.clear();
+            genreField.clear();
         }
+        else {
+            nieuweGame = new Game(titelField.getText(), genreField.getText());
+            ObservableList<String> selectedPlatforms = platformListView.getSelectionModel().getSelectedItems();
 
-        submitted = true;
-        closeForm();
+            gameJdbi.insert(nieuweGame);
+            int gameId = gameJdbi.getIdByTitel(titelField.getText());
+
+            for (String platformName : selectedPlatforms) {
+                int platformId = platformJdbi.getIdByName(platformName);
+                GamePlatform gamePlatform = new GamePlatform(gameId,platformId);
+                gamePlatformJdbi.insert(gamePlatform);
+            }
+            submitted = true;
+            closeForm();
+        }
     }
     @Override
     public boolean isSubmitted() {

@@ -20,7 +20,7 @@ public class Bezoekerjdbi implements Interfacejdbi<Bezoeker>{
     }
     @Override
     public void insert(Bezoeker bezoeker) {
-        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Bezoeker (museumID, naam) VALUES (:museumID, :naam)").bindBean(bezoeker).execute());
+        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO Bezoeker (naam) VALUES (:naam)").bindBean(bezoeker).execute());
     }
 
     public void update(Bezoeker bezoekerNieuw, Bezoeker bezoekerOud) {
@@ -30,18 +30,14 @@ public class Bezoekerjdbi implements Interfacejdbi<Bezoeker>{
     @Override
     public void delete(Bezoeker bezoeker) {
         jdbi.useTransaction(handle -> {
-            // Step 1: Delete related MuseumBezoeken
             handle.createUpdate("DELETE FROM MuseumBezoek WHERE bezoekerID = :bezoekerID")
                     .bind("bezoekerID", bezoeker.getBezoekerID())
                     .execute();
-
-            // Step 2: Delete the Bezoeker
             handle.createUpdate("DELETE FROM Bezoeker WHERE bezoekerID = :bezoekerID")
                     .bind("bezoekerID", bezoeker.getBezoekerID())
                     .execute();
         });
     }
-
 
     public Bezoeker selectByname(String name) {
         List<Bezoeker> bezoekers = jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Bezoeker WHERE naam = :naam")
@@ -51,28 +47,6 @@ public class Bezoekerjdbi implements Interfacejdbi<Bezoeker>{
 
         return bezoekers.isEmpty() ? null : bezoekers.get(0);
     }
-
-
-    public int getTotalAantalForMuseum(int museumID) {
-        String sql = "SELECT SUM(aantal) FROM Bezoeker WHERE museumID = :museumID";
-        return jdbi.withHandle(handle ->
-                handle.createQuery(sql)
-                        .bind("museumID", museumID)
-                        .mapTo(Integer.class)
-                        .one());
-    }
-
-    public List<Bezoeker> getBezoekerByMuseumId(int museumID) {
-        String sql = "SELECT * FROM Bezoeker " +
-                "WHERE Bezoeker.museumID = :museumID";
-
-        return jdbi.withHandle(handle ->
-                handle.createQuery(sql)
-                        .bind("museumID", museumID)
-                        .mapToBean(Bezoeker.class)
-                        .list());
-    }
-
 
     public int getId(Bezoeker bezoeker) {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT bezoekerID FROM Bezoeker WHERE naam = :naam").bind("naam", bezoeker.getNaam()).mapTo(Integer.class).list().get(0));

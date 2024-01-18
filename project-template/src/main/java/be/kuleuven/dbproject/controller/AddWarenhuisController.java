@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import static be.kuleuven.dbproject.MyUtility.showAlert;
+
 public class AddWarenhuisController implements AddItemController<Warenhuis>{
     @FXML
     private TextField naamField;
@@ -22,10 +24,16 @@ public class AddWarenhuisController implements AddItemController<Warenhuis>{
     }
 
     private void handleAddBtn() {
-        // Update the game details based on the form fields
-        nieuwWarenhuis = new Warenhuis(naamField.getText(), adresField.getText());
-        submitted = true;
-        closeForm();
+        if (naamField.getText().isBlank() || adresField.getText().isBlank() || adresField.getText().isBlank()) {
+            showAlert("Error", "Vul de velden in, Aub");
+            naamField.clear();
+            adresField.clear();
+        }
+        else {
+            nieuwWarenhuis = new Warenhuis(naamField.getText(), adresField.getText());
+            submitted = true;
+            closeForm();
+        }
     }
     @Override
     public boolean isSubmitted() {

@@ -7,11 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import static be.kuleuven.dbproject.MyUtility.showAlert;
 
 
 public class AddPlatformController implements AddItemController<Platform>{
     @FXML
-    private TextField Platformname;
+    private TextField naamField;
 
     @FXML
     private Button btnAddPlatform;
@@ -24,10 +25,15 @@ public class AddPlatformController implements AddItemController<Platform>{
     }
 
     private void handleAddBtn() {
-        // Update the game details based on the form fields
-        nieuwePlatform = new Platform(Platformname.getText());
-        submitted = true;
-        closeForm();
+        if (naamField.getText().isBlank()) {
+            showAlert("Error", "Vul de velden in, Aub");
+            naamField.clear();
+        }
+        else {
+            nieuwePlatform = new Platform(naamField.getText());
+            submitted = true;
+            closeForm();
+        }
     }
     @Override
     public boolean isSubmitted() {

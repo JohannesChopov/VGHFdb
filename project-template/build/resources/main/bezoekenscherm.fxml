@@ -24,7 +24,7 @@
 
             <HBox alignment="BASELINE_RIGHT" spacing="10.0">
                 <Label text="Museum ID:" />
-                <ChoiceBox fx:id="museumIDField" prefWidth="150.0" />
+                <ChoiceBox fx:id="museumField" prefWidth="150.0" />
             </HBox>
 
             <HBox alignment="BASELINE_RIGHT" spacing="10.0">

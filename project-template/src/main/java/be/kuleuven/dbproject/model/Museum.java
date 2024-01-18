@@ -18,7 +18,7 @@ public class Museum extends Locatie{
 
     @Override
     public String toString() {
-        return "Museum {" + "museumID=" + museumID + "inkomprijs=" + inkomprijs + "naam=" + naam + " adres = " + adres + "'}";
+        return "Museum {" + "museumID=" + museumID + " inkomprijs=" + inkomprijs + " naam=" + naam + " adres= " + adres + "'}";
     }
 
     /*

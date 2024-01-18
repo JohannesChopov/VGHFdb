@@ -10,7 +10,7 @@
 
             <HBox spacing="10.0" alignment="BASELINE_RIGHT">
                 <Text text="Platform Name:" />
-                <TextField fx:id="Platformname" alignment="CENTER" prefWidth="200"/>
+                <TextField fx:id="naamField" alignment="CENTER" prefWidth="200"/>
             </HBox>
 
             <HBox spacing="10.0" alignment="BASELINE_RIGHT">

@@ -106,4 +106,28 @@ public class GameCopyjdbi {
                         .mapToBean(GameCopy.class)
                         .list());
     }
+
+    public List<GameCopy> getGameCopiesByPlatformID(int platformID) {
+        String sql = "SELECT GameCopy.*, GamePlatform.gameplatformID AS gpID " +
+                "FROM GameCopy " +
+                "JOIN GamePlatform ON GameCopy.gameplatformID = GamePlatform.gameplatformID " +
+                "WHERE GamePlatform.platformID = :platformID";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("platformID", platformID)
+                        .mapToBean(GameCopy.class)
+                        .list());
+    }
+
+    public int getCountByPlatformID(int id) {
+        String sql = "SELECT COUNT(*) FROM GameCopy " +
+                "JOIN GamePlatform ON GameCopy.gameplatformID = GamePlatform.gameplatformID " +
+                "WHERE GamePlatform.platformID = :platformID";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("platformID", id)
+                        .mapTo(Integer.class)
+                        .one());
+    }
 }

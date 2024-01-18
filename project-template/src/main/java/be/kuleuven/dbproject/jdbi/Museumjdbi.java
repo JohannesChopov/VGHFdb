@@ -42,6 +42,9 @@ public class Museumjdbi implements Interfacejdbi<Museum>{
             handle.createUpdate("DELETE FROM Donatie WHERE museumID = :museumID")
                     .bind("museumID", museum.getID())
                     .execute();
+            handle.createUpdate("DELETE FROM MuseumBezoek WHERE MuseumID = :museumID")
+                    .bind("museumID", museum.getID())
+                    .execute();
             handle.createUpdate("DELETE FROM Museum WHERE MuseumID = :museumID")
                     .bind("museumID", museum.getID())
                     .execute();
