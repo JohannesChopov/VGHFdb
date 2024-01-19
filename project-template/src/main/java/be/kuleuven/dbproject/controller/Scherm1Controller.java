@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static be.kuleuven.dbproject.MyUtility.showAlert;
+
 public class Scherm1Controller {
 
     @FXML
@@ -77,7 +79,7 @@ public class Scherm1Controller {
             var scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("Admin " + id);
-            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initModality(Modality.APPLICATION_MODAL);
             BeheerItemController controller = loader.getController();
             controller.initialize(this);
             stage.showAndWait();
@@ -109,13 +111,6 @@ public class Scherm1Controller {
         btnClose.setOnAction(e -> {
             var stage = (Stage) btnClose.getScene().getWindow();
             stage.close();
-        });
-
-        tblConfigsGames.setOnMouseClicked(e -> {
-            if(e.getClickCount() == 2 && tblConfigsGames.getSelectionModel().getSelectedItem() != null) {
-                var selectedRow = tblConfigsGames.getSelectionModel().getSelectedItem();
-                modifyGameDoubleClick(selectedRow);
-            }
         });
     }
 
@@ -233,39 +228,6 @@ public class Scherm1Controller {
             e.printStackTrace(); // Print the exception details for debugging
             showAlert("Error", "Error refreshing tables.");
         }
-    }
-
-    private void modifyGameDoubleClick(Game game) {
-        Game selectedGame = game;
-        if (selectedGame != null) {
-            try {
-                Stage stage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("bewerkGame.fxml"));
-                var root = (AnchorPane) loader.load();
-                var scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Bewerk game");
-                stage.initModality(Modality.APPLICATION_MODAL);
-                BewerkGameController controller = loader.getController();
-                controller.initialize(selectedGame);
-                stage.showAndWait();
-                if (controller.isSubmitted()) {
-                    gameJdbi.update(controller.getUpdatedGame(), selectedGame);
-                    refreshTables();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert("Error", "Error opening the edit form.");
-            }
-        }
-    }
-
-    public void showAlert(String title, String content) {
-        var alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 
     private <T> void deleteSelectedItem(TableView<T> selectedTable, Interfacejdbi<T> repository, String item) {

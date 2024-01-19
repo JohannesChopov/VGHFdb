@@ -2,6 +2,7 @@ package be.kuleuven.dbproject.jdbi;
 
 
 import be.kuleuven.dbproject.model.Game;
+import be.kuleuven.dbproject.model.User;
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
@@ -50,8 +51,6 @@ public class Gamejdbi implements Interfacejdbi<Game>{
         });
     }
 
-
-
     public int getId(Game game) {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT gameID FROM Game WHERE gameID = :gameID")
                 .bind("gameID", game.getGameID())
@@ -72,4 +71,16 @@ public class Gamejdbi implements Interfacejdbi<Game>{
                 .one());
     }
 
+    public Game getGameByTitel(String titel) {
+        try {
+            return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Game WHERE titel = :titel")
+                    .bind("titel", titel)
+                    .mapToBean(Game.class)
+                    .findFirst()
+                    .orElse(null));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

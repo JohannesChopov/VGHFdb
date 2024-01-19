@@ -49,8 +49,14 @@ public class Platformjdbi implements Interfacejdbi<Platform>{
             handle.createUpdate("DELETE FROM Platform WHERE platformID = :platformID")
                     .bind("platformID", platform.getPlatformID())
                     .execute();
+
+            // Delete games with no platform
+            handle.createUpdate("DELETE FROM Game WHERE gameID NOT IN (SELECT gameID FROM GamePlatform)")
+                    .execute();
         });
     }
+
+
 
     public int getId(Platform platform) {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT id FROM Platform WHERE platformID = :platformID")
@@ -76,6 +82,17 @@ public class Platformjdbi implements Interfacejdbi<Platform>{
                 .mapTo(Integer.class)
                 .one());
     }
+
+    public Platform getPlatformByName(String platformName) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM Platform WHERE naam = :platformName")
+                        .bind("platformName", platformName)
+                        .mapToBean(Platform.class)
+                        .findFirst()
+                        .orElse(null)
+        );
+    }
+
 }
 
 

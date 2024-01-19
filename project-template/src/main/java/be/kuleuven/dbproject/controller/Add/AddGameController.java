@@ -47,6 +47,11 @@ public class AddGameController implements AddItemController<Game>{
             showAlert("Error", "Vul velden in aub");
             titelField.clear();
             genreField.clear();
+            return;
+        }
+        if (gameJdbi.getGameByTitel(titelField.getText()) != null) {
+            showAlert("Error", "Gebruikersnaam is al in gebruik.");
+            return;
         }
         else {
             nieuweGame = new Game(titelField.getText(), genreField.getText());
