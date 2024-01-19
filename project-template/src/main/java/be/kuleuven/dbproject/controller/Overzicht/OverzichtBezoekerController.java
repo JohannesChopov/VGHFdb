@@ -63,7 +63,7 @@ public class OverzichtBezoekerController {
         TableColumn<MuseumBezoek, String> col2 = new TableColumn<>("museum");
         col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(museumBezoekjdbi.getMuseumByMuseumBezoekId(f.getValue().getMuseumbezoekID()).getNaam()));
         TableColumn<MuseumBezoek, String> col3 = new TableColumn<>("datum");
-        col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getTijdsstip()));
+        col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getDatum()));
 
 
 

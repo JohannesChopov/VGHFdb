@@ -21,12 +21,12 @@ public class MuseumBezoekjdbi implements Interfacejdbi<MuseumBezoek> {
     }
     @Override
     public void insert(MuseumBezoek museumBezoek) {
-        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO MuseumBezoek (museumID, bezoekerID, tijdsstip) VALUES (:museumID, :bezoekerID, :tijdsstip)")
+        jdbi.useHandle(handle -> handle.createUpdate("INSERT INTO MuseumBezoek (museumID, bezoekerID, datum) VALUES (:museumID, :bezoekerID, :datum)")
                 .bindBean(museumBezoek)
                 .execute());
     }
     public void update(MuseumBezoek museumBezoekNieuw, MuseumBezoek museumBezoekOud) {
-        jdbi.useHandle(handle -> handle.createUpdate("UPDATE MuseumBezoek SET (museumID, bezoekerID, tijdsstip) = (:museumID, :bezoekerID, :tijdsstip) WHERE museumbezoekID = :museumbezoekIDOud")
+        jdbi.useHandle(handle -> handle.createUpdate("UPDATE MuseumBezoek SET (museumID, bezoekerID, datum) = (:museumID, :bezoekerID, :datum) WHERE museumbezoekID = :museumbezoekIDOud")
                 .bindBean(museumBezoekNieuw)
                 .bind("museumbezoekIDOud", museumBezoekOud.getMuseumbezoekID())
                 .execute());

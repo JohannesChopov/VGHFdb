@@ -1,21 +1,19 @@
 package be.kuleuven.dbproject.model;
 
-import java.time.LocalDateTime;
-
 public class MuseumBezoek {
     private int museumbezoekID;
     private int museumID;
     private int bezoekerID;
-    private String tijdsstip;
+    private String datum;
 
     public MuseumBezoek() {
 
     }
 
-    public MuseumBezoek(int museumID, int bezoekerID, String tijdsstip) {
+    public MuseumBezoek(int museumID, int bezoekerID, String datum) {
         this.museumID = museumID;
         this.bezoekerID = bezoekerID;
-        this.tijdsstip = tijdsstip;
+        this.datum = datum;
     }
 
     @Override
@@ -24,7 +22,7 @@ public class MuseumBezoek {
                 "museumbezoekID='" + museumbezoekID + '\'' +
                 ", museumID='" + museumID + '\'' +
                 ", bezoekerID='" + bezoekerID + '\'' +
-                ", tijdsstip='" + tijdsstip + '\'' +
+                ", tijdsstip='" + datum + '\'' +
                 '}';
     }
 
@@ -52,11 +50,11 @@ public class MuseumBezoek {
         this.bezoekerID = bezoekerID;
     }
 
-    public String getTijdsstip() {
-        return tijdsstip;
+    public String getDatum() {
+        return datum;
     }
 
-    public void setTijdsstip(String tijdsstip) {
-        this.tijdsstip = tijdsstip;
+    public void setDatum(String datum) {
+        this.datum = datum;
     }
 }

@@ -99,7 +99,7 @@ public class BeheerBezoekenController implements BeheerItemController {
         TableColumn<MuseumBezoek, String> col4 = new TableColumn<>("Museum");
         col4.setCellValueFactory(f -> new ReadOnlyObjectWrapper(museumbezoekjdbi.getMuseumById(f.getValue().getMuseumID()).getNaam()));
         TableColumn<MuseumBezoek, String> col5 = new TableColumn<>("Datum");
-        col5.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getTijdsstip()));
+        col5.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getDatum()));
 
         tblBezoeken.getColumns().addAll(col1,col2,col3,col4,col5);
         tblBezoeken.setItems(FXCollections.observableArrayList(museumbezoekjdbi.getAll()));

@@ -89,7 +89,7 @@ public class OverzichtMuseumController {
         TableColumn<MuseumBezoek, String> col2 = new TableColumn<>("Bezoeker");
         col2.setCellValueFactory(f -> new ReadOnlyObjectWrapper(museumbezoekjdbi.getBezoekerById(f.getValue().getBezoekerID()).getNaam()));
         TableColumn<MuseumBezoek, String> col3 = new TableColumn<>("Datum");
-        col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getTijdsstip()));
+        col3.setCellValueFactory(f -> new ReadOnlyObjectWrapper(f.getValue().getDatum()));
 
         tblConfigsBezoeken.getColumns().addAll(col1,col2,col3);
         tblConfigsBezoeken.setItems(FXCollections.observableArrayList(museumbezoekjdbi.getBezoekerByMuseumId(selectedMuseum.getID())));
