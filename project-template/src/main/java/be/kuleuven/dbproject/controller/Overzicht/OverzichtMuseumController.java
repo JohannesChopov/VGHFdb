@@ -37,7 +37,6 @@ public class OverzichtMuseumController {
 
         tblConfigsMusea.setOnMouseClicked(e -> {
             if(e.getClickCount() == 1 && tblConfigsMusea.getSelectionModel().getSelectedItem() != null) {
-                System.out.println(tblConfigsMusea.getSelectionModel().getSelectedItem());
                 var selectedMusea = tblConfigsMusea.getSelectionModel().getSelectedItem();
                 initInfoTable(selectedMusea);
                 initInfoTable1(selectedMusea);

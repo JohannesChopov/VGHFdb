@@ -36,7 +36,6 @@ public class OverzichtWarenhuisController {
 
         tblConfigWarenhuis.setOnMouseClicked(e -> {
             if(e.getClickCount() == 1 && tblConfigWarenhuis.getSelectionModel().getSelectedItem() != null) {
-                System.out.println(tblConfigWarenhuis.getSelectionModel().getSelectedItem());
                 var selectedWarenhuis = tblConfigWarenhuis.getSelectionModel().getSelectedItem();
                 initInfoTable1(selectedWarenhuis);
             }

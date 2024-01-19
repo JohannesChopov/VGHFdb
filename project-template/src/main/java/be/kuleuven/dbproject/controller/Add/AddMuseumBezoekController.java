@@ -50,8 +50,6 @@ public class AddMuseumBezoekController implements AddItemController<MuseumBezoek
                 nieuweBezoeker = bezoeker;
             }
 
-            System.out.println(bezoekerjdbi.getId(nieuweBezoeker));
-
             int bezoekerID = bezoekerjdbi.getId(nieuweBezoeker);
 
             Museum selectedMuseum = museumIDField.getValue();
@@ -60,7 +58,6 @@ public class AddMuseumBezoekController implements AddItemController<MuseumBezoek
             String datum = datumField.getValue().toString();
 
             nieuwBezoek = new MuseumBezoek(museumID,bezoekerID,datum);
-            System.out.println(bezoekerID);
             submitted = true;
             closeForm();
         }

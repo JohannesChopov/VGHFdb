@@ -30,6 +30,7 @@ public class ProjectMain extends Application {
 
         stage.setTitle("Administratie hoofdscherm");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

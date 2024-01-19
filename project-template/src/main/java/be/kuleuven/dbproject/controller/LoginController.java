@@ -24,6 +24,11 @@ public class LoginController {
     private final Userjdbi userJdbi = new Userjdbi();
 
     public void initialize() {
+        usernameField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.contains(" ")) {
+                usernameField.setText(newValue.replaceAll("\\s", ""));
+            }
+        });
         btnLogin.setOnAction(e -> {
             if (usernameField.getText().isBlank() || passwordField.getText().isBlank()) {
                 showAlert("Error", "Vul velden in aub");
@@ -35,7 +40,6 @@ public class LoginController {
     }
 
     private void login(String username, String password) {
-        System.out.println(username + password);
         if (username.equals("admin") && password.equals("admin")) {
             gaVerder();
         }

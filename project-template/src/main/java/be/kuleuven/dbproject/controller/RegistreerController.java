@@ -24,6 +24,12 @@ public class RegistreerController {
     private final Userjdbi userJdbi = new Userjdbi();
 
     public void initialize() {
+        usernameField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.contains(" ")) {
+                usernameField.setText(newValue.replaceAll("\\s", ""));
+            }
+        });
+
         btnRegistreer.setOnAction(e -> registerUser());
         btnTerug.setOnAction(e -> goBack());
     }
@@ -55,6 +61,8 @@ public class RegistreerController {
         userJdbi.insert(newUser);
 
         showAlert("Success", "Registratie succesvol!");
+
+        goBack();
     }
 
     private void goBack() {

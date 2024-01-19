@@ -2,15 +2,14 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 
 <AnchorPane prefHeight="220.0" prefWidth="423.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.RegistreerController">
     <!-- Add ImageView for background image -->
     <children>
-        <Button fx:id="btnRegistreer" layoutX="111.5" layoutY="135.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="200.0" style="-fx-text-fill: black;" text="Registreer" />
         <TextField fx:id="usernameField" layoutX="111.5" layoutY="30.0" prefHeight="20.0" prefWidth="200" promptText="Username" />
         <PasswordField fx:id="passwordField1" layoutX="111.5" layoutY="65.0" prefHeight="20.0" prefWidth="200" promptText="Password" />
       <PasswordField fx:id="passwordField2" layoutX="111.5" layoutY="100.0" prefHeight="20.0" prefWidth="200" promptText="Password" />
+        <Button fx:id="btnRegistreer" layoutX="111.5" layoutY="135.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="200.0" style="-fx-text-fill: black;" text="Registreer" />
       <Button fx:id="btnTerug" layoutX="111.5" layoutY="170.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="200.0" style="-fx-text-fill: black;" text="Ga terug" />
     </children>
 </AnchorPane>

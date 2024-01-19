@@ -34,7 +34,6 @@ public class OverzichtPlatformController {
 
         tblConfigsPlatform.setOnMouseClicked(e -> {
             if(e.getClickCount() == 1 && tblConfigsPlatform.getSelectionModel().getSelectedItem() != null) {
-                System.out.println(tblConfigsPlatform.getSelectionModel().getSelectedItem());
                 var selectedPlatform = tblConfigsPlatform.getSelectionModel().getSelectedItem();
                 initInfoTable(selectedPlatform);
             }

@@ -41,6 +41,7 @@ public class ProjectMainController {
             stage.setTitle("Admin " + id);
             stage.initOwner(ProjectMain.getRootStage());
             stage.initModality(Modality.WINDOW_MODAL);
+            stage.setResizable(false);
             stage.show();
 
         } catch (Exception e) {

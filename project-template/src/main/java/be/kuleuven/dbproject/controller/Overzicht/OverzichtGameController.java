@@ -34,7 +34,6 @@ public class OverzichtGameController {
 
         tblConfigsGames.setOnMouseClicked(e -> {
             if(e.getClickCount() == 1 && tblConfigsGames.getSelectionModel().getSelectedItem() != null) {
-                System.out.println(tblConfigsGames.getSelectionModel().getSelectedItem());
                 var selectedGame = tblConfigsGames.getSelectionModel().getSelectedItem();
                 initInfoTable(selectedGame);
             }

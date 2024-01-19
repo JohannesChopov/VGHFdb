@@ -33,7 +33,6 @@ public class OverzichtBezoekerController {
 
         tblConfigBezoeker.setOnMouseClicked(e -> {
             if(e.getClickCount() == 1 && tblConfigBezoeker.getSelectionModel().getSelectedItem() != null) {
-                System.out.println(tblConfigBezoeker.getSelectionModel().getSelectedItem());
                 var selectedBezoeker = tblConfigBezoeker.getSelectionModel().getSelectedItem();
                 initInfoTable1(selectedBezoeker);
             }
