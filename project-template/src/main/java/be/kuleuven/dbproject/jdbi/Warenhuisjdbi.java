@@ -90,4 +90,14 @@ public class Warenhuisjdbi implements Interfacejdbi<Warenhuis>{
         }
     }
 
+    public Warenhuis getWarenhuisByName(String naam) {
+        try {
+            return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Warenhuis WHERE naam = :naam")
+                    .bind("naam", naam)
+                    .mapToBean(Warenhuis.class)
+                    .one());
+        } catch (IllegalStateException e) {
+            return null;
+        }
+    }
 }

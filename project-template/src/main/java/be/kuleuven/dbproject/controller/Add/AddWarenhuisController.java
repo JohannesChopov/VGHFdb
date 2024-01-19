@@ -1,5 +1,7 @@
 package be.kuleuven.dbproject.controller.Add;
 
+import be.kuleuven.dbproject.jdbi.Museumjdbi;
+import be.kuleuven.dbproject.jdbi.Warenhuisjdbi;
 import be.kuleuven.dbproject.model.Warenhuis;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,6 +20,9 @@ public class AddWarenhuisController implements AddItemController<Warenhuis>{
 
     private Warenhuis nieuwWarenhuis;
     private boolean submitted = false;
+
+    private final Warenhuisjdbi warenhuisjdbi = new Warenhuisjdbi();
+
     @Override
     public void initialize() {
         addWarenhuis.setOnAction(e -> handleAddBtn());
@@ -28,6 +33,11 @@ public class AddWarenhuisController implements AddItemController<Warenhuis>{
             showAlert("Error", "Vul de velden in, Aub");
             naamField.clear();
             adresField.clear();
+            return;
+        }
+        if (warenhuisjdbi.getWarenhuisByName(naamField.getText()) != null) {
+            showAlert("Error", "Naam al in gebruik.");
+            return;
         }
         else {
             nieuwWarenhuis = new Warenhuis(naamField.getText(), adresField.getText());

@@ -1,5 +1,6 @@
 package be.kuleuven.dbproject.controller.Add;
 
+import be.kuleuven.dbproject.jdbi.Museumjdbi;
 import be.kuleuven.dbproject.model.Museum;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,6 +22,8 @@ public class AddMuseumController implements AddItemController<Museum>{
     private Museum nieuwMuseum;
     private boolean submitted = false;
 
+    private final Museumjdbi museumjdbi = new Museumjdbi();
+
     @Override
     public void initialize() {
         addMuseum.setOnAction(e -> handleAddBtn());
@@ -32,6 +35,11 @@ public class AddMuseumController implements AddItemController<Museum>{
             naamField.clear();
             inkomprijsField.clear();
             adresField.clear();
+            return;
+        }
+        if (museumjdbi.getMuseumByName(naamField.getText()) != null) {
+            showAlert("Error", "Naam al in gebruik.");
+            return;
         }
         else {
             String inkomText = inkomprijsField.getText();

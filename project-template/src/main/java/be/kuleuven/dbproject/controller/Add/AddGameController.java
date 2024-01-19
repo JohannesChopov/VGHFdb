@@ -50,7 +50,7 @@ public class AddGameController implements AddItemController<Game>{
             return;
         }
         if (gameJdbi.getGameByTitel(titelField.getText()) != null) {
-            showAlert("Error", "Gebruikersnaam is al in gebruik.");
+            showAlert("Error", "Gametitel is reeds in database.");
             return;
         }
         else {

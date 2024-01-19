@@ -136,4 +136,15 @@ public class Museumjdbi implements Interfacejdbi<Museum>{
             return null;
         }
     }
+
+    public Museum getMuseumByName(String naam) {
+        try {
+            return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Museum WHERE naam = :naam")
+                    .bind("naam", naam)
+                    .mapToBean(Museum.class)
+                    .one());
+        } catch (IllegalStateException e) {
+            return null;
+        }
+    }
 }

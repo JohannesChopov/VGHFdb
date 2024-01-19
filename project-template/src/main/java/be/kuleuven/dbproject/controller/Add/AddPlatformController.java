@@ -1,5 +1,6 @@
 package be.kuleuven.dbproject.controller.Add;
 
+import be.kuleuven.dbproject.jdbi.Platformjdbi;
 import be.kuleuven.dbproject.model.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,6 +19,9 @@ public class AddPlatformController implements AddItemController<Platform>{
 
     private Platform nieuwePlatform;
     private boolean submitted = false;
+
+    private final Platformjdbi platformJdbi = new Platformjdbi();
+
     @Override
     public void initialize() {
         btnAddPlatform.setOnAction(e -> handleAddBtn());
@@ -27,6 +31,11 @@ public class AddPlatformController implements AddItemController<Platform>{
         if (naamField.getText().isBlank()) {
             showAlert("Error", "Vul de velden in, Aub");
             naamField.clear();
+            return;
+        }
+        if (platformJdbi.getPlatformByName(naamField.getText()) != null) {
+            showAlert("Error", "Platform is reeds in database.");
+            return;
         }
         else {
             nieuwePlatform = new Platform(naamField.getText());
