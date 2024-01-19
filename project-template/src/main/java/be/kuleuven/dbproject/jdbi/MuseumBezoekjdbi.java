@@ -1,6 +1,4 @@
 package be.kuleuven.dbproject.jdbi;
-import be.kuleuven.dbproject.controller.AddItemController;
-import be.kuleuven.dbproject.jdbi.JDBIManager;
 import be.kuleuven.dbproject.model.Bezoeker;
 import be.kuleuven.dbproject.model.Museum;
 import be.kuleuven.dbproject.model.MuseumBezoek;

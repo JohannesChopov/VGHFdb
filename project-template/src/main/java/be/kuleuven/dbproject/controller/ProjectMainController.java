@@ -19,11 +19,11 @@ public class ProjectMainController {
     public void initialize() {
         btnBeheerScherm1.setOnAction(e -> showBeheerScherm("scherm1"));
 
-        btnConfigAttaches.setOnAction(e -> showBeheerScherm("scherm3"));
+        btnConfigAttaches.setOnAction(e -> showBeheerScherm("scherm2"));
     }
 
     private void showBeheerScherm(String id) {
-        var resourceName = "beheer" + id + ".fxml";
+        var resourceName = id + ".fxml";
         try {
             var stage = new Stage();
             var root = (AnchorPane) FXMLLoader.load(getClass().getClassLoader().getResource(resourceName));

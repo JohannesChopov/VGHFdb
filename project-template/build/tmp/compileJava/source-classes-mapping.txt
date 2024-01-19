@@ -1,29 +1,29 @@
-be/kuleuven/dbproject/controller/BeheerScherm3Controller.java
- be.kuleuven.dbproject.controller.BeheerScherm3Controller
-be/kuleuven/dbproject/controller/BeheerItemController.java
- be.kuleuven.dbproject.controller.BeheerItemController
+be/kuleuven/dbproject/MyUtility.java
+ be.kuleuven.dbproject.MyUtility
+be/kuleuven/dbproject/controller/Add/AddGameController.java
+ be.kuleuven.dbproject.controller.Add.AddGameController
 be/kuleuven/dbproject/model/Bezoeker.java
  be.kuleuven.dbproject.model.Bezoeker
 be/kuleuven/dbproject/model/Donatie.java
  be.kuleuven.dbproject.model.Donatie
-be/kuleuven/dbproject/controller/OverzichtWarenhuisController.java
- be.kuleuven.dbproject.controller.OverzichtWarenhuisController
-be/kuleuven/dbproject/controller/BeheerScherm1Controller.java
- be.kuleuven.dbproject.controller.BeheerScherm1Controller
+be/kuleuven/dbproject/controller/Add/AddDonatieController.java
+ be.kuleuven.dbproject.controller.Add.AddDonatieController
+be/kuleuven/dbproject/controller/Add/AddPlatformController.java
+ be.kuleuven.dbproject.controller.Add.AddPlatformController
 be/kuleuven/dbproject/controller/VerplaatsCopyController.java
  be.kuleuven.dbproject.controller.VerplaatsCopyController
 be/kuleuven/dbproject/jdbi/Platformjdbi.java
  be.kuleuven.dbproject.jdbi.Platformjdbi
 be/kuleuven/dbproject/jdbi/Warenhuisjdbi.java
  be.kuleuven.dbproject.jdbi.Warenhuisjdbi
-be/kuleuven/dbproject/jdbi/MuseumBezoekjdbi.java
- be.kuleuven.dbproject.jdbi.MuseumBezoekjdbi
+be/kuleuven/dbproject/jdbi/Museumjdbi.java
+ be.kuleuven.dbproject.jdbi.Museumjdbi
 be/kuleuven/dbproject/jdbi/Interfacejdbi.java
  be.kuleuven.dbproject.jdbi.Interfacejdbi
 be/kuleuven/dbproject/jdbi/Bezoekerjdbi.java
  be.kuleuven.dbproject.jdbi.Bezoekerjdbi
-be/kuleuven/dbproject/controller/AddItemController.java
- be.kuleuven.dbproject.controller.AddItemController
+be/kuleuven/dbproject/jdbi/Userjdbi.java
+ be.kuleuven.dbproject.jdbi.Userjdbi
 be/kuleuven/dbproject/model/Locatie.java
  be.kuleuven.dbproject.model.Locatie
 be/kuleuven/dbproject/model/Warenhuis.java
@@ -32,14 +32,14 @@ be/kuleuven/dbproject/jdbi/JDBIManager.java
  be.kuleuven.dbproject.jdbi.JDBIManager
 be/kuleuven/dbproject/model/GamePlatform.java
  be.kuleuven.dbproject.model.GamePlatform
-be/kuleuven/dbproject/controller/BeheerAttachesController.java
- be.kuleuven.dbproject.controller.BeheerAttachesController
 be/kuleuven/dbproject/controller/ProjectMainController.java
  be.kuleuven.dbproject.controller.ProjectMainController
+be/kuleuven/dbproject/controller/Add/AddMuseumBezoekController.java
+ be.kuleuven.dbproject.controller.Add.AddMuseumBezoekController
 be/kuleuven/dbproject/model/GameCopy.java
  be.kuleuven.dbproject.model.GameCopy
-be/kuleuven/dbproject/controller/AddPlatformController.java
- be.kuleuven.dbproject.controller.AddPlatformController
+be/kuleuven/dbproject/controller/Add/AddMuseumController.java
+ be.kuleuven.dbproject.controller.Add.AddMuseumController
 be/kuleuven/dbproject/ProjectMain.java
  be.kuleuven.dbproject.ProjectMain
 be/kuleuven/dbproject/jdbi/GamePlatformjdbi.java
@@ -58,37 +58,35 @@ be/kuleuven/dbproject/model/Platform.java
  be.kuleuven.dbproject.model.Platform
 be/kuleuven/dbproject/jdbi/GameCopyjdbi.java
  be.kuleuven.dbproject.jdbi.GameCopyjdbi
-be/kuleuven/dbproject/controller/BewerkGameController.java
- be.kuleuven.dbproject.controller.BewerkGameController
+be/kuleuven/dbproject/controller/Overzicht/OverzichtPlatformController.java
+ be.kuleuven.dbproject.controller.Overzicht.OverzichtPlatformController
 be/kuleuven/dbproject/model/User.java
  be.kuleuven.dbproject.model.User
-be/kuleuven/dbproject/controller/OverzichtPlatformController.java
- be.kuleuven.dbproject.controller.OverzichtPlatformController
-be/kuleuven/dbproject/controller/AddDonatieController.java
- be.kuleuven.dbproject.controller.AddDonatieController
-be/kuleuven/dbproject/controller/BeheerScherm2Controller.java
- be.kuleuven.dbproject.controller.BeheerScherm2Controller
-be/kuleuven/dbproject/controller/AddMuseumBezoekController.java
- be.kuleuven.dbproject.controller.AddMuseumBezoekController
-be/kuleuven/dbproject/jdbi/Museumjdbi.java
- be.kuleuven.dbproject.jdbi.Museumjdbi
-be/kuleuven/dbproject/jdbi/Userjdbi.java
- be.kuleuven.dbproject.jdbi.Userjdbi
-be/kuleuven/dbproject/MyUtility.java
- be.kuleuven.dbproject.MyUtility
-be/kuleuven/dbproject/controller/OverzichtGameController.java
- be.kuleuven.dbproject.controller.OverzichtGameController
-be/kuleuven/dbproject/controller/AddGameController.java
- be.kuleuven.dbproject.controller.AddGameController
-be/kuleuven/dbproject/controller/AddMuseumController.java
- be.kuleuven.dbproject.controller.AddMuseumController
-be/kuleuven/dbproject/controller/OverzichtMuseumController.java
- be.kuleuven.dbproject.controller.OverzichtMuseumController
-be/kuleuven/dbproject/controller/OverzichtBezoekerController.java
- be.kuleuven.dbproject.controller.OverzichtBezoekerController
-be/kuleuven/dbproject/controller/OverzichtTotaalController.java
- be.kuleuven.dbproject.controller.OverzichtTotaalController
-be/kuleuven/dbproject/controller/BeheerBezoekenController.java
- be.kuleuven.dbproject.controller.BeheerBezoekenController
-be/kuleuven/dbproject/controller/AddWarenhuisController.java
- be.kuleuven.dbproject.controller.AddWarenhuisController
+be/kuleuven/dbproject/controller/Scherm2Controller.java
+ be.kuleuven.dbproject.controller.Scherm2Controller
+be/kuleuven/dbproject/controller/Add/AddItemController.java
+ be.kuleuven.dbproject.controller.Add.AddItemController
+be/kuleuven/dbproject/controller/Add/AddWarenhuisController.java
+ be.kuleuven.dbproject.controller.Add.AddWarenhuisController
+be/kuleuven/dbproject/jdbi/MuseumBezoekjdbi.java
+ be.kuleuven.dbproject.jdbi.MuseumBezoekjdbi
+be/kuleuven/dbproject/controller/Overzicht/OverzichtTotaalController.java
+ be.kuleuven.dbproject.controller.Overzicht.OverzichtTotaalController
+be/kuleuven/dbproject/controller/Beheer/BeheerGameCopyController.java
+ be.kuleuven.dbproject.controller.Beheer.BeheerGameCopyController
+be/kuleuven/dbproject/controller/Overzicht/OverzichtWarenhuisController.java
+ be.kuleuven.dbproject.controller.Overzicht.OverzichtWarenhuisController
+be/kuleuven/dbproject/controller/Beheer/BeheerBezoekenController.java
+ be.kuleuven.dbproject.controller.Beheer.BeheerBezoekenController
+be/kuleuven/dbproject/controller/Overzicht/OverzichtMuseumController.java
+ be.kuleuven.dbproject.controller.Overzicht.OverzichtMuseumController
+be/kuleuven/dbproject/controller/Scherm1Controller.java
+ be.kuleuven.dbproject.controller.Scherm1Controller
+be/kuleuven/dbproject/controller/Overzicht/OverzichtGameController.java
+ be.kuleuven.dbproject.controller.Overzicht.OverzichtGameController
+be/kuleuven/dbproject/controller/BewerkGameController.java
+ be.kuleuven.dbproject.controller.BewerkGameController
+be/kuleuven/dbproject/controller/Beheer/BeheerItemController.java
+ be.kuleuven.dbproject.controller.Beheer.BeheerItemController
+be/kuleuven/dbproject/controller/Overzicht/OverzichtBezoekerController.java
+ be.kuleuven.dbproject.controller.Overzicht.OverzichtBezoekerController

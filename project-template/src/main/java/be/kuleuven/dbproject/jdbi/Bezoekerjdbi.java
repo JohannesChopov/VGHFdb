@@ -51,10 +51,4 @@ public class Bezoekerjdbi implements Interfacejdbi<Bezoeker>{
     public int getId(Bezoeker bezoeker) {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT bezoekerID FROM Bezoeker WHERE naam = :naam").bind("naam", bezoeker.getNaam()).mapTo(Integer.class).list().get(0));
     }
-    /*
-    Voor als we met login willen werken
-    public List<Bezoeker> getBezoekerLogin(String eMail, String wachtwoord) {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Bezoeker WHERE eMail = :eMail AND wachtwoord = :password").bind("eMail", eMail).bind("password", wachtwoord).mapToBean(Loper.class).list());
-    }
-     */
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="567.0" prefWidth="825.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.Beheer.BeheerBezoekenController">
+    <children>
+        <TableView fx:id="tblBezoeken" layoutX="15.0" layoutY="35.0" prefHeight="419.0" prefWidth="430.0">
+        </TableView>
+        <Text layoutX="15.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Museum bezoeken" wrappingWidth="430.0">
+            <font>
+                <Font name="System Bold Italic" size="13.0" />
+            </font>
+        </Text>
+        <Button fx:id="btnDelete" layoutX="15.0" layoutY="497.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="430.0" text="Verwijder" />
+        <Button fx:id="btnClose" layoutX="15.0" layoutY="532.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="430.0" text="Sluiten" />
+        <VBox alignment="CENTER_LEFT" layoutX="510.0" layoutY="173.0" spacing="10.0">
+
+            <HBox alignment="BASELINE_RIGHT" spacing="10.0">
+                <Label text="Naam Bezoeker:" />
+                <TextField fx:id="naamField" prefWidth="150.0" promptText="naam bezoeker" />
+            </HBox>
+
+            <HBox alignment="BASELINE_RIGHT" spacing="10.0">
+                <Label text="Museum ID:" />
+                <ChoiceBox fx:id="museumField" prefWidth="150.0" />
+            </HBox>
+
+            <HBox alignment="BASELINE_RIGHT" spacing="10.0">
+                <DatePicker fx:id="datumField" layoutX="147.0" layoutY="102.0" prefHeight="26.0" prefWidth="150.0" />
+            </HBox>
+
+            <HBox alignment="BASELINE_RIGHT" spacing="10.0" />
+
+        </VBox>
+        <Button fx:id="addBezoeker" layoutX="606.0" layoutY="290.0" mnemonicParsing="false" prefWidth="150.0" text="Voeg bezoek toe" />
+      <Text layoutX="510.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nieuw bezoek" wrappingWidth="430.0">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font>
+      </Text>
+    </children>
+</AnchorPane>

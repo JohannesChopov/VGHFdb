@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="648.0" prefWidth="1423.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.Overzicht.OverzichtTotaalController">
+    <children>
+        <TableView fx:id="tblConfigsGames" layoutX="15.0" layoutY="49.0" prefHeight="136.0" prefWidth="435.0">
+            <columns>
+                <TableColumn minWidth="3.20001220703125" prefWidth="29.200014114379883" text="C1" />
+                <TableColumn prefWidth="195.9999984741211" text="C2" />
+            </columns>
+        </TableView>
+        <TableView fx:id="tblConfigsPlatforms" layoutX="18.0" layoutY="201.0" prefHeight="128.0" prefWidth="435.0">
+            <columns>
+                <TableColumn prefWidth="29.20001220703125" text="C1" />
+                <TableColumn prefWidth="167.20000610351562" text="C2" />
+            </columns>
+        </TableView>
+        <TableView fx:id="tblConfigsMusea" layoutX="472.0" layoutY="51.0" prefHeight="136.0" prefWidth="911.0">
+            <columns>
+                <TableColumn prefWidth="28.199951171875" text="C1" />
+                <TableColumn prefWidth="248.79996337890623" text="C2" />
+            </columns>
+        </TableView>
+        <TableView fx:id="tblConfigsWarenhuizen" layoutX="471.0" layoutY="200.0" prefHeight="128.0" prefWidth="911.0">
+            <columns>
+                <TableColumn prefWidth="29.79998779296875" text="C1" />
+                <TableColumn prefWidth="246.39998779296877" text="C2" />
+            </columns>
+        </TableView>
+        <Text layoutX="16.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beheer gegevens" wrappingWidth="567.21875">
+            <font>
+                <Font name="System Bold Italic" size="13.0" />
+            </font>
+        </Text>
+        <Button fx:id="btnClose" layoutX="583.0" layoutY="573.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Sluiten" />
+
+
+    </children>
+</AnchorPane>
