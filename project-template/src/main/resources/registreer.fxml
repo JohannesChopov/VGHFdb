@@ -4,14 +4,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="360.0" prefWidth="423.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.RegistreerController">
+<AnchorPane prefHeight="220.0" prefWidth="423.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.RegistreerController">
     <!-- Add ImageView for background image -->
     <children>
-        <Button fx:id="btnRegistreer" layoutX="152.0" layoutY="243.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="118.0" style="-fx-text-fill: black;" text="Registreer" />
-        <Rectangle fill="#fffdfd" height="147.0" layoutX="51.0" layoutY="83.0" width="320.0" />
-        <TextField fx:id="usernameField" layoutX="137.0" layoutY="106.0" promptText="Username" />
-        <PasswordField fx:id="passwordField1" layoutX="137.0" layoutY="144.0" promptText="Password" />
-      <PasswordField fx:id="passwordField2" layoutX="136.0" layoutY="180.0" promptText="Password" />
-      <Button fx:id="btnTerug" layoutX="151.0" layoutY="312.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="118.0" style="-fx-text-fill: black;" text="Ga terug" />
+        <Button fx:id="btnRegistreer" layoutX="111.5" layoutY="135.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="200.0" style="-fx-text-fill: black;" text="Registreer" />
+        <TextField fx:id="usernameField" layoutX="111.5" layoutY="30.0" prefHeight="20.0" prefWidth="200" promptText="Username" />
+        <PasswordField fx:id="passwordField1" layoutX="111.5" layoutY="65.0" prefHeight="20.0" prefWidth="200" promptText="Password" />
+      <PasswordField fx:id="passwordField2" layoutX="111.5" layoutY="100.0" prefHeight="20.0" prefWidth="200" promptText="Password" />
+      <Button fx:id="btnTerug" layoutX="111.5" layoutY="170.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="200.0" style="-fx-text-fill: black;" text="Ga terug" />
     </children>
 </AnchorPane>

@@ -34,8 +34,6 @@ public class Scherm2Controller {
         btnBezoekerOverzicht.setOnAction(e -> showOverzichtScherm("Bezoeker"));
         btnWarenhuisOverzicht.setOnAction(e -> showOverzichtScherm("Warenhuis"));
         btnMuseumOverzicht.setOnAction(e -> showOverzichtScherm("Museum"));
-        btnDonatieOverzicht.setOnAction(e -> showOverzichtScherm("Donatie"));
-        btnTotaalOverzicht.setOnAction(e -> showOverzichtScherm("Totaal"));
         btnClose.setOnAction(e -> {
             var stage = (Stage) btnClose.getScene().getWindow();
             stage.close();

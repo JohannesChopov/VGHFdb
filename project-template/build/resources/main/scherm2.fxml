@@ -2,16 +2,29 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.Scherm2Controller">
    <children>
+
+      <Rectangle fill="black" height="385.0" layoutX="5.0" layoutY="5.0" width="650" />
+      <Rectangle fill="GRAY" height="130.0" layoutX="15.0" layoutY="155.0" width="630" />
+      <Rectangle fill="GRAY" height="80.0" layoutX="230.0" layoutY="80.0" width="200" />
+      <Text layoutX="10.0" layoutY="245" strokeType="OUTSIDE" fill="white" strokeWidth="0.0" text="O V E R Z I C H T" textAlignment="CENTER" wrappingWidth="630">
+         <font>
+            <Font size="80.0" />
+         </font>
+      </Text>
+
+
+
       <Button fx:id="btnGameOverzicht" layoutX="15.0" layoutY="15.0" mnemonicParsing="false" prefWidth="200.0" prefHeight="50.0" text="Games" />
       <Button fx:id="btnPlatformOverzicht" layoutX="230.0" layoutY="15.0" mnemonicParsing="false" prefWidth="200.0" prefHeight="50.0" text="Platforms" />
       <Button fx:id="btnBezoekerOverzicht" layoutX="445.0" layoutY="15.0" mnemonicParsing="false" prefWidth="200.0" prefHeight="50.0" text="Bezoekers" />
       <Button fx:id="btnWarenhuisOverzicht" layoutX="15.0" layoutY="90.0" mnemonicParsing="false" prefWidth="200.0" prefHeight="50.0" text="Warenhuizen" />
-      <Button fx:id="btnMuseumOverzicht" layoutX="230.0" layoutY="90.0" mnemonicParsing="false" prefWidth="200.0" prefHeight="50.0" text="Musea" />
-      <Button fx:id="btnDonatieOverzicht" layoutX="445.0" layoutY="90.0" mnemonicParsing="false" prefWidth="200.0" prefHeight="50.0" text="Donaties" />
-      <Button fx:id="btnTotaalOverzicht" layoutX="230.0" layoutY="165.0" mnemonicParsing="false" prefWidth="200.0" prefHeight="50.0" text="Totaal overzicht" />
-      <Button fx:id="btnClose" layoutX="230.0" layoutY="300.0" mnemonicParsing="false" prefWidth="200.0" prefHeight="50.0" text="Sluiten" />
+      <Button fx:id="btnMuseumOverzicht" layoutX="445.0" layoutY="90.0" mnemonicParsing="false" prefWidth="200.0" prefHeight="50.0" text="Musea" />
+      <Button fx:id="btnClose" layoutX="15.0" layoutY="300.0" mnemonicParsing="false" prefWidth="630.0" prefHeight="50.0" text="Sluiten" />
    </children>
 </AnchorPane>
