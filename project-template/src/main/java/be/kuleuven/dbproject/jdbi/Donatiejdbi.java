@@ -35,12 +35,6 @@ public class Donatiejdbi implements Interfacejdbi<Donatie> {
                 .execute());
     }
 
-    public Donatie selectBySom(double som) {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Donatie WHERE som = :som")
-                .bind("som", som)
-                .mapToBean(Donatie.class).list().get(0));
-    }
-
     public int getId(Donatie donatie) {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT id FROM Donatie WHERE donatieID = :donatieID")
                 .bind("donatieID", donatie.getDonatieID())

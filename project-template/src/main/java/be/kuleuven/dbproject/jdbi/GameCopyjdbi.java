@@ -48,19 +48,6 @@ public class GameCopyjdbi {
                 .mapTo(Integer.class).list().get(0));
     }
 
-    public Optional<String> getPlatformNameByGameCopyID(int gamecopyID) {
-        String sql = "SELECT Platform.naam AS platformName " +
-                "FROM GameCopy " +
-                "JOIN GamePlatform ON GameCopy.gameplatformID = GamePlatform.gameplatformID " +
-                "JOIN Platform ON GamePlatform.platformID = Platform.platformID " +
-                "WHERE GameCopy.gamecopyID = :gamecopyID";
-        return jdbi.withHandle(handle ->
-                handle.createQuery(sql)
-                        .bind("gamecopyID", gamecopyID)
-                        .mapTo(String.class)
-                        .findFirst());
-    }
-
     public int getCountByGameID(int gameID) {
         String sql = "SELECT COUNT(*) FROM GameCopy " +
                 "JOIN GamePlatform ON GameCopy.gameplatformID = GamePlatform.gameplatformID " +

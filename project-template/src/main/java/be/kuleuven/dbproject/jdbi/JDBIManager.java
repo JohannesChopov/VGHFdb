@@ -6,7 +6,6 @@ public class JDBIManager {
     private static Jdbi jdbi;
 
     private JDBIManager() {
-        // private constructor to prevent instantiation
     }
 
     public static void init(String connectionString) {

@@ -54,14 +54,6 @@ public class MuseumBezoekjdbi implements Interfacejdbi<MuseumBezoek> {
                 .orElse(null));
     }
 
-    public String getBezoekerNaamById(int bezoekerID) {
-        return jdbi.withHandle(handle -> handle.createQuery("SELECT Naam FROM Bezoeker WHERE bezoekerID = :bezoekerID")
-                .bind("bezoekerID", bezoekerID)
-                .mapToBean(String.class)
-                .findFirst()
-                .orElse(null));
-    }
-
     public Museum getMuseumById(int museumID) {
         return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Museum WHERE museumID = :museumID")
                 .bind("museumID", museumID)

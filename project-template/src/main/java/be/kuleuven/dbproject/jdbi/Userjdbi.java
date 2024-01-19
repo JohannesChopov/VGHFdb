@@ -44,7 +44,6 @@ public class Userjdbi {
                     .findFirst()
                     .orElse(null));
         } catch (Exception e) {
-            // Handle exceptions (log or throw, depending on your requirements)
             e.printStackTrace();
             return null;
         }

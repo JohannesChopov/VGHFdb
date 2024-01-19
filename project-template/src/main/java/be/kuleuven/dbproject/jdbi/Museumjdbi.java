@@ -90,17 +90,6 @@ public class Museumjdbi implements Interfacejdbi<Museum>{
         }
     }
 
-    public Museum getMuseumByBezoekerId(int bezoekerID) {
-        try {
-            return jdbi.withHandle(handle -> handle.createQuery("SELECT * FROM Museum WHERE museumID IN (SELECT museumID FROM MuseumBezoek WHERE bezoekerID = :bezoekerID)")
-                    .bind("bezoekerID", bezoekerID)
-                    .mapToBean(Museum.class)
-                    .one());
-        } catch (IllegalStateException e) {
-            return null;
-        }
-    }
-
     public int getBezoekersCountByMuseumID(int museumID) {
         String sql = "SELECT COUNT(*) FROM Bezoeker WHERE museumID = :museumID";
         return jdbi.withHandle(handle ->
