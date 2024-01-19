@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane prefHeight="360.0" prefWidth="423.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.RegistreerController">
+    <!-- Add ImageView for background image -->
+    <children>
+        <Button fx:id="btnRegistreer" layoutX="152.0" layoutY="243.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="118.0" style="-fx-text-fill: black;" text="Registreer" />
+        <Rectangle fill="#fffdfd" height="147.0" layoutX="51.0" layoutY="83.0" width="320.0" />
+        <TextField fx:id="usernameField" layoutX="137.0" layoutY="106.0" promptText="Username" />
+        <PasswordField fx:id="passwordField1" layoutX="137.0" layoutY="144.0" promptText="Password" />
+      <PasswordField fx:id="passwordField2" layoutX="136.0" layoutY="180.0" promptText="Password" />
+      <Button fx:id="btnTerug" layoutX="151.0" layoutY="312.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="118.0" style="-fx-text-fill: black;" text="Ga terug" />
+    </children>
+</AnchorPane>

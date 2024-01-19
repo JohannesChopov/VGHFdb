@@ -24,11 +24,11 @@ public class ProjectMain extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         rootStage = stage;
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("login.fxml"));
 
         Scene scene = new Scene(root);
 
-        stage.setTitle("Administratie hoofdschermn");
+        stage.setTitle("Administratie hoofdscherm");
         stage.setScene(scene);
         stage.show();
     }

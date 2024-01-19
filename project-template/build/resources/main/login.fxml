@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="554.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.kuleuven.dbproject.controller.LoginController">
+    <!-- Add ImageView for background image -->
+    <children>
+        <ImageView fitHeight="554.0" fitWidth="810.0">
+            <image>
+                <!-- Replace 'background.jpg' with your image file -->
+                <Image url="@vghf.png" />
+            </image>
+        </ImageView>
+
+        <!-- Add Rectangle for black background -->
+        <Rectangle fill="#fffdfd" height="84.0" layoutX="244.0" layoutY="30.0" width="320.03125" />
+        <Rectangle fill="#e8e4e4" height="82.0" layoutX="245.0" layoutY="31.0" width="318.03125" />
+
+
+        <!-- Your existing UI components -->
+        <Text layoutX="244.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Video Game History Foundation" textAlignment="CENTER" wrappingWidth="320.03125">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+        <Button fx:id="btnLogin" layoutX="345.0" layoutY="291.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="118.0" style="-fx-text-fill: black;" text="Log in" />
+      <Rectangle fill="#fffdfd" height="147.0" layoutX="246.0" layoutY="135.0" width="320.0" />
+      <TextField fx:id="usernameField" layoutX="330.0" layoutY="176.0" promptText="Username" />
+      <PasswordField fx:id="passwordField" layoutX="330.0" layoutY="221.0" promptText="Password" />
+    </children>
+</AnchorPane>

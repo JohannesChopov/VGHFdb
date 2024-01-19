@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -12,17 +13,25 @@ import javafx.stage.Stage;
 public class ProjectMainController {
 
     @FXML
-    private Button btnBeheerScherm1;
+    private Button btnBeheer;
     @FXML
-    private Button btnConfigAttaches;
+    private Button btnOverzicht;
+    @FXML
+    private Button btnLogUit;
+    @FXML
+    private Button btnRegistreer;
+    @FXML
+    private Button btnGebruikers;
 
     public void initialize() {
-        btnBeheerScherm1.setOnAction(e -> showBeheerScherm("scherm1"));
-
-        btnConfigAttaches.setOnAction(e -> showBeheerScherm("scherm2"));
+        btnBeheer.setOnAction(e -> showScherm("scherm1"));
+        btnOverzicht.setOnAction(e -> showScherm("scherm2"));
+        btnRegistreer.setOnAction(e -> showScherm("registreer"));
+        btnGebruikers.setOnAction(e -> showScherm("gebruikers"));
+        btnLogUit.setOnAction(e -> gaTerug());
     }
 
-    private void showBeheerScherm(String id) {
+    private void showScherm(String id) {
         var resourceName = id + ".fxml";
         try {
             var stage = new Stage();
@@ -38,4 +47,20 @@ public class ProjectMainController {
             throw new RuntimeException("Kan beheerscherm " + resourceName + " niet vinden", e);
         }
     }
+
+    private void gaTerug() {
+        var resourceName = "login.fxml";
+        try {
+            var loader = new FXMLLoader(getClass().getClassLoader().getResource(resourceName));
+            var newRoot = (AnchorPane) loader.load();
+            var rootStage = ProjectMain.getRootStage();
+            rootStage.setScene(new Scene(newRoot));
+            rootStage.setTitle("Admin");
+
+        } catch (Exception e) {
+            throw new RuntimeException("Kan beheerscherm " + resourceName + " niet vinden", e);
+        }
+    }
+
+
 }
